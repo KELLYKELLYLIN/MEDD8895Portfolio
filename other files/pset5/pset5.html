@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 5 · Food Truck</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #5a4e5a 0%, #7a6b6b 50%, #a48bb4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    /* 小组成员 */
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+    /* 文档信息栏 */
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    /* 下载按钮 */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ========== Part 1: 视频播放区 ========== */
+    .video-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .video-section h2 {
+      font-size: 1.6rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    /* 电视机风格播放器 */
+    .tv-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 0.5rem 0;
+    }
+
+    .television {
+      background: linear-gradient(145deg, #322c33, #231f25);
+      padding: 1.8rem 1.8rem 1.5rem;
+      border-radius: 2.5rem 2.5rem 1.8rem 1.8rem;
+      box-shadow: 
+        0 16px 0 #161316,
+        0 25px 25px -8px rgba(0, 0, 0, 0.25),
+        inset 0 2px 8px rgba(255, 255, 255, 0.08);
+      border: 1px solid #4a4048;
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+    }
+
+    .television::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 25px;
+      background: linear-gradient(135deg, #6a5a6a, #4a3a4a);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .television::after {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 12px;
+      background: #8a7a8a;
+      border-radius: 5px;
+    }
+
+    .tv-screen {
+      background: #1a181a;
+      padding: 0.6rem;
+      border-radius: 1.5rem;
+      box-shadow: 
+        inset 0 0 0 3px #0e0c0e,
+        inset 0 0 20px #000000,
+        0 4px 0 #0e0c0e;
+      border: 1px solid #5a5058;
+    }
+
+    .tv-video {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+      display: block;
+      border-radius: 1rem;
+      background: #000;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+      outline: none;
+    }
+
+    .tv-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.8rem;
+      padding: 0 0.5rem;
+    }
+
+    .tv-brand {
+      color: #9a8a8a;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .tv-buttons {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .tv-btn {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #4a3a3a;
+      box-shadow: inset 0 1px 3px #1a1212, 0 1px 0 #5a4a4a;
+    }
+
+    .tv-btn.green {
+      background: #3a6a4a;
+      box-shadow: inset 0 1px 3px #1a2a1a, 0 1px 0 #5a8a5a;
+    }
+
+    .video-filename {
+      font-family: monospace;
+      background: rgba(0,0,0,0.05);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+    }
+
+    /* ========== 目录样式 ========== */
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    /* 文字内容区域 */
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.8rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    .text-content blockquote {
+      border-left: 4px solid #c9aa9c;
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      color: #5a4a3e;
+      font-style: italic;
+    }
+
+    /* 表格样式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    /* 图片占位符提示 */
+    .image-placeholder {
+      background: rgba(200, 180, 165, 0.2);
+      border: 1px dashed #b59886;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      color: #6a5a4e;
+      font-size: 0.9rem;
+    }
+
+    .image-placeholder code {
+      background: rgba(230, 200, 180, 0.4);
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    /* 占位符提示 */
+    .placeholder-note {
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+      .television { padding: 1.2rem 1.2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页 -->
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>💪 PSet 5 · EMG  Electromyography test</h1>
+
+  <!-- 小组成员 -->
+  <div class="group-members">
+    <strong>Group work:</strong> Fan Aoyu, Yang Yuandi, Lin Jiayuan
+  </div>
+
+  <!-- 文档信息栏 + 下载按钮 -->
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">📋</span>
+      <span class="doc-meta"><strong>Experiment Report</strong> Electromyography Testing and Course Design</span>
+    </div>
+    <a href="pset5.docx" class="download-btn" download>
+      <span>📥</span> Download the revised Word document
+    </a>
+  </div>
+
+  <!-- ========== Part 1: 视频播放区 ========== -->
+  <div class="video-section">
+    <h2>🎥 Part 1: Exercise Activity</h2>
+    
+    <div class="tv-wrapper">
+      <div class="television">
+        <div class="tv-screen">
+          <video class="tv-video" controls playsinline>
+            <source src="pset5video.mp4" type="video/mp4">
+            <p>你Your browser does not support HTML5 video playback.<a href="pset5video.mp4">Click to download the video</a></p>
+          </video>
+        </div>
+        <div class="tv-controls">
+          <span class="tv-brand">EMG·LAB</span>
+          <div class="tv-buttons">
+            <span class="tv-btn"></span>
+            <span class="tv-btn green"></span>
+            <span class="tv-btn"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- ========== 目录 ========== -->
+  <div class="toc">
+    <h3>📑 Content</h3>
+    <ul>
+      <li><a href="#part2">Part 2: Electromyography (EMG) Testing Experiment Log</a></li>
+      <li><a href="#part3">Part 3: Movement Table</a></li>
+      <li><a href="#part4">Part 4: Curriculum Outline</a></li>
+      <li><a href="#part5">Part 5: Design Journal</a></li>
+    </ul>
+  </div>
+
+  <!-- ========== 主要内容区 ========== -->
+  <div class="text-content">
+    
+    <h2 id="part2">Part 2: Electromyography (EMG) Testing Experiment Log</h2>
+
+    <h3>1. Experimental Objective</h3>
+    
+    <p>To use an electromyography (EMG) sensor to verify changes in muscle status (from tension to relaxation/activation) in the upper trapezius during three desk-based relaxation movements, and to document the entire experimental process, including sensor exploration, troubleshooting, and data interpretation.</p>
+
+    <h3>2. Equipment and Materials</h3>
+
+    <ol>
+      <li>Arduino Uno/Nano microcontroller</li>
+      <li>EMG muscle sensor module</li>
+      <li>Three electrodes (positive, negative, reference)</li>
+      <li>Dupont wires, USB cable</li>
+      <li>Arduino IDE</li>
+      <li>Laptop for data recording</li>
+    </ol>
+
+    <h3>3. Sensor Exploration and Electrode Placement</h3>
+
+    <p><strong>3.1 Initial Attempts and Learning</strong></p>
+
+    <p>Initially, electrodes were placed on tendons or bony areas, resulting in near-zero signals or significant noise. After consulting relevant resources, it was determined that electrodes must be placed on the muscle belly (the fleshy, contractile portion of the muscle) to obtain clear EMG signals.</p>
+
+    <p><strong>3.2 Final Placement (Upper Trapezius)</strong></p>
+
+    <ol>
+      <li>Positive electrode: placed on the muscle belly of the upper trapezius (at the junction of the neck and shoulder, where the muscle bulges)</li>
+      <li>Negative electrode: placed 2–3 cm below the positive electrode, on the same muscle</li>
+      <li>Reference electrode: placed on a bony prominence (e.g., clavicle or sternum), away from the target muscle, to reduce interference</li>
+    </ol>
+
+    <p><strong>3.3 Skin Preparation</strong></p>
+
+    <p>The skin areas where the electrodes were to be placed were cleaned with alcohol wipes to remove surface oils and dead skin cells, ensuring good electrode-skin contact and minimizing signal interference.</p>
+
+    <h3>4. Calibration Method</h3>
+
+    <ol>
+      <li><strong>Resting Baseline Calibration:</strong> The participant was instructed to fully relax their shoulders and remain still while data were collected for 30 seconds, establishing a baseline for muscle relaxation.</li>
+      <li><strong>Zero Reference Setting:</strong> The average of the resting baseline was used as the zero reference for all subsequent measurements to offset errors caused by sensor drift.</li>
+    </ol>
+
+    <h3>5. Failures and Adjustments</h3>
+
+    <p><strong>5.1 Port Selection and Upload Failure</strong></p>
+    <ol>
+      <li>Issue: An error appeared when trying to upload the code to the Arduino board.</li>
+      <li>Possible causes: Wrong port selected (e.g., Bluetooth instead of USB); Board not properly connected or USB cable faulty; Board model in the IDE did not match the actual board</li>
+      <li>Adjustment: Rechecked the connection and replaced the USB cable; Confirmed the board model in the IDE settings; Reselected the correct serial port</li>
+      <li>After these steps, the code uploaded successfully.</li>
+    </ol>
+
+    <p><strong>5.2 Sudden Large Signal Jumps</strong></p>
+    <ol>
+      <li>Issue: The EMG signal suddenly jumped to over 200 units, well above the normal range.</li>
+      <li>Possible causes: Loose electrodes or a sudden movement by the participant.</li>
+      <li>Adjustment: Pressed the electrodes down to ensure good contact and reminded the participant to stay still and breathe steadily during the test.</li>
+    </ol>
+
+    <p><strong>5.3 Baseline Drift</strong></p>
+    <ol>
+      <li>Issue: The baseline signal (orange line) drifted even when the participant stayed still.</li>
+      <li>Possible causes: Sweating, electrode issues, or interference from nearby electronics.</li>
+      <li>Adjustment: Dried the skin and moved away potential sources of interference.</li>
+    </ol>
+
+    <p><strong>5.4 Motion Capture Speed and Code Delay Settings</strong></p>
+    <ol>
+      <li>Issue: The signal couldn't keep up with the movement, causing incomplete or lagging data.</li>
+      <li>Possible cause: The delay setting in the code was too short, making the sampling rate too fast for the setup.</li>
+      <li>Adjustment: Increased the delay to set the sampling interval to 100 milliseconds, which helped stabilize the signal during movement.</li>
+    </ol>
+
+    <h3>6. Data Interpretation</h3>
+
+    <p><strong>Figure 1: Multi-Directional Neck Stretch</strong></p>
+    <ol>
+      <li>Blue line: Raw EMG signal from the upper trapezius</li>
+      <li>Orange line: Filtered signal (or reference from middle/lower trapezius)</li>
+      <li>Interpretation: The signal started low at rest, rose with contraction (e.g., shoulder elevation), and dropped during the stretch, reflecting relaxation of the upper trapezius.</li>
+    </ol>
+
+<img src="media/image1.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+
+    <p><strong>Figure 2: Shoulder Rolls</strong></p>
+    <p>Interpretation: Regular peaks in the blue line matched the rhythm of contraction and relaxation during the movement. The orange line showed the overall trend. After the movement, the signal returned to a level below the starting baseline.</p>
+
+<img src="media/image2.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+
+    <p><strong>Figure 3: Overhead Stretch with Hands Clasped and Head Tilted Back</strong></p>
+    <p>Interpretation: An initial peak appeared during arm elevation. During the head tilt, the signal stayed low and stable. Small fluctuations at the end were likely due to returning to a neutral posture.</p>
+
+<img src="media/image3.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+
+    <h3>7. Conclusion and Reflection</h3>
+
+    <p><strong>7.1 Conclusion</strong></p>
+    <p>The EMG data successfully validated that all three relaxation movements effectively relaxed the upper trapezius, as evidenced by a significant decrease in EMG signal amplitude during the execution of the movements compared to the tense baseline.</p>
+
+    <p><strong>7.2 Reflection and Areas for Improvement</strong></p>
+    <ol>
+      <li>Use more secure electrodes to prevent poor contact issues during testing.</li>
+      <li>Incorporate more advanced filtering procedures to further reduce signal noise and baseline drift.</li>
+      <li>Simultaneously collect EMG signals from both the upper trapezius and the middle/lower trapezius to more clearly illustrate the activation patterns of antagonist muscles.</li>
+    </ol>
+
+    <hr>
+
+    <h2 id="part3">Part 3: Movement Table</h2>
+
+    <div class="image-placeholder" style="margin-bottom: 1.5rem;">
+      <span>📋 The original Word document contains images and complex tables; we recommend referring directly to the Word file downloaded above to view the full formatting.</span>
+    </div>
+
+    <p><strong>Action 1: Neck Multi-Directional Stretch</strong> — Sit upright, tilt head left/right, forward/back. Goal: elongate upper trapezius fibers, relieve tension, improve cervical range of motion.</p>
+
+    <p><strong>Action 2: Shoulder Rolls</strong> — 10 forward rolls, 10 backward rolls. Goal: mobilize shoulder girdle, boost blood flow, counteract forward shoulder posture.</p>
+
+    <p><strong>Action 3: Prayer Stretch with Head Retraction</strong> — Hands in prayer position, raise arms overhead, tilt head back. Goal: stretch upper trapezius/chest, activate middle/lower trapezius to reduce upper trapezius load.</p>
+
+    <hr>
+
+    <h2 id="part4">Part 4: Curriculum Outline</h2>
+
+    <h3>1. Learning Outcomes &amp; Assessments</h3>
+
+    <table>
+      <thead>
+        <tr><th>Learning Outcome</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>&lt;LO1&gt; Demonstrate</strong> correct placement of EMG sensors on a targeted muscle group.</td><td><strong>Observation Checklist</strong>: Teacher observes each group during setup and uses a simple checklist to verify correct sensor placement (e.g., over muscle belly, aligned with muscle fibers, skin preparation).</td></tr>
+        <tr><td><strong>&lt;LO2&gt; Collect and interpret</strong> real-time EMG data to distinguish between muscle contraction and relaxation.</td><td><strong>Lab Worksheet</strong>: Students annotate a printed EMG graph, labeling when the muscle was contracting vs. relaxing and explaining what the changing signal means in their own words.</td></tr>
+        <tr><td><strong>&lt;LO3&gt; Design</strong> a simple desk exercise that intentionally contracts one muscle while relaxing its opposing muscle.</td><td><strong>Movement Proposal</strong>: Students submit a one-paragraph explanation of their exercise, identifying the targeted muscles, the expected EMG pattern, and why this movement helps counteract prolonged sitting.</td></tr>
+        <tr><td><strong>&lt;LO4&gt; Analyze</strong> EMG data to evaluate whether their exercise achieved the intended muscular effect.</td><td><strong>Data Reflection</strong>: Students compare their predicted EMG pattern with the actual data collected, then write a short analysis explaining any differences and what they learned from the results.</td></tr>
+        <tr><td><strong>&lt;LO5&gt; Communicate</strong> their findings by creating a visual guide (poster or video) that teaches others how to perform their exercise correctly.</td><td><strong>Peer Review Rubric</strong>: Students exchange posters/videos and use a simple rubric to assess clarity of instructions, accuracy of muscle identification, and quality of EMG evidence presented.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2. Scaffolding &amp; Support Structures: Secondary STEM Body Lab</h3>
+
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Scaffolding Structures</th><th>Support Methods</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Biology Content</strong></td><td>• Just-in-time mini-lessons (5 min each before key tasks)<br>• Anatomical diagrams poster</td><td>• Peer explanation: "Turn to your partner and explain..."<br>• Visual glossary cards with images</td></tr>
+        <tr><td><strong>Sensor Skills</strong></td><td>• Step-by-step pictorial setup guide at each station<br>• Video tutorials for installing sensors<br>• "Good signal vs. noise" example graphs</td><td>• Troubleshooting card (5 quick fixes)<br>• Teacher check-in + simplified goal if frustrated</td></tr>
+        <tr><td><strong>Movement Design</strong></td><td>• Movement proposal template<br>• Example exercises with annotated EMG predictions<br>• Muscle pair reference chart</td><td>• Partner brainstorming<br>• Modified task: test <em>any</em> exercise first, then refine</td></tr>
+        <tr><td><strong>Data Interpretation</strong></td><td>• Data reflection template (prediction vs. actual)<br>• Annotated model graphs on classroom walls</td><td>• Graph annotation checklist (axes, labels, key moments)<br>• Peer data chat protocol ("What do you notice?")</td></tr>
+        <tr><td><strong>Final Communication</strong></td><td>• Poster/video template with required sections<br>• Peer feedback rubric distributed in advance</td><td>• Partner presentation practice before recording<br>• Exemplar videos from previous classes</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3. Class Flow Mindmap</h3>
+
+<img src="media/image8.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+
+    <hr>
+
+    <h2 id="part5">Part 5: Design Journal</h2>
+
+    <h3>Design Journal 1: Fan Aoyu (Mike)</h3>
+
+    <p>When I saw the Arduino board and all the wires at the start of this project, I panicked a little. We spent the first hour just trying to get the code to upload, and I kept getting some error message with no idea what it meant. We tried different USB ports, restarted the computer, checked the board settings—nothing worked until someone suggested we change the cable. That finally fixed the hardware issue, but then we ran into software problems with the Arduino environment. Eventually we figured out that we had to select the right board model inside the IDE as well. Looking back, what I wish someone had told me is that the tech setup should be as simple as possible for a biology lab. Students don't want to spend an hour troubleshooting computers when they signed up to learn about muscles. A pre-checked station or a very clear, step-by-step wiring diagram would have saved us so much time and frustration.</p>
+
+    <p>Once we finally got past all that, the science clicked immediately. When we got a signal and I saw the graph move with my shoulder shrug—raising my shoulders made the blue line go up, dropping them made it go down—it all made sense. Muscle contraction equals electrical signal, and I could see it happening in real time. That real-time feedback was super motivating; it felt like a game, trying to make the line go higher or lower.</p>
+
+    <p>I arrived assuming that once we had the sensor working, it would just work consistently, but that turned out to be wrong. The signal drifted, and different movements gave us different quality data—it was much more finicky than I expected.</p>
+
+    <p>At the end, I'm left wondering how this would actually work in a real classroom with thirty students. Who sets up all the sensors? What happens when half the groups can't get a signal? I don't know whether we can manage that without TA or colleague support, and that question stays with me.</p>
+
+    <h3>Design Journal 2: Yang Yuandi</h3>
+
+    <p>I was really excited about the biology side of things, but the beginning ended up being all about wires and code. I kept thinking to myself, when do we actually get to the muscles? The electrode placement was also a bit of a puzzle. We put them where we thought they should go, but got no signal. We moved them a little, got a messy, noisy signal. We moved them again, and finally got a clean one. I wish someone had just explained from the start why the muscle belly picks up the signal and why tendons don't. It would have saved us a whole lot of trial and error. Looking back, I can see that all that fiddling with wires was necessary, but at the time it felt like a detour from what I actually wanted to be doing.</p>
+
+    <p>It really clicked when we started comparing the graphs for different movements. The shoulder rolls gave these rhythmic peaks and valleys, almost like waves. The overhead stretch, on the other hand, gave a long, flat, low line. That's when I realized that relaxation isn't just one single state—there are actually different patterns to it. Some movements create this flowing, wave-like pattern, while others just drop the activity and hold it there. Seeing that difference helped me understand the physiology in a much deeper way than just reading about it. It made me realize that the body is way more nuanced than I had given it credit for.</p>
+
+    <p>What kept me going was seeing our hypotheses get confirmed. We'd predict that a certain movement would relax the muscle, and then the graph would show exactly that. It felt like we were doing real science, not just following instructions. There was something satisfying about saying "this is what I think will happen" and then watching the screen prove you right. The tedious part was definitely the skin prep and calibration. Wiping with alcohol, waiting for the baseline to settle, sticking and re-sticking electrodes—it was repetitive and seemed to take forever. By the third or fourth round, I found myself getting impatient, just wanting to get to the actual testing part.</p>
+
+    <p>I came in assuming that relaxation would mean the signal goes all the way down to zero. But it doesn't. Even when a muscle is relaxed, there's still some baseline activity. I learned that the goal wasn't to hit zero, but to get below the tense baseline. That was a more nuanced understanding than what I started with. It made me realize that my body is always doing something, even when I think it's doing nothing.</p>
+
+    <p>We learned a fair amount about the electrical activity of muscles, but I think it would have helped even more if we had a better grasp of muscle anatomy. Understanding exactly which muscles are doing what, and where they're located, would probably deepen our understanding even further. I kept wondering during the experiments whether we were actually measuring what we thought we were measuring, and a stronger anatomy foundation would have given me more confidence there.</p>
+
+    <h3>Design Journal 3: Lin Jiayuan (Kelly)</h3>
+
+    <p>At the very beginning, I worked with Mike and Yuandi on Arduino, but I honestly felt quite lost. I wanted to help yet had no idea where to start. They both picked it up faster than I did, so I just stood by, handing them parts occasionally. I felt anxious but couldn't really contribute. As the experiment progressed, however, I gradually realized that seemingly trivial details—how I breathed, how I sat, how I positioned my body—all affected the data. If I had known about this earlier, I would have paid much closer attention and consciously controlled my state from the start, instead of only realizing it when reviewing the data later.</p>
+
+    <p>What truly made me connect with the scientific aspect was when I performed shoulder circles while watching the screen. It felt amazing in that moment: every time I lifted my shoulder, the curve rose; when I rotated it back, the curve dropped. There was an unexpectedly direct link between my physical movements and the graphics on the screen. Later, I tried moving faster and slower to see the differences. At a quick pace, the graph became highly jagged, with sharp ups and downs; when I slowed down, the curve turned smooth, like a gentle wave. In that instant, I realized the graph didn't just show that I was moving—it also revealed <em>how</em> I was moving: whether it was rapid or calm, tense or relaxed. This discovery was really fascinating and suddenly made all this feel personal to me, no longer just cold equipment and numbers.</p>
+
+    <p>The most enjoyable part of the whole process was the real-time feedback. Every movement I made changed the line on the screen instantly, which was highly intuitive, almost like playing a game—trying to control the line with my body, making it higher, lower, or smoother. I found myself unconsciously wondering: How will it react if I do this? Would it be better if I adjust that way? I got quite hooked on this feeling of "conversing between my body and the visuals."</p>
+
+    <p>What was tedious, though, was repeating the same movements over and over. To obtain stable data, we performed identical actions repeatedly. By the fifth trial, I was definitely less relaxed than the first; instead, I became somewhat stiff, even thinking, "Just get this over with." Waiting for the baseline to stabilize was also time-consuming. I had to sit still without talking, watching the line on the screen gradually even out, which was honestly quite frustrating. I understand this was necessary to ensure data quality, but it still felt dull in practice.</p>
+
+    <p>I used to think I knew best whether my body was relaxed. But the electromyography (EMG) showed me that sometimes when I thought I was relaxed, the baseline signal still remained, meaning my body hadn't fully returned to a resting state. The sensor was more honest than my own bodily sensations, making me rethink my understanding of my body—it turned out there was a gap between what I perceived as "relaxed" and my body's actual state.</p>
+
+    <p>There are still some questions I haven't figured out. I'm curious: if other students did this experiment, would they also find the initial part discouraging? We had several people exploring together and discussing with each other, but if someone faced all this equipment and software alone, would they just give up? Besides, the movement exercises we designed were based on me, tailored to my physical condition and movement habits. Would this setup work for someone with a different body type or different tension habits? I think figuring out how to make this equipment and method more accessible and user-friendly for people with different body types is something worth exploring further.</p>
+
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="placeholder-note">
+    <span>📝 Content from pset5.docx </span>
+  </div>
+
+</div>
+</body>
+</html>

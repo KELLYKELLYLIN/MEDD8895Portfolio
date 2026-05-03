@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8895 Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f7f0e8 0%, #ede3d9 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1300px;
+      width: 100%;
+    }
+
+    /* 头部 */
+    .header {
+      margin-bottom: 3.5rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #3a4a5a 0%, #5d4e6b 40%, #b57e65 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #7a6b5e;
+      background: rgba(255, 245, 235, 0.6);
+      display: inline-block;
+      padding: 0.4rem 2rem;
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(210, 170, 140, 0.2);
+    }
+
+    /* 导航卡片网格 */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* 卡片——可点击导航 */
+    .nav-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 15px 30px -10px rgba(60, 40, 30, 0.1),
+                  0 4px 8px rgba(0, 0, 0, 0.02),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 245, 235, 0.5);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* 顶部彩色条 */
+    .nav-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #c77d6e, #dba58e);
+      opacity: 0.9;
+    }
+
+    /* 每张卡片不同色彩 */
+    .nav-card:nth-child(1)::before { background: linear-gradient(90deg, #c97a6a, #dfa28c, #eab9a3); }
+    .nav-card:nth-child(2)::before { background: linear-gradient(90deg, #6e9c9c, #8db8b2, #aacfc9); }
+    .nav-card:nth-child(3)::before { background: linear-gradient(90deg, #b18597, #c99eae, #deb9c6); }
+    .nav-card:nth-child(4)::before { background: linear-gradient(90deg, #e0a46b, #ecbc8c, #f5d1a8); }
+    .nav-card:nth-child(5)::before { background: linear-gradient(90deg, #a48bb4, #b9a2c7, #cebbdb); }
+    .nav-card:nth-child(6)::before { background: linear-gradient(90deg, #7f9f8a, #9bb39b, #b6c9b0); }
+    .nav-card:nth-child(7)::before { background: linear-gradient(90deg, #cb8c7c, #dd9f8f, #efb9a8); }
+    .nav-card:nth-child(8)::before { background: linear-gradient(90deg, #8dafb2, #a7c2c3, #c1d6d6); }
+
+    .nav-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 28px 40px -12px rgba(70, 50, 40, 0.18), 0 6px 14px rgba(0,0,0,0.05);
+      border-color: rgba(230, 200, 175, 0.5);
+    }
+
+    /* 卡片图标区 */
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-size: 1.9rem;
+      font-weight: 550;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      color: #2c2835;
+    }
+
+    .card-type {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6e5b4e;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    /* 预览小标签 */
+    .preview-badge {
+      display: inline-block;
+      background: rgba(230, 210, 190, 0.4);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(170, 140, 120, 0.15);
+      backdrop-filter: blur(4px);
+      margin-top: 0.8rem;
+    }
+
+    /* 箭头指示 */
+    .arrow-indicator {
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
+      opacity: 0.5;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .nav-card:hover .arrow-indicator {
+      opacity: 1;
+      transform: translateX(6px);
+    }
+
+    /* 底部 */
+    .footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      color: #7a6b5e;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(180, 150, 130, 0.2);
+      padding-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.5rem; }
+      .nav-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <div class="header">
+    <h1>📁 MEDD8895 Portfolio</h1>
+    <div class="subtitle">Lin Jiayuan (Kelly)_3036508216</div>
+  </div>
+
+  <!-- 导航卡片网格 -->
+  <div class="nav-grid">
+    
+    <!-- PSet 1 · Word文档 -->
+    <a href="other files/pset1.html" class="nav-card">
+      <div class="card-icon">📄</div>
+      <div class="card-type">PSET 1</div>
+      <div class="card-title">To the moon</div>
+      <div class="preview-badge">📃 Moon Survival Game</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 2 · 图片集 -->
+    <a href="other files/pset2/pset2.html" class="nav-card">
+      <div class="card-icon">🖼️</div>
+      <div class="card-type">PSET 2</div>
+      <div class="card-title">Storytellers</div>
+      <div class="preview-badge">🖼️ Picture Book</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 3 · Word文档 -->
+    <a href="other files/pset3/pset3.html" class="nav-card">
+      <div class="card-icon">📘</div>
+      <div class="card-type">PSET 3</div>
+      <div class="card-title">An Open Book</div>
+      <div class="preview-badge">📄 Book Bits Class</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 4 · HTML网页 -->
+    <a href="other files/pset4/pset4.html" class="nav-card">
+      <div class="card-icon">🌐</div>
+      <div class="card-type">PSET 4</div>
+      <div class="card-title">Know Future</div>
+      <div class="preview-badge">🌍 Card Game</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 5 · Word文档 -->
+    <a href="other files/pset5/pset5.html" class="nav-card">
+      <div class="card-icon">📋</div>
+      <div class="card-type">PSET 5</div>
+      <div class="card-title">Food Truck</div>
+      <div class="preview-badge">📑 At-Desk Exercise Break 文档</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 6 · Word文档 -->
+    <a href="other files/pset6/pset6.html" class="nav-card">
+      <div class="card-icon">📌</div>
+      <div class="card-type">PSET 6</div>
+      <div class="card-title">Sushi Got A Problem</div>
+      <div class="preview-badge">📄 Hands-On Activity</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 7 · 视频 -->
+    <a href="other files/pset7.html" class="nav-card">
+      <div class="card-icon">🎬</div>
+      <div class="card-type">PSET 7</div>
+      <div class="card-title">Great Scientists</div>
+      <div class="preview-badge">🎞️ Science Video</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+    <!-- PSet 8 · Word文档 -->
+    <a href="other files/pset8/pset8.html" class="nav-card">
+      <div class="card-icon">📓</div>
+      <div class="card-type">PSET 8</div>
+      <div class="card-title">Apocalyse</div>
+      <div class="preview-badge">📁 Class redesign</div>
+      <div class="arrow-indicator">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    <span>✨ Click the card to open the Pset ✨</span>
+  </div>
+</div>
+
+
+</body>
+</html>

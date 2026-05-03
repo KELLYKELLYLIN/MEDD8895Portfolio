@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 4 · Future Waves 2036 Career Lab</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #e0a46b 0%, #ecbc8c 50%, #f5d1a8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .game-button-wrapper {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .game-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #e0a46b, #ecbc8c, #f5d1a8);
+      color: #2c2825;
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding: 1.1rem 2.5rem;
+      border-radius: 60px;
+      text-decoration: none;
+      box-shadow: 0 12px 0 #a47e5e, 0 8px 20px rgba(160, 120, 90, 0.2);
+      border: 1px solid rgba(255, 245, 235, 0.5);
+      transition: all 0.15s ease;
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(4px);
+    }
+
+    .game-button:hover {
+      transform: translateY(4px);
+      box-shadow: 0 8px 0 #a47e5e, 0 10px 20px rgba(160, 120, 90, 0.2);
+    }
+
+    .game-button:active {
+      transform: translateY(12px);
+      box-shadow: 0 0 0 #a47e5e, 0 8px 20px rgba(160, 120, 90, 0.15);
+    }
+
+    .game-link-text {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #6a5a4e;
+      word-break: break-all;
+    }
+
+    .game-link-text a {
+      color: #b57e65;
+      text-decoration: none;
+      border-bottom: 1px dotted #b57e65;
+    }
+
+    .game-link-text a:hover {
+      color: #8a5e4e;
+      border-bottom: 1px solid #8a5e4e;
+    }
+
+    /* 目录 */
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    /* 文字内容区域 */
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.7rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .text-content h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    .text-content blockquote {
+      border-left: 4px solid #ecbc8c;
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      color: #5a4a3e;
+    }
+
+    .text-content code {
+      background: rgba(230, 200, 180, 0.3);
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.95em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    .placeholder-note {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    .prompt-box {
+      background: rgba(240, 235, 228, 0.7);
+      border-radius: 1rem;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      border: 1px solid rgba(200, 170, 150, 0.3);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #3d342e;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+      .game-button { font-size: 1.1rem; padding: 0.9rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>🎮 PSet 4 · Future Waves: 2036 Career Lab</h1>
+
+  <div class="group-members">
+    <strong>Individual:</strong> Lin Jiayuan
+  </div>
+
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">🎮</span>
+      <span class="doc-meta"><strong>Game Design</strong> · 5-Step Digital Card Game</span>
+    </div>
+    <a href="pset4.docx" class="download-btn" download>
+      <span>📥</span> Download the revised Word document
+    </a>
+  </div>
+
+  <!-- 游戏按钮 -->
+  <div class="game-button-wrapper">
+    <a href="pset4game.html" class="game-button">🎮 click here to play the game</a>
+  </div>
+  <p class="game-link-text">
+    Online: <a href="https://kellykellylin.github.io/8895pset4/pset419.html" target="_blank">https://kellykellylin.github.io/8895pset4/pset419.html</a>
+  </p>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <h3>📑 Content</h3>
+    <ul>
+      <li><a href="#intro">I. Game Link and Introduction</a></li>
+      <li><a href="#lo">II. Learning Objectives</a></li>
+      <li><a href="#features">III. Design Features</a></li>
+      <li><a href="#challenges">IV. Addressing Classroom AI Challenges</a></li>
+      <li><a href="#aifeatures">V. AI Features & Prompts</a></li>
+      <li><a href="#howiaiused">VI. How I used AI in this PSet</a></li>
+      <li><a href="#appendix">Appendix: Quick Game Rules</a></li>
+    </ul>
+  </div>
+
+  <!-- 主要内容 -->
+  <div class="text-content">
+    
+    <h2 id="intro">I. Game Introduction</h2>
+
+    <h3>Game Overview</h3>
+    <p>Future Waves: 2036 Career Lab is a 5-step digital card game that reimagines the original Future Scanning activity as an interactive web experience.</p>
+    <p>In this game, students:</p>
+    <ul>
+      <li>create their future self (a customizable stickman with a name and chosen major/profession—with an option to type in their own custom major)</li>
+      <li>draw Future Waves from 6 domains (Technology, Economy, Environment, Governance, Wellbeing, Socio-cultural),</li>
+      <li>select 2-3 key waves and allocate 6 value points to shape their future priorities,</li>
+      <li>build STEM stories and design career missions on a visual "stage" with a dress-up metaphor,</li>
+      <li>generate a complete 2036 career report and receive AI prompt templates for further exploration.</li>
+    </ul>
+
+    <h3>One-sentence description</h3>
+    <p>A 5-step digital card game where students create a future self, explore emerging trends, connect STEM with whole-person competencies, and co-create career missions on a visual dress-up stage—supported by structured AI prompts.</p>
+
+    <h3>Target learners & usage</h3>
+    <p>The game is designed for secondary school students, including those who are not initially interested in STEM. It can be used in small groups or individually, within one or two 40–50-minute lessons.</p>
+
+    <h3>AI-Supported Experience</h3>
+    <p>Rather than asking students to "go chat with AI" on their own, the game <strong>weaves AI support into every step</strong>:</p>
+    <ul>
+      <li>A floating 🤖 AI button is always visible in the bottom-left corner. It knows which card/step the student is currently on and opens a step-specific help menu.</li>
+      <li>For each major step (1–5), the game can export a ready-to-use AI prompt template that already includes the student's chosen major and self-introduction, selected Future Waves and value points, STEM sentences and mission designs, and future stories design.</li>
+      <li>These prompts are designed to be copy–paste friendly for Coze assistant.</li>
+    </ul>
+    <p>In Section V, I summarize the three core AI features and provide sample prompts. The full set of prompts are implemented in the webpage code and can be experienced directly in the game.</p>
+
+    <h2 id="lo">II. Learning Objectives</h2>
+    <p>By playing this game, students will:</p>
+    <ol>
+      <li><strong>[Echo "exposed to diverse ideas"]</strong> Be exposed to diverse future-oriented trends across six domains (Technology, Economy, Environment, Governance, Wellbeing, Socio-cultural) through the Future Waves card-drawing mechanism.</li>
+      <li><strong>[Echo "realize importance of STEM + whole-person"]</strong> Understand how STEM knowledge connects to real-world challenges and future careers by building STEM stories (S, T, E+M sentences), explicitly selecting whole-person competencies, and receiving immediate visual feedback as they build their "stage" persona.</li>
+      <li><strong>[Echo "engage meaningfully even if not interested"]</strong> Engage meaningfully with future-thinking through a playful "stage + dress-up" metaphor—designing career missions becomes a visual, low-pressure activity where students see themselves as future agents, regardless of their initial STEM interest.</li>
+      <li>Clarify their personal values by allocating limited value points (Impact, Income, Fun, Stability, Growth, Connection) and observe how these values shape their future career stories.</li>
+      <li>Practice articulating questions and reflections using AI prompt templates that export their game data, enabling personalized extension beyond the classroom.</li>
+    </ol>
+
+    <h2 id="features">III. Design Features</h2>
+
+    <h3>Design Feature 1: Multi-domain Future Waves with Value Allocation</h3>
+    <p><strong>What it is:</strong> Students draw 7 Future Wave cards from six domains, with Technology getting 2 cards and other domains 1 each. They then allocate 6 value points across six value dimensions (Impact, Income, Fun, Stability, Growth, Connection).</p>
+    <p><strong>Classroom problem it addressed:</strong> Students often think about the future in narrow, technology-only terms. By exposing students to diverse domains, the game broadens their perspective. The value allocation mechanic makes personal priorities visible and debatable.</p>
+
+    <h3>Design Feature 2: STEM Story Builder with Whole-Person Competencies</h3>
+    <p><strong>What it is:</strong> In Step 4.1, students write three simple sentences (S for situation/phenomenon, T for technology/tool, E+M for effects and meaning) about their chosen future scenario. They also select 2–3 whole-person competencies (empathy, collaboration, ethical thinking, creativity, etc.).</p>
+    <p><strong>Classroom problem it addressed:</strong> Students (especially non-STEM ones) struggle to connect abstract STEM ideas to human contexts. The S-T-E+M structure scaffolds thinking without requiring technical jargon. The whole-person tags explicitly link STEM to human values.</p>
+
+    <h3>Design Feature 3: Career Mission Stage with Dress-up Metaphor</h3>
+    <p><strong>What it is:</strong> In Step 4.2, students design career missions on a visual stage: Head accessory represents mission type, Neck accessory represents target group, Body badges represent STEM skills (1-3 selected from 11 options). As students complete each part, the corresponding accessory lights up on their stickman.</p>
+    <p><strong>Classroom problem it addresses:</strong> Career planning feels abstract and distant. The stage makes inner imagination visible and shareable. The dress-up metaphor turns abstract choices into playful, low-stakes actions.</p>
+
+    <h3>Design Feature 4: Visual Progress Feedback with Dress-up Metaphor</h3>
+    <p><strong>What it is:</strong> In Step 4.2, as students complete each of the four mission components, the corresponding accessories on their stickman light up immediately: Head accessory lights up when mission type is selected; Neck accessory lights up when target group is chosen; Body badges light up as STEM skills are added; The circle button turns green when each part is completed.</p>
+    <p><strong>Classroom problem it addressed:</strong> Students need immediate feedback to stay motivated. Visual feedback is instant and intuitive.</p>
+
+    <h3>Design Feature 5: Custom Major Input with Real-time State Update</h3>
+    <p><strong>What it is:</strong> In Step 1, students can either select a major from the dropdown list or choose "自定义输入 (Custom)" to type their own major. The system updates the state in real-time.</p>
+    <p><strong>Classroom problem it addressed:</strong> Many students have interdisciplinary interests not listed in standard dropdowns. The custom input option ensures all students feel represented.</p>
+
+    <h3>Design Feature 6: Integrated AI Assistant with Step-aware Prompts</h3>
+    <p><strong>What it is:</strong> Instead of telling students vaguely "go chat with AI", the game embeds a step-aware AI assistant: A floating 🤖 AI button at bottom-left opens a contextual menu showing which card/step the student is on, gives quick human-written tips (in both languages), and provides one-click access to copy a structured AI prompt for the current step via <code>copyDeepSeekPrompt()</code>, open an embedded Coze assistant (iframe modal), or open a general AI site in a new tab.</p>
+    <p><strong>Classroom problem it addressed:</strong> "Go use AI" often leads to generic prompts and shallow responses. The game becomes a prompt generator and context packager—every AI prompt already includes the student's choices. This reduces prompt engineering load for students and turns AI into a scaffolded coach.</p>
+
+    <h2 id="challenges">IV. Addressing Classroom AI Challenges</h2>
+    <table>
+      <thead>
+        <tr><th>Classroom AI problems</th><th>Solve</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The student doesn't know what to ask.</td><td>Each step provides a "Copy Question Template" button, allowing students to obtain a structured prompt for the current step with one click.</td></tr>
+        <tr><td>AI responses are either too general or too profound.</td><td>Clearly specify the AI role and output format in the prompt to ensure age-appropriate responses.</td></tr>
+        <tr><td>Need to redirect to external website, interrupting learning flow.</td><td>Embedded Coze iframe allows students to chat with AI without leaving the page.</td></tr>
+        <tr><td>No context in the prompt; AI doesn't know the student's situation.</td><td><code>copyDeepSeekPrompt()</code> auto-packages all student information (major, Waves, values, task design, future story).</td></tr>
+        <tr><td>Student doesn't know how to proceed further.</td><td>Each step's prompt template contains clear output requirements guiding the AI to provide actionable next-step suggestions.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="aifeatures">V. AI Features & Prompts</h2>
+    <p>In the latest version of the game, AI is not just "added on top" but embedded into the flow of the 5-step experience: A floating AI assistant button opens a step-aware help panel; an embedded Coze window (iframe) allows students to chat without leaving the game page; Step 4.1 and Step 5 offer dedicated buttons that generate rich, context-aware prompts.</p>
+
+    <h3>AI Feature 1: STEM Story Coach (Step 4.1)</h3>
+    <p><strong>What it does:</strong> After students write their three STEM sentences (S, T, E+M), they can click the "生成提问模板" button to generate a structured English prompt for personalized feedback and expanded ideas.</p>
+    <p><strong>Prompt used:</strong></p>
+    <div class="prompt-box">现在我在游戏的第 4 步【STEM Underlying Associations / STEM 底层关联】的子步骤 4.1。
+
+【你扮演的角色】
+你是善于给中学生/大学生讲「STEM 其实离你很近」的教学助教，要帮我把自己的专业拆成好理解的 STEM 语言。
+
+【我的专业】
+- 专业/兴趣：${major || '（未填写，你可以先假设一个通用的"文/理/工/社科/艺术"方向）'}
+
+【我想要你帮的事】
+请帮我为这个专业设计「3 套不同风格」的 STEM 拆解，每一套都用下面这个结构：
+- S（Science / 调查）：我通常会用哪些方法去「弄清楚一个问题」？
+- T（Technology / 技术工具）：我常用或应该去掌握的技术/软件/工具有哪些？
+- E（Engineering / 设计与系统）：我会如何「设计一个系统/方案/服务」来解决问题？
+- M（Math / 数据与判断）：我会怎样用数据/指标来判断方案是不是有效？
+
+要求：
+1. 至少给出 2–3 套不同角度的拆解（比如：偏研究型 / 偏实践型 / 偏设计型）
+2. 每一套都尽量口语化、短句化，适合学生直接复制粘贴使用
+3. 输出时用中文</div>
+
+    <h3>AI Feature 2: Future Career Mission Generator (Step 5)</h3>
+    <p><strong>What it does:</strong> In Step 5, students can click the "生成「Mission Generator」提问模板" button to export all game data into a comprehensive prompt, receiving 3-5 new career missions with different difficulty levels plus teacher adaptation ideas.</p>
+    <p><strong>Prompt template:</strong> Includes student's profile (major, intro, identity), value allocation summary, whole-person competencies list, per-Wave task drafts, timeline imagination (2030 & 2036), and shock scenarios. The AI is instructed to design 3–5 complete future career missions with context, role position, main challenge, action steps (3–5 items including STEM abilities and soft skills), expected impact, and reflection questions.</p>
+
+    <h3>AI Feature 3: AI Reflection Mentor (Ending Page)</h3>
+    <p><strong>What it does:</strong> At the end, students click "🤔 反思助手" to generate a simple prompt asking AI to provide 3–5 reflection questions and a short first-person summary paragraph based on their chosen major and whole-person competencies.</p>
+    <p><strong>Prompt template:</strong> Asks AI to act as a learning reflection coach, generating diary-style reflection questions and a 150–200 word example reflection text in first-person, focusing on unexpected choices, values revealed, and small next actions.</p>
+
+    <h3>Additional AI Prompt Templates — Context-Aware Step Assistant</h3>
+    <p>Beyond the three core features, additional prompt templates are provided in each step: Step 1 (major + future identity setting), Step 2 (all drawn Waves), Step 3 (key Waves + 6-point value distribution), Step 4 (STEM sentences + per-Wave missions), Step 5 (final 2030/2036 stories and report). Full versions are implemented in the webpage (copyDeepSeekPrompt in JS code).</p>
+
+    <h2 id="howiaiused">VI. How I used AI in this PSet</h2>
+    <p>I used AI (DeepSeek and ChatGPT) throughout the design and development process:</p>
+    <ol>
+      <li><strong>Prompt engineering for in-game AI features:</strong> Iterated the STEM Story Coach prompt 4-5 times to reduce jargon; used AI to help structure the Mission Generator output format; kept the Reflection Mentor prompt deliberately simple.</li>
+      <li><strong>Code debugging and logic troubleshooting:</strong> AI helped trace duplicate bottom bars issue, understand state transitions between Steps 4.1/4.2/4.3, and explain JavaScript concepts like dataset attributes and template literals.</li>
+      <li><strong>Content brainstorming and enrichment:</strong> AI helped generate diverse Future Waves across six domains, SHOCK card scenarios, and the whole-person competency list.</li>
+      <li><strong>Design critique and alignment with learning objectives:</strong> Asked AI to review game design against assignment requirements; AI suggested adding "step meaning" hints (🎯这一步的意义) which became a key usability improvement.</li>
+    </ol>
+    <p>I intentionally did not let AI "design the whole game for me." Instead, I treated AI as: (1) a co-writer for prompts and interface texts, (2) a debugging tutor when I got stuck, (3) a brainstorming partner for content, (4) a critical friend who helped me see blind spots in my design.</p>
+
+    <hr>
+
+    <h2 id="appendix">Appendix: Quick Game Rules</h2>
+    <p><strong>Step 1 - Character Entry:</strong> Choose stickman color, give it a name, select/customize your major</p>
+    <p><strong>Step 2 - Draw Waves:</strong> Draw 7 Future Wave cards (Technology×2, other domains×1)</p>
+    <p><strong>Step 3 - Key Waves & Values:</strong> Select 2-3 main Waves, allocate 6 value points</p>
+    <p><strong>Step 4 - STEM Stories & Missions:</strong> 4.1: Write S/T/E+M sentences about your major; 4.2: Design missions for each Wave (head/neck/body accessories); 4.3: Write 2030 story and 2036 headline</p>
+    <p><strong>Step 5 - Generate Report:</strong> Get your 2036 career report</p>
+
+  </div>
+
+  <div class="placeholder-note">
+    <span>📝 Game can teach too! </span>
+  </div>
+
+</div>
+</body>
+</html>

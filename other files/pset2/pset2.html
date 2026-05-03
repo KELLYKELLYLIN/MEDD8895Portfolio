@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 2 · Storytellers</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2rem 2rem 2.5rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #6e9c9c 0%, #8db8b2 50%, #aacfc9 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    .subtitle {
+      color: #6a5a4e;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .page-indicator {
+      margin-left: auto;
+      background: rgba(200, 190, 180, 0.3);
+      padding: 0.4rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 下载按钮区 */
+    .download-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ========== 翻书阅读器 ========== */
+    .book-reader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1rem 0 1.5rem;
+    }
+
+    /* 书本容器 */
+    .book-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* 翻页按钮 */
+    .page-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(220, 200, 185, 0.6);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 150, 130, 0.3);
+      font-size: 1.8rem;
+      color: #5a4a3e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .page-btn:hover {
+      background: rgba(200, 180, 165, 0.8);
+      transform: scale(1.05);
+    }
+
+    .page-btn:active {
+      transform: scale(0.98);
+    }
+
+    .page-btn.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* 书本框架 */
+    .book-frame {
+      flex: 1;
+      max-width: 1200px;
+      background: #f5ede5;
+      border-radius: 1rem 1.5rem 1.5rem 1rem;
+      box-shadow: 
+        0 15px 0 #8a7a6e,
+        0 25px 30px -10px rgba(0,0,0,0.2),
+        inset 0 0 0 1px rgba(255,255,255,0.5);
+      padding: 1.2rem;
+      position: relative;
+    }
+
+    /* 书脊效果 */
+    .book-frame::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background: linear-gradient(90deg, #a89888, #c8b8a8, #a89888);
+      border-radius: 0.5rem 0 0 0.5rem;
+      box-shadow: inset -2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    /* 书页 */
+    .book-page {
+      background: #faf3ec;
+      border-radius: 0.5rem 1rem 1rem 0.5rem;
+      padding: 1rem;
+      margin-left: 8px;
+      box-shadow: 
+        inset 0 0 0 1px rgba(255,255,255,0.8),
+        inset 0 0 20px rgba(0,0,0,0.02);
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-image {
+      width: 100%;
+      height: auto;
+      max-height: 550px;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* 图片占位符 */
+    .image-placeholder-message {
+      text-align: center;
+      color: #8a7a6e;
+      padding: 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* 页码导航点 */
+    .page-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(180, 160, 145, 0.4);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .dot.active {
+      width: 30px;
+      border-radius: 10px;
+      background: #8db8b2;
+    }
+
+    .dot:hover {
+      background: #aacfc9;
+    }
+
+    /* 快捷跳转 */
+    .page-jump {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .jump-input {
+      width: 70px;
+      padding: 0.4rem;
+      text-align: center;
+      border: 1px solid rgba(180, 150, 130, 0.4);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      color: #4a3a32;
+    }
+
+    .jump-btn {
+      background: rgba(200, 190, 180, 0.5);
+      border: 1px solid rgba(180, 150, 130, 0.3);
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #4a3a32;
+      transition: all 0.2s;
+    }
+
+    .jump-btn:hover {
+      background: rgba(200, 190, 180, 0.8);
+    }
+
+    /* 键盘提示 */
+    .keyboard-hint {
+      text-align: center;
+      margin-top: 0.8rem;
+      color: #8a7a6e;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* 底部提示 */
+    .placeholder-note {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page { padding: 1.5rem 1rem; }
+      h1 { font-size: 2rem; }
+      .book-container { gap: 0.3rem; }
+      .page-btn { width: 40px; height: 40px; font-size: 1.5rem; }
+      .book-frame { padding: 0.8rem; }
+      .book-page { min-height: 350px; }
+      .download-section { flex-direction: column; align-items: flex-start; }
+    }
+
+        /* 个人 */
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页（注意：pset2.html 在 pset2 文件夹内，需要返回上一级） -->
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>📖 PSet 2 · This is one of my science mind</h1>
+
+    <!-- 小组成员 -->
+  <div class="group-members">
+    <strong>Individual:</strong> Lin Jiayuan
+  </div>
+  
+  <div class="subtitle">
+    <span>🎨 Bilingual picture books · 16 page</span>
+    <span class="page-indicator" id="pageIndicator">1 / 16</span>
+  </div>
+
+  <!-- 下载文件区 -->
+  <div class="download-section">
+    <a href="pset2_PB.pdf" class="download-btn" download>
+      <span>📘</span> Download the picture book
+    </a>
+    <a href="pset2_iterations.docx" class="download-btn" download>
+      <span>📝</span> Iteration and one-page instruction
+    </a>
+    <a href="pset2_The Raw Material.docx" class="download-btn" download>
+      <span>📋</span> Interview material
+    </a>
+  </div>
+
+  <!-- 翻书阅读器 -->
+  <div class="book-reader">
+    <div class="book-container">
+      <!-- 上一页按钮 -->
+      <button class="page-btn" id="prevBtn" aria-label="上一页">←</button>
+      
+      <!-- 书本 -->
+      <div class="book-frame">
+        <div class="book-page" id="bookPage">
+          <img class="page-image" id="pageImage" src="book picture/1.jpg" alt="Page 1 of the picture book" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'image-placeholder-message\'>🖼️ Loading…<br><small>Please place 1.jpg to 16.jpg in the ‘book picture/’ folder</small></div>'">
+        </div>
+      </div>
+      
+      <!-- 下一页按钮 -->
+      <button class="page-btn" id="nextBtn" aria-label="下一页">→</button>
+    </div>
+
+    <!-- 页码导航点 -->
+    <div class="page-dots" id="pageDots"></div>
+
+    <!-- 快捷跳转 -->
+    <div class="page-jump">
+      <span style="color: #6a5a4e;">Jump to</span>
+      <input type="number" id="jumpInput" class="jump-input" min="1" max="16" value="1">
+      <span style="color: #6a5a4e;">Page</span>
+      <button class="jump-btn" id="jumpBtn">Go</button>
+    </div>
+
+    <!-- 键盘提示 -->
+    <div class="keyboard-hint">
+      <span>←  /  →  Use the left and right arrow keys to turn the pages</span>
+    </div>
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="placeholder-note">
+    <span>Yes! you can be a science person! </span>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    const TOTAL_PAGES = 16;
+    let currentPage = 1;
+    
+    const pageImage = document.getElementById('pageImage');
+    const pageIndicator = document.getElementById('pageIndicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageDots = document.getElementById('pageDots');
+    const jumpInput = document.getElementById('jumpInput');
+    const jumpBtn = document.getElementById('jumpBtn');
+    
+    // 图片基础路径（相对于 pset2.html）
+    const IMAGE_BASE_PATH = 'book picture/';
+    
+    // 更新页面显示
+    function updatePage() {
+      // 更新图片
+      pageImage.src = IMAGE_BASE_PATH + currentPage + '.jpg';
+      pageImage.alt = 'Picture book page ' + currentPage;
+      
+      // 错误处理：如果图片加载失败，显示占位符
+      pageImage.onerror = function() {
+        this.onerror = null;
+        const parent = this.parentNode;
+        parent.innerHTML = '<div class="image-placeholder-message">🖼️ Image loading failed…<br><small>Please place ' + currentPage + '.jpg in the ‘book picture/’ folder</small></div>';
+      };
+      
+      // 更新页码指示器
+      pageIndicator.textContent = currentPage + ' / ' + TOTAL_PAGES;
+      
+      // 更新输入框
+      jumpInput.value = currentPage;
+      
+      // 更新按钮状态
+      prevBtn.classList.toggle('disabled', currentPage === 1);
+      nextBtn.classList.toggle('disabled', currentPage === TOTAL_PAGES);
+      
+      // 更新导航点
+      updateDots();
+    }
+    
+    // 创建并更新导航点
+    function createDots() {
+      pageDots.innerHTML = '';
+      for (let i = 1; i <= TOTAL_PAGES; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === currentPage ? ' active' : '');
+        dot.setAttribute('aria-label', 'Page ' + i);
+        dot.addEventListener('click', function() {
+          if (currentPage !== i) {
+            currentPage = i;
+            updatePage();
+          }
+        });
+        pageDots.appendChild(dot);
+      }
+    }
+    
+    function updateDots() {
+      const dots = pageDots.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        const pageNum = index + 1;
+        if (pageNum === currentPage) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    // 翻页函数
+    function goToPrevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePage();
+      }
+    }
+    
+    function goToNextPage() {
+      if (currentPage < TOTAL_PAGES) {
+        currentPage++;
+        updatePage();
+      }
+    }
+    
+    function goToPage(page) {
+      page = parseInt(page);
+      if (isNaN(page)) return;
+      page = Math.max(1, Math.min(TOTAL_PAGES, page));
+      if (currentPage !== page) {
+        currentPage = page;
+        updatePage();
+      }
+    }
+    
+    // 事件绑定
+    prevBtn.addEventListener('click', goToPrevPage);
+    nextBtn.addEventListener('click', goToNextPage);
+    
+    jumpBtn.addEventListener('click', function() {
+      goToPage(jumpInput.value);
+    });
+    
+    jumpInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        goToPage(jumpInput.value);
+      }
+    });
+    
+    // 键盘左右键翻页
+    document.addEventListener('keydown', function(e) {
+      // 避免在输入框中触发
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrevPage();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNextPage();
+      }
+    });
+    
+    // 初始化
+    createDots();
+    updatePage();
+  })();
+</script>
+
+</body>
+</html>

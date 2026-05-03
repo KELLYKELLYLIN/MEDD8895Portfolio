@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 1 · To the moon</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #5a4e4e 0%, #8a6b5e 50%, #c97a6a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    /* 文档信息栏 */
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    /* 下载按钮 */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* 目录样式 */
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    /* 文字内容区域 */
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.8rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.5rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    /* 表格样式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.9rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    /* 分隔线 */
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    /* 占位符提示 */
+    .placeholder-note {
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    .highlight {
+      background: rgba(230, 200, 180, 0.3);
+      padding: 0.1rem 0.3rem;
+      border-radius: 8px;
+      font-family: monospace;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+    }
+
+        /* 小组成员 */
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页 -->
+  <a href="../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>📄 PSet 1 · To the Moon</h1>
+
+    <!-- 小组成员 -->
+  <div class="group-members">
+    <strong>Individual:</strong> Lin Jiayuan
+  </div>
+
+  <!-- 文档信息栏 + 下载按钮 -->
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">📃</span>
+      <span class="doc-meta"><strong>Revised Version</strong> Instructional Design Document </span>
+    </div>
+    <a href="pset1.docx" class="download-btn" download>
+      <span>📥</span> Download the revised Word document
+    </a>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <h2>📑 Content</h2>
+    <ul>
+      <li><a href="#part1">Part 1: Activity Guide & Adaptation</a></li>
+      <li><a href="#overview">1. Overview of the Activity</a></li>
+      <li><a href="#materials">2. Materials, Setup, and Preparation</a></li>
+      <li><a href="#room">3. Room and Grouping Arrangement</a></li>
+      <li><a href="#procedure">4. Step-by-Step Procedure</a></li>
+      <li><a href="#part2">Part 2: Crisis Scenarios</a></li>
+      <li><a href="#crisis1">1. Low-Gravity Misjudgment</a></li>
+      <li><a href="#crisis2">2. Micrometeoroid Fragment Threat</a></li>
+      <li><a href="#crisis3">3. Shadow Zone Navigation</a></li>
+      <li><a href="#crisis4">4. Lunar Dust Infiltration</a></li>
+      <li><a href="#part3">Part 3: AI Testing & Evaluation</a></li>
+    </ul>
+  </div>
+
+  <!-- 主要内容区 -->
+  <div class="text-content">
+    
+    <h2 id="part1">Part 1: Activity Guide &amp; Adaptation</h2>
+
+    <h3 id="overview">1. Overview of the Activity</h3>
+    
+    <p><strong>Game title:</strong> <em>Surviving on the Moon</em><br>
+    <strong>Target cohort:</strong> First-year high school students (approximately 15 years old)<br>
+    <strong>Class size assumption:</strong> 20–30 students<br>
+    <strong>Group size:</strong> 4–5 students per group<br>
+    <strong>Total time:</strong> Approximately 65 minutes</p>
+
+    <p><strong>Purpose of the activity:</strong><br>
+    This activity helps students learn basic features of the lunar environment and apply that knowledge in problem-solving situations. Students first rank survival items individually and in groups. Then they use those selected items to respond to lunar crisis scenarios in conversation with an AI system. The activity is designed to help students:</p>
+
+    <ol>
+      <li>Understand key lunar conditions such as low gravity, vacuum, sharp temperature contrasts, and lunar dust;</li>
+      <li>Identify and correct common misconceptions about survival on the Moon;</li>
+      <li>Practice reasoning, evidence-based discussion, and collaborative decision-making;</li>
+      <li>Develop creative but scientifically constrained problem-solving skills;</li>
+      <li>Reflect on how their thinking changes after feedback and experience.</li>
+    </ol>
+
+    <h3 id="materials">2. Materials, Setup, and Preparation</h3>
+
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Details</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Item list handout</td><td>One printed copy per student of the 15 lunar survival items: matches, food concentrate, nylon rope, parachute silk, portable heating unit, two pistols, dehydrated milk, oxygen tanks, stellar map, self-inflating life raft, magnetic compass, water, mirror, first aid kit, solar-powered FM receiver-transmitter.</td></tr>
+        <tr><td>Item cards</td><td><strong>One physical card for each of the 15 items per group. Each card should include the item name and a one-sentence description of its possible function.</strong></td></tr>
+        <tr><td>Crisis cards</td><td><strong>At least six printed crisis cards prepared by the teacher, including the four original additional crises in this assignment. Each card should include: title, short scenario description, and the challenge question.</strong></td></tr>
+        <tr><td>Ranking sheet</td><td>One worksheet per student with spaces for Rank 1–15 and a short "reason" column.</td></tr>
+        <tr><td>Group answer sheet</td><td>One sheet per group to record their final top 9 items and their crisis-response plans.</td></tr>
+        <tr><td>AI device</td><td><strong>One device per group (laptop/tablet/phone) with access to the Moon survival AI chat. Teacher should test the AI in advance.</strong></td></tr>
+        <tr><td>Slides or board</td><td><strong>Used for teacher introduction, timing reminders, and final answer comparison.</strong></td></tr>
+        <tr><td>Standard ranking</td><td>Teacher copy of the NASA-style ranking and brief explanations for each item.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 id="room">3. Room and Grouping Arrangement</h3>
+
+    <p>A normal classroom is sufficient. Students sit in groups of 4–5. Desks should be arranged so students can discuss easily and share one device.</p>
+
+    <p><strong>Modification 1: Students are grouped randomly rather than by friendship.</strong><br>
+    <strong>Rationale:</strong> For 15-year-old students, structured random grouping can reduce clique-based discussion and encourage wider collaboration. It also supports communication with less familiar peers, which is an important classroom discussion skill.</p>
+
+    <h3 id="procedure">4. Step-by-Step Procedure</h3>
+
+    <h4>Step 1. Teacher introduction and lunar background mini-briefing (8 minutes)</h4>
+
+    <p><strong>Teacher script example:</strong><br>
+    "Today you are astronauts who have crash-landed on the Moon. Your main spacecraft is 260 kilometers away, and you must decide how to survive long enough to reach it. You only have a limited set of items. First, you will rank the items by importance. Later, you will face crisis situations and use only your chosen supplies to solve them."</p>
+
+    <p>The teacher then gives a short mini-lesson on the Moon:</p>
+    <ol>
+      <li>there is <strong>no breathable atmosphere</strong>;</li>
+      <li>there is <strong>very weak gravity</strong> (about one-sixth of Earth's gravity), but not zero gravity;</li>
+      <li>temperatures can vary greatly between sunlit and shadowed areas;</li>
+      <li>lunar dust is fine, abrasive, and difficult to remove;</li>
+      <li>compasses do not work on the Moon the way they do on Earth;</li>
+      <li>movement, communication, and equipment use must follow lunar conditions, not Earth habits.</li>
+    </ol>
+
+    <p><strong>Modification 2: A short lunar science briefing is added before ranking.</strong><br>
+    <strong>Rationale:</strong> Students at this age may know some general facts about space but still hold major misconceptions. This scaffold helps them make age-appropriate and more scientifically informed decisions.</p>
+
+    <p><strong>Modification 3: The teacher explicitly states that the items may be used not only for travel but also for later crisis response.</strong><br>
+    <strong>Rationale:</strong> This prepares students to think flexibly about item functions, rather than treating the task as a simple memorization or ranking exercise.</p>
+
+    <h4>Step 2. Individual ranking of the 15 items (7 minutes)</h4>
+
+    <p>Each student receives the item list and ranking sheet. Students work independently and rank all 15 items from most important (1) to least important (15). They must also write a short reason for each top 5 choice and at least three lower-ranked choices.</p>
+
+    <p><strong>Teacher instruction example:</strong><br>
+    "Please rank the items on your own first. Do not discuss yet. Write short reasons, such as 'needed for breathing,' 'helps navigation,' or 'not useful without air.'"</p>
+
+    <p><strong>Modification 4: Students are required to write brief reasons, not only rankings.</strong><br>
+    <strong>Rationale:</strong> This captures their initial thinking and misconceptions, which supports later reflection and comparison.</p>
+
+    <h4>Step 3. Small-group discussion and group ranking (12 minutes)</h4>
+
+    <p>Students discuss their individual rankings in groups. Each student must explain at least two of their choices. Then each group uses the item cards to build a shared ranking and selects their <strong>top 9 items</strong> to keep for the next stage.</p>
+
+    <p><strong>Teacher monitoring focus:</strong></p>
+    <ol>
+      <li>Are students using lunar science to justify their ideas?</li>
+      <li>Are there misconceptions such as "matches can be lit" or "compass can guide direction"?</li>
+      <li>Is every student participating?</li>
+    </ol>
+
+    <p><strong>Modification 5: Physical item cards are added for group sorting.</strong><br>
+    <strong>Rationale:</strong> This makes the task more concrete and easier to manage for another teacher. It also helps visual learners and improves group interaction.</p>
+
+    <p><strong>Modification 6: Each student must speak at least twice during discussion.</strong><br>
+    <strong>Rationale:</strong> This supports participation, accountability, and collaborative reasoning rather than allowing one strong student to dominate the task.</p>
+
+    <h4>Step 4. AI crisis interaction (25 minutes)</h4>
+
+    <p>Each group draws <strong>two crisis cards</strong>. For each crisis:</p>
+    <ol>
+      <li>One student enters the crisis into the AI chat.</li>
+      <li>The AI explains the situation.</li>
+      <li>The group proposes a survival plan using only their retained 9 items.</li>
+      <li>The AI responds.</li>
+      <li>The group may revise the plan once if needed.</li>
+    </ol>
+
+    <p><strong>Suggested time structure within the 25 minutes:</strong></p>
+    <ol>
+      <li>2 minutes: read and understand crisis 1</li>
+      <li>4 minutes: discuss response</li>
+      <li>2 minutes: submit to AI and read reply</li>
+      <li>2 minutes: revise if needed</li>
+      <li>Repeat for crisis 2</li>
+      <li>9 minutes reserved for slower groups / teacher intervention</li>
+    </ol>
+
+    <p><strong>Teacher role during AI interaction:</strong></p>
+    <ol>
+      <li>Remind students that <strong>AI may be incomplete or mistaken</strong>;</li>
+      <li>Ask groups to justify their reasoning aloud if they seem stuck;</li>
+      <li>Note examples of misconceptions or good scientific reasoning;</li>
+      <li>Intervene if the AI response appears scientifically misleading or too absolute.</li>
+    </ol>
+
+    <p><strong>Modification 7: A clear time breakdown is added for the AI stage.</strong><br>
+    <strong>Rationale:</strong> This improves replicability and prevents the 25–30 minute segment from becoming vague or difficult to manage.</p>
+
+    <p><strong>Modification 8: The teacher is instructed to treat AI as a discussion tool, not an unquestionable authority.</strong><br>
+    <strong>Rationale:</strong> This is age-appropriate and supports critical AI literacy, which is especially important for secondary students.</p>
+
+    <h4>Step 5. Re-ranking, answer comparison, and reflection (13 minutes)</h4>
+
+    <p>After the AI activity, students individually re-rank the 15 items. Then the teacher presents the standard ranking and explanations. Students compare their first and second rankings and discuss:</p>
+    <ol>
+      <li>Which items did they overestimate?</li>
+      <li>Which items did they underestimate?</li>
+      <li>Which lunar misconceptions changed?</li>
+      <li>Did the AI help, confuse, or partially guide them?</li>
+    </ol>
+
+    <p><strong>Teacher closing prompt example:</strong><br>
+    "What is one idea you had at the beginning that you would now change, and why?"</p>
+
+    <p><strong>Modification 9: Students complete a second ranking after the AI experience.</strong><br>
+    <strong>Rationale:</strong> This makes conceptual change visible and turns the activity into a reflection-based learning task, not just a game.</p>
+
+    <hr>
+
+    <h2 id="part2">Part 2: Crisis Scenarios</h2>
+
+    <h3 id="crisis1">1. Low-Gravity Misjudgment</h3>
+
+    <p><strong>Description:</strong><br>
+    A team member tries to move quickly by taking exaggerated jumps across uneven ground. Because lunar gravity is lower, the astronaut stays in the air longer than expected and has difficulty controlling landing direction and body posture. The main danger is not simply "hitting the knees," but losing balance, tumbling, colliding with rocks, or becoming unable to stop safely because inertia still matters.</p>
+
+    <p><strong>Educational Value:</strong><br>
+    This crisis targets the misconception that "low gravity means movement is easy and safe." It helps reveal that although weight is reduced on the Moon, <strong>mass and inertia are not</strong>, so movement can become harder to control rather than easier.</p>
+
+    <h3 id="crisis2">2. Micrometeoroid Fragment Threat</h3>
+
+    <p><strong>Description:</strong><br>
+    Sensors detect a short-duration stream of high-speed micrometeoroid fragments approaching the team's route. Even tiny particles can damage exposed equipment or puncture vulnerable surfaces because of their extreme speed. The team must quickly decide whether to shelter, reposition, or use available materials to reduce exposure and protect critical systems.</p>
+
+    <p><strong>Educational Value:</strong><br>
+    This crisis targets the misconception that "small objects are harmless." It helps students understand that in space, <strong>very small particles can still be dangerous because speed matters</strong>, and that survival depends on shielding priorities and protecting essential systems, not simply covering everything.</p>
+
+    <h3 id="crisis3">3. Shadow Zone Navigation</h3>
+
+    <p><strong>Description:</strong><br>
+    The group reaches a shadowed section near crater walls where direct sunlight does not reach the ground. Visibility becomes extremely poor, terrain details are hard to judge, and the surface may contain slopes, rocks, or hidden drop-offs. The challenge is not that sunlight normally "protects" astronauts from radiation, but that darkness, cold conditions, and uncertain terrain make safe movement and orientation more difficult.</p>
+
+    <p><strong>Educational Value:</strong><br>
+    This crisis targets the misconception that "if there is no sunlight, the only problem is darkness." It encourages students to think about <strong>terrain detection, energy management, and navigation under limited visibility</strong>, rather than oversimplifying the issue.</p>
+
+    <h3 id="crisis4">4. Lunar Dust Infiltration</h3>
+
+    <p><strong>Description:</strong><br>
+    After prolonged movement, fine lunar dust builds up around suit joints, seals, and equipment interfaces. The dust is abrasive and clingy, making mechanical parts harder to operate and increasing the risk of seal degradation over time. The team must decide how to isolate contaminated parts, reduce further exposure, and perform careful cleaning in an appropriate environment.</p>
+
+    <p><strong>Educational Value:</strong><br>
+    This crisis targets the misconception that dust is just a minor nuisance, like ordinary powder. It helps students recognize that <strong>lunar dust is abrasive, adhesive, and operationally hazardous</strong>, especially for seals, joints, and equipment reliability.</p>
+
+    <hr>
+
+    <h2 id="part3">Part 3: AI Testing &amp; Evaluation</h2>
+
+    <h3>Table: Evaluation of AI Responses</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Crisis &amp; Transcript Summary</th>
+          <th>Why the Original AI Response Needs Improvement</th>
+          <th>Suggested Improved AI Response</th>
+          <th>Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Low-Gravity Misjudgment</strong><br>Student suggested: tie everyone with rope, wrap suit with bandages, use pistol recoil to slow down, and use life raft as landing cushion. AI mainly rejected each idea one by one and concluded the plan was highly dangerous.</td>
+          <td>The AI correctly identified several scientific problems, but its tone was overly absolute and mostly negative. It missed a teaching opportunity to separate <strong>unsafe parts</strong> from <strong>potentially useful underlying ideas</strong>. For example, rope should not necessarily connect the whole team in one chain, but it may still be useful as a safety tool for one explorer. The AI also did not give enough scaffolding for how to revise the plan.</td>
+          <td><strong>Improved AI response:</strong> "Your plan includes some creative survival thinking, especially the ideas of cushioning impact and using equipment for safety support. However, several parts need revision to fit lunar physics. First, tying the whole group together while jumping is risky, because one person's loss of control could pull others off balance. Still, the rope itself may be useful if only one person uses it as a safety line while others stay stable. Second, bandages cannot stop sharp puncture or major impact, so they are not reliable suit protection. But your idea of adding some form of protective layer is reasonable—can you think of a sturdier item? Third, pistol recoil can change motion in theory, but it would be extremely hard to control safely, so it is not a good main strategy. Finally, the life raft might help as a secondary cushion, but it cannot guarantee a precise landing spot. Try revising your plan by focusing on controlled movement, limited risk to one person at a time, and one or two items that improve stability rather than dramatic jumping."</td>
+          <td>This version keeps scientific accuracy while improving pedagogy. It affirms useful reasoning, identifies exactly what is wrong, and gives concrete directions for revision. It is more suitable for 15-year-old learners because it scaffolds rather than simply rejects.</td>
+        </tr>
+        <tr>
+          <td><strong>Micrometeoroid Fragment Threat</strong><br>Student suggested using supply boxes, water/milk containers, raft, and parachute silk as layered shielding. AI repeatedly questioned whether the materials could be fixed in time and whether the student actually had them, without clearly evaluating the core idea until later.</td>
+          <td>The AI focused too early on obstacles and did not first acknowledge that the student's central idea—using existing mass and layers for shielding—has merit. It also missed the chance to teach an important concept: in a short-warning situation, the best strategy is usually <strong>prioritizing shelter and protecting critical surfaces</strong>, not building a perfect barrier everywhere.</td>
+          <td><strong>Improved AI response:</strong> "Your idea has a scientifically useful core: using available materials as extra shielding and placing layers between people and incoming fragments. That is a reasonable direction. However, the main challenge is time and placement. In just a few minutes, it may be unrealistic to build a large external shield. A safer revision would be to move all crew into the lunar rover first, use the rover as the main structure, and quickly place dense or useful materials on the inside or most exposed side to add partial protection for people and critical systems. Water containers may help absorb some energy, but they should not be your only defense. Flexible items like parachute silk may be more useful as secondary lining or separation layers than as outer armor. Please revise your plan in time order: What do you do first, what do you protect most, and which items are worth sacrificing?"</td>
+          <td>This version improves both science and scaffolding. It validates the promising part of the student's answer, then guides revision through prioritization, time sequence, and shielding principles. It also teaches a missed scientific idea: mass shielding and protection of critical systems.</td>
+        </tr>
+        <tr>
+          <td><strong>Shadow Zone Navigation</strong><br>Student suggested tying one person with a rope, sending them to scout first, and using signals to communicate danger. AI emphasized extreme temperature shock, darkness, and communication failure, but exaggerated some scientific points and mostly framed the plan as very dangerous.</td>
+          <td>The original scenario description and AI response contained scientific framing problems. The claim that sunlight provides "radiation protection" is inaccurate. The description of immediate suit failure from temperature transition is also overstated. Pedagogically, the AI again focused too much on negation and not enough on helping the student improve a partially reasonable scouting plan.</td>
+          <td><strong>Improved AI response:</strong> "Your plan includes two strong ideas: sending only one person to scout first instead of risking the whole team, and using a rope to maintain contact and provide some safety backup. Those are sensible starting points. However, the plan still needs more detail. In the shadow zone, the biggest immediate problems are limited visibility, uncertain terrain, and the extra energy required to work safely in a cold, dark area. A rope alone may not be enough for communication, especially in an emergency, so it would help to combine it with another signaling method if available. Also, before the scout moves forward, the team should consider how to probe the ground for holes or unstable edges rather than relying only on eyesight. Think about these questions: What item could help the scout manage cold or conserve energy? What could be used to test the ground ahead? How will the team distinguish between 'stop,' 'safe,' and 'come forward' signals?"</td>
+          <td>This version corrects the scientific emphasis and improves the educational value. It keeps the useful parts of the student's idea while prompting more careful planning. It teaches that the real issue is not magical darkness or instant radiation danger, but navigation, terrain assessment, and resource management.</td>
+        </tr>
+        <tr>
+          <td><strong>Lunar Dust Infiltration</strong><br>Student suggested using parachute silk as dust cover, alcohol and gauze from the first aid kit for cleaning, and a life raft as a cleaner raised work surface. AI asked many follow-up questions but did not clearly affirm that isolation and cleaning were fundamentally reasonable ideas.</td>
+          <td>The AI's questions were relevant, but the response did not clearly tell the student which parts of the idea were sound. As a result, the student could feel that every idea was being doubted rather than developed. The AI should have explicitly identified the good strategy first: isolate, clean, reduce recontamination, and work in a better environment.</td>
+          <td><strong>Improved AI response:</strong> "Your plan is moving in the right direction. The key ideas of isolating dusty parts, cleaning them carefully, and reducing further contamination are all scientifically reasonable. Using parachute silk as a temporary dust cover and using gauze to wipe components could both help. The main issue is environment: alcohol is difficult to use in vacuum, so this cleaning should be done inside a protected, pressurized space such as the rover, not outside on the open surface. The life raft could also make sense as a cleaner raised surface if you use it inside the rover and secure the parts so they do not slide or drift during handling. To improve your plan, explain the cleaning sequence step by step: where the work happens, how you prevent dust from spreading, how often you replace cleaning material, and how you protect the cleaned interface afterward."</td>
+          <td>This version is more supportive and clearer. It tells the student what is correct, then identifies the missing condition—pressurized environment—and asks for procedural detail. This is better scaffolding for secondary learners and better matches the goal of training problem-solving.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Overall Comparison of the Original and Improved AI Responses</h3>
+
+    <p>Across the four crisis scenarios, the main problem with the original AI responses was <strong>not that they were completely wrong</strong>, but that they were often <strong>too absolute, too negative, and not pedagogically supportive enough</strong>. In many cases, the students' first ideas already contained useful survival logic. However, the AI tended to reject these ideas before identifying which parts were worth keeping.</p>
+
+    <p>For 15-year-old high school students, this matters. At this age, students often begin with incomplete but creative intuitions. If the AI only tells them that their plan is dangerous or unrealistic, they may feel that their thinking has failed entirely. This weakens motivation and does not support the assignment's real goal, which is to develop reasoning and revision.</p>
+
+    <p>The improved responses are better because they do four things more clearly:</p>
+
+    <ol>
+      <li><strong>affirm the useful part of the student's idea first;</strong></li>
+      <li><strong>identify the scientific problem precisely instead of rejecting everything;</strong></li>
+      <li><strong>give concrete hints about what to revise;</strong></li>
+      <li><strong>model a more supportive and age-appropriate style of scaffolding.</strong></li>
+    </ol>
+
+    <p>Therefore, the revised AI responses are not only more helpful for survival reasoning, but also more appropriate as educational feedback for secondary school learners.</p>
+
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="placeholder-note">
+    <span>📝 pset1 revise version</span>
+  </div>
+
+</div>
+</body>
+</html>

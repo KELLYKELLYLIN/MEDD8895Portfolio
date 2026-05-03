@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 3 · An Open Book</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #b18597 0%, #c99eae 50%, #deb9c6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    .revision-note {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #b18597;
+      font-style: italic;
+      color: #4a3a32;
+    }
+
+    /* 文档信息栏 */
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    /* 下载按钮 */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* 目录样式 */
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    /* 文字内容区域 */
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.8rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .text-content h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    .text-content blockquote {
+      border-left: 4px solid #c99eae;
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      color: #5a4a3e;
+      font-style: italic;
+    }
+
+    .text-content mark {
+      background: rgba(200, 158, 174, 0.2);
+      padding: 0.1rem 0.3rem;
+      border-radius: 6px;
+      color: #4a3a32;
+    }
+
+    .text-content .underline {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #c99eae;
+    }
+
+    /* 表格样式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    /* 图片占位符 */
+    .image-placeholder {
+      background: rgba(200, 180, 165, 0.2);
+      border: 1px dashed #b59886;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      color: #6a5a4e;
+      font-size: 0.9rem;
+    }
+
+    /* 底部提示 */
+    .placeholder-note {
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+    }
+
+    /* 小组成员 */
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页 -->
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>📚 PSet 3 · Book Bits Class Redesign</h1>
+
+    <!-- 小组成员 -->
+  <div class="group-members">
+    <strong>Individual:</strong> Lin Jiayuan
+  </div>
+
+  <!-- 修订说明 -->
+  <div class="revision-note">
+    <strong>📝 Revision Note</strong><br>
+    This revised version strengthens three areas identified in feedback: (1) It makes more explicit how Popper, Feinstein & Waddington, and Tsai work together in practice across the lesson rather than functioning as isolated theoretical references. (2) It adds more concrete contingency plans for extreme low participation and uneven discussion. (3) It revises the final reflection in Part 2 to more clearly approximate "pretty good knowledge" without implying that one fully rational or optimal conclusion should necessarily emerge.
+  </div>
+
+  <!-- 文档信息栏 + 下载按钮 -->
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">📘</span>
+      <span class="doc-meta"><strong>Course Design Document</strong> · Revised Version</span>
+    </div>
+    <a href="pset3.docx" class="download-btn" download>
+      <span>📥</span> Download the revised Word document
+    </a>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <h2>📑 Content</h2>
+    <ul>
+      <li><a href="#part1">Part 1: Modification and Optimization of Classroom Book Bits Activity</a></li>
+      <li><a href="#context">1. Teaching Context and Target Students</a></li>
+      <li><a href="#background">2. Background Story and Material Explanation</a></li>
+      <li><a href="#theory">3. Philosophical / Theoretical Framework</a></li>
+      <li><a href="#steps">5. Specific Steps and Time Schedule</a></li>
+      <li><a href="#weaknesses">6. Additional Weaknesses Identified and Addressed</a></li>
+      <li><a href="#contingency1">7. Contingency Plans for Replication</a></li>
+      <li><a href="#part2">Part 2: Scientific Knowledge in Public Discussion and Policy Negotiation</a></li>
+      <li><a href="#overview">Overview: How This Plan Improves the Original "Book Bits" Activity</a></li>
+    </ul>
+  </div>
+
+  <!-- 主要内容区 -->
+  <div class="text-content">
+
+
+    <h2 id="part1">Part 1: Modification and Optimization of Classroom Book Bits Activity</h2>
+
+    <h3 id="context">1. Teaching Context and Target Students</h3>
+    
+    <p><span class="underline">(addressing Weakness #1: Undefined Context and Audience)</span></p>
+
+    <p><strong>1. Teaching Context</strong></p>
+    <p>This lesson is designed for an undergraduate course on <strong>Science, Society and Public Discussion</strong>. The course is taught in English, but the classroom materials are expected to be provided in Chinese or in Chinese and English bilingual form. The course does not treat science as a collection of fixed truths. Instead, it presents science as a social and revisable practice in which explanations are proposed, challenged, repaired, and sometimes abandoned under conditions of uncertainty.</p>
+    <p>Students are expected to experience how scientific knowledge is gradually constructed in the context of public health events and how such knowledge is often "reasonable enough for action" while still remaining open to revision.</p>
+
+    <p><strong>2. Target Students</strong></p>
+    <p>The target students are undergraduate students who have personally lived through the COVID-19 pandemic. Because of their age and life experience, they can reflect on changing expert advice, disagreement among institutions, rumor circulation, and tensions between scientific uncertainty and public decision-making. Many of them have already encountered questions such as: <em>Can experts be wrong? Why do scientific claims change? Why do different institutions tell different stories with the same evidence?</em></p>
+    <p>Their English reading ability is sufficient for course readings, but high language load in a fast-paced inquiry activity could interfere with deeper reasoning. Therefore, the classroom evidence materials are designed in Chinese or bilingual form to lower unnecessary linguistic burden and make epistemic participation more equitable.</p>
+
+    <p><strong>3. Design Reasons</strong></p>
+    <p>This section addresses the weakness of the original lesson plan concerning undefined context and audience. It specifies the course type, educational level, language environment, and students' relevant experiences. It also clarifies why a public-health-centered scenario is pedagogically appropriate for this audience: it activates students' lived memories of uncertainty, conflicting authority, and contested public discourse, allowing them to connect abstract ideas about science with their own social experience. <strong>The activities are deliberately designed to be high in uncertainty and stakes</strong> (involving diseases, death, government responsibility), to activate students' doubts and emotions formed during their experience with the pandemic, so that "science as an unstable and adjustable practice" is not just an abstract concept but is connected to their own life experiences.</p>
+
+    <h3 id="background">2. Background Story and Material Explanation</h3>
+    
+    <p><span class="underline">(addressing Weakness #4: Remote Backstory)</span></p>
+
+    <p><strong>1. Background Story (General overview for teachers to grasp)</strong></p>
+    <p><strong>This lesson uses new sources of materials.</strong> The "Book Bits" are mainly about public health incidents and disease outbreaks. The story inspiration is roughly based on real cases of blood-borne infectious diseases and respiratory diseases (such as blood-selling infections in certain regions; refer to Hesketh & Xing, 2000; Wu et al., 2007, etc. for research), but all place names, names of individuals, and specific details are fictional and used for teaching simplification and protection of real individuals.</p>
+    <p>The time span is approximately 10 years. At the beginning, villagers in the Joint County began to show symptoms such as long-term fever, emaciation, and respiratory problems. <strong>Local clinics, county health bureau, media, foreign NGOs, scholars successively left various fragmented records: outpatient medical records, phone records, government announcements, internal reports, news reports, villagers' diaries, oral histories, etc.</strong> In the early stage, various explanations such as "seasonal influenza", "heavy smog", "too much pressure on everyone" were given, but later evidence gradually pointed to irregular blood-selling and medical operations, reused needles, and the government's desire to "suppress it to avoid triggering social panic".</p>
+
+    <p><strong>2.1.1 Design Reasons</strong></p>
+    <blockquote>
+      This section directly addresses the weakness of the original lesson plan number four: "The background of Jiulong city is too distant from students". Changing it to public health might be more closely related to students' experiences during the COVID-19 pandemic, making it easier to relate to familiar scenarios such as "infectious diseases", "government announcements", and "media reports". <mark>At the same time, although the case has been fictionalized and adapted, it refers to similar real events, splitting it into reports or written information from different sources based on real events, rather than being fabricated out of thin air. Here, I hope the information comes from different identities and roles, so that the information appears from different perspectives, which can also enable students to discover that the expressions from different perspectives are completely different.</mark> For example, villagers' expressions are more casual and relatively clear but also uncertain themselves, while most are passed on orally, while official reports or news have simple and clear language but relatively vague information. This not only ensures the ethical nature of teaching but also gives students the opportunity to consult relevant research after class to understand that this is a "sensemaking sandbox" with a real counterpart.
+    </blockquote>
+
+    <p><strong>2. Required Materials</strong></p>
+    <ol>
+      <li>Each group should receive a set of "page fragments" made of paper. <strong>It would be best if they are in Chinese or Chinese and English versions, sorted by rounds.</strong> However, <strong>"Book Bits" should be replaced with various textual clues</strong> (the source of the text can be appropriately modified): Round 1: Village diaries, outpatient short records, gossip in chat groups, brief announcements on county radio, etc. Round 2: County health bureau announcements, regional newspaper reports, summary of test results, etc. Round 3: Excerpts from long investigative articles, NGO reports, internal memos, etc. Round 4: Abstracts of epidemiological studies many years later, excerpts from lawsuits, oral accounts of survivors, etc.</li>
+      <li>Each group is provided with one sheet of paper. <strong>The students are expected to record the keywords contained in the clues,</strong> circle the supporting and opposing evidence, and draw conclusions based on these keywords. Or they can draw separate conclusions. What conclusions can be drawn together. <strong>Encourage the students to create simple mind maps or draw arrows.</strong> Finally, for each round, they should record their potential falsification conditions on the paper.</li>
+      <li>The blackboard/whiteboard or a wall is used as the "Gallery of Explanations" (Gallery of Explanations). The gallery is divided into four areas: Round 1, Round 2, Round 3, and Round 4. For each round, write down the current understanding of the event by each group.</li>
+    </ol>
+
+    <p><strong>4. Design Reasons</strong></p>
+    <blockquote>
+      Multiple rounds of evidence allow students to experience scientific sensemaking as iterative and unstable. Requiring them to separate supporting and conflicting evidence discourages simple confirmation bias. Public display increases social stakes and accountability. The addition of unresolved doubts makes it easier to embody Feinstein and Waddington's idea that knowledge can be "good enough for now" without being complete.<br>
+      <mark>[Revision added in response to feedback]</mark><br>
+      The materials and procedures are not only inspired separately by Popper, Feinstein & Waddington, and Tsai, but are designed so that the three perspectives operate together. Students first make testable claims under Popperian pressure; then they must decide which claims are still workable under incomplete evidence, reflecting "pretty good knowledge"; finally, because the evidence is distributed across institutions and voices, they begin to see that what counts as the event itself is shaped through socially uneven narration and institutional filtering, which anticipates Tsai's sensemaking perspective. In other words, the lesson does not move from one theory to another in isolated blocks. Rather, students simultaneously experience testability, provisional adequacy, and socially structured meaning-making.<br><br>
+      Finally, I hope the text fragments are not limited to book fragments but extend to news reports from newspapers and books and other more diverse sources of information, so that students can have a stronger sense of participating in the detective game and increase their enthusiasm.<br><br>
+      Supporting evidence/contradictory evidence/potential falsification conditions transform the abstract concept of falsifiability into specific operational steps, and at the same time add student guidance steps, allowing them to purposefully record their observations, making it more convenient for students to analyze.<br><br>
+      "The Gallery of Explanations" raises students' psychological and social stakes. It is not a quiet discussion within the group but being seen and compared by the entire class.
+    </blockquote>
+
+    <h3 id="theory">3. Philosophical / Theoretical Framework</h3>
+    
+    <p><span class="underline">(addressing Weakness #2: Underdeveloped Rationale)</span></p>
+    <p>This lesson is grounded in three complementary strands of literature: <strong>Popper's falsifiability</strong>, <strong>Feinstein & Waddington's "pretty good knowledge" and collective sensemaking</strong>, and <strong>Tsai's sensemaking perspective on "inventing reality" in institutional contexts</strong>.</p>
+
+    <p><strong>3.1 Popper: Falsifiability, conjectures, and refutations</strong></p>
+    <p>Popper (1959) argues that scientific claims are distinguished not by certainty but by falsifiability. A good explanation is one that risks being wrong and can specify what evidence would count against it. In this lesson, students must formulate hypotheses and publicly write down what observations would make them revise or abandon them. Later rounds contain not only confirming clues but also disturbing and awkward clues, so students have to confront whether they will genuinely expose their explanations to disconfirmation.</p>
+
+    <p><strong>3.2 Feinstein & Waddington: "Pretty good knowledge" and collective sensemaking</strong></p>
+    <p>Feinstein & Waddington (2020) criticize the idea that science education should primarily teach individuals to arrive at private "truth judgements" based on supposedly definitive facts. Instead, they propose that science offers "pretty good knowledge"—provisional, fallible, but often adequate for action—and that the central question for education should be: how can people work together to make appropriate use of science in social context?</p>
+    <p>Part 1 of this lesson helps students experience "pretty good knowledge" by giving them deliberately incomplete, fragmented, and sometimes conflicting records of a public health crisis. There is a historically grounded "true story" in the background, but students never receive perfect information, nor are they evaluated on matching an official answer. Instead, they are evaluated on whether they can construct explanations that are reasonable, explicitly testable, and honestly constrained by available evidence. The repeated requirement to state "what would make us change our mind" aims to cultivate the habit of treating knowledge as adequate‑for‑now rather than final.</p>
+    <p>Part 2 then moves from individual or small‑group sensemaking to collective, role‑based sensemaking in a simulated public hearing. Here, the same body of "pretty good knowledge" generated in Part 1 is selectively mobilized, emphasized, or downplayed by different social actors (government, hospitals, NGOs, media, patient families, etc.) pursuing different goals. This enacts Feinstein & Waddington's call to understand science not as isolated facts but as resources people use together—well or badly—in contested social situations.</p>
+
+    <p><strong>3.3 Tsai / sensemaking: "Inventing reality" in institutional contexts</strong></p>
+    <p>A sensemaking perspective highlights that public reality is not simply discovered but also constructed through institutions, categories, archives, and narratives. Some voices become visible and count as evidence more easily than others. In this activity, students work with unevenly distributed traces from villagers, officials, doctors, media, and NGOs. They see that different actors frame the same event differently, and that what later becomes the "official version" of reality is shaped not only by data but also by authority, genre, and political convenience.</p>
+
+    <p><strong>3.4 How the Three Frameworks Work Together in This Lesson</strong></p>
+    <p><mark>[Revision added in response to feedback]</mark></p>
+    <p>The three frameworks should not be read as separate labels attached to different moments of the lesson. In practice, they form a layered pedagogical sequence.</p>
+    <p>First, Popper gives the lesson its discipline: students cannot merely tell plausible stories; they must articulate claims that can be challenged by future evidence. This prevents the activity from becoming free-form interpretation.</p>
+    <p>Second, Feinstein & Waddington give the lesson its epistemic orientation: because evidence is incomplete and distributed, students must still decide what counts as a reasonable and action-guiding explanation for now. This prevents Popperian falsification from being misunderstood as a search for immediate certainty or decisive elimination.</p>
+    <p>Third, Tsai gives the lesson its sociopolitical depth: the activity is not only about whether an explanation fits evidence, but also about whose evidence becomes visible, credible, and consequential in the first place. This prevents "pretty good knowledge" from being treated as merely individual reasoning detached from institutions and power.</p>
+    <p>Together, the three perspectives support the central design principle of the lesson: students learn that scientific claims are testable, provisional, and socially situated all at once. A hypothesis may be falsifiable in form, adequate enough for present action, and yet still circulate unevenly depending on who is allowed to define the event publicly. The lesson therefore treats science not as a pipeline toward a final truth, but as a disciplined, revisable, and collective practice of making sense under uncertainty.</p>
+
+    <p><strong>4. Specific Course Arrangement (One class session, approximately 90 minutes)</strong></p>
+    <p><strong>1. Overview of the Classroom Process</strong></p>
+    <p>In this class, students will be divided into groups to act as "investigation teams" and analyze the scattered records of an unknown disease in the combined county, to identify the cause of the disease. In four rounds of evidence, they will gradually construct, revise, and eventually reach a conclusion. For each round, they must write a brief public conclusion on the blackboard and clearly respond to what evidence would make them admit that they were wrong.</p>
+    <p>At the end of the class, the entire class will reflect together: Does this resemble science? How is this related to "adequate knowledge"? How is this related to the real public health controversies we have experienced?</p>
+
+    <h3 id="steps">5. Specific Steps and Time Schedule</h3>
+
+    <p><strong>Step 0: Introduction and Rule Setting (Approximately 10 minutes)</strong></p>
+    <p><span class="underline">(addressing Weakness #3: Low Stakes for Students)</span></p>
+    
+    <p><strong>1. Teacher Introduction (Approximately 5 minutes)</strong></p>
+    <p>Teacher explains that students do not have the complete story. The goal is not to guess the teacher's answer. The goal is to make the most responsible, testable, and revisable explanation possible under uncertainty.</p>
+    <p>Three core rules are introduced:</p>
+    <ul>
+      <li>At the end of each round, every group must publicly state its current explanation.</li>
+      <li>Every group must state what evidence would make them admit they are wrong.</li>
+      <li>Participation is evaluated not by reaching the hidden truth but by the quality of evidence use, openness to revision, and specificity of falsification conditions.</li>
+    </ul>
+    <p><span class="underline">(addressing Weakness #3: Low Stakes for Students)</span></p>
+    <p><strong>The goal is not to "guess the official answer", but to experience: how science and the public make judgments in the face of uncertainty.</strong> (The teacher particularly emphasized: the score for classroom participation is more focused on "whether one is willing to revise the explanation and whether one clearly states the conditions for falsification", rather than "who comes closest to the teacher's known true history in the end".)</p>
+
+    <p><strong>2. Grouping and Role Assignment (about 5 minutes)</strong></p>
+    <p>Divide into 4 groups, with 4-6 people in each group (but actually, the number of people in each group should be appropriate and relatively balanced, varying depending on different classroom teaching).</p>
+
+    <p><strong>3. Design Reasons</strong></p>
+    <p>By setting three "hard rules" at the beginning, students will know from the very start that this class is not a "guessing game", but a practice on Popperian falsifications and public discussion. They need to be "responsible" for their explanations, including public display and prior declaration of falsification conditions. Linking the score for the classroom participation part with "whether one is honest in revising the explanation and whether one clearly states the specific falsification conditions" has raised students' psychological and evaluation stakes (responding to Weakness 3). Adding the consideration of falsification conditions in each round can help students reflect more deeply on their judgments. At the same time, since the history of Jiulong City has little relevance to the subsequent analysis of fragmented clues and instead misled our initial inference when I tried out classroom activities, I think we can delete the background materials introduction here and simply provide a brief background explanation instead.</p>
+
+    <p><strong>Step 1: First round of evidence - Initial impression (approximately 15 minutes)</strong></p>
+    
+    <p><strong>1. Distribute the first round of Book Bits</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Resource</th><th>The Content Displayed by the Fragments</th><th>Expected Reaction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>村民日记 Villager's Diary</td><td>有一行字写着河对面化工厂开门后晚上经常有怪味。There is a line of text stating that the chemical factory across the river often emits strange odors at night after it opens.</td><td rowspan="4">Students might think that environmental pollution is the cause of health problems.</td></tr>
+        <tr><td>A</td><td>医院记录 Hospital Records</td><td>咳嗽的就诊人数增加，中年工人及家属更多。The number of patients with cough has increased, with more middle-aged workers and their families affected.</td></tr>
+        <tr><td>A</td><td>聊天记录 Chat Records</td><td>医生说最近空气不好，少出门，多带口罩。The doctor said that recently the air quality has been poor, so people should stay indoors less and wear masks more often.</td></tr>
+        <tr><td>A</td><td>开会纪要 Meeting Minutes</td><td>有片段说最近去医院的人变多，但是还是希望大家积极上班，不要受呼吸道疾病影响。There were some remarks stating that the number of people visiting the hospital has increased recently, but it is still hoped that everyone will go to work actively and avoid being affected by respiratory diseases.</td></tr>
+        <tr><td>B</td><td>聊天记录 Chat Records</td><td>我们这边好多人都抽烟喝酒，还喜欢熬夜打牌。Many people here smoke, drink alcohol, and like to stay up late playing cards.</td><td rowspan="4">Students would naturally conclude that "lifestyle + chronic disease = main cause".</td></tr>
+        <tr><td>B</td><td>体检记录表 Physical Examination Record Sheet</td><td>上面记录许多人存在高血压风险，同时医生在旁边备注说明生活方式需要改善。The sheet shows that many people have a risk of hypertension, and the doctor has noted beside it that lifestyle needs to be improved.</td></tr>
+        <tr><td>B</td><td>健康宣传 Health Promotion</td><td>宣传单上有一行字写着本地慢性病率高于其他地方平均。There is a line on the promotional leaflet stating that the local chronic disease rate is higher than the average in other places.</td></tr>
+        <tr><td>B</td><td>会议记录 Meeting Records</td><td>要积极宣传戒烟戒酒，早睡早起。Actively promote quitting smoking and drinking and get enough sleep and exercise early.</td></tr>
+        <tr><td>C</td><td>广播通知记录 Broadcast Notice Record</td><td>上面说明最近季节性流感高发，如有感冒请及时就医。It is stated above that there is a recent increase in seasonal flu. If you have a cold, please seek medical attention promptly.</td><td rowspan="3">Guide students to think that "it's just a flu, just a bit more severe."</td></tr>
+        <tr><td>C</td><td>小学通知 School Notice</td><td>因多名学生感冒，请家长多关注。Due to several students having colds, parents are requested to pay more attention.</td></tr>
+        <tr><td>C</td><td>医院就诊记录 Hospital Visit Record</td><td>最近发热人数增加，备注"有部分人恢复情况较慢"。The number of people with fever has increased recently. Note: "Some people are recovering more slowly."</td></tr>
+        <tr><td>D</td><td>新闻片段 News Snippet</td><td>不少企业倒闭，失业现象增多。Many enterprises have gone bankrupt and unemployment has increased.</td><td rowspan="4">Guide students to speculate on the possible impacts of psychological problems or unemployment.</td></tr>
+        <tr><td>D</td><td>居民对话 Residents' Conversation</td><td>"最近生病的人好多，一想到就睡不好。""Recently, many people have fallen ill. Just thinking about it makes me unable to sleep well."</td></tr>
+        <tr><td>D</td><td>医生口述 Doctor's Account</td><td>"很多人说自己不舒服，但是查不出原因，可能是压力太大。""Many people claim to be unwell, but no cause can be found. It might be due to excessive stress."</td></tr>
+        <tr><td>D</td><td>专家研究 Expert Research</td><td>当前社会节奏紧张，容易引发身心症状。The current fast-paced society is stressful and can easily lead to physical and mental symptoms.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Hints: The above clues do not necessarily need to be presented as complete sentences. They can simply consist of fragmented words to increase the difficulty. Besides these detailed clues, some ambiguous and simple pieces of evidence can also be designed.</p>
+
+    <p><strong>2. Group Reading and Discussion (about 6 minutes)</strong></p>
+    <p>Each student reads all the fragments silently, then the group discusses and records the important keywords and reasoning on paper. Record the group's initial views on the problem and which evidence supports this explanation, as well as the falsification condition of this round. (When writing the falsification condition, the teacher can remind beside: What will overthrow us will be tested by subsequent evidence. Do not write too vague sentences, such as 'If the facts are not like this' - that does not conform to the Popperian sense of falsifiability.)</p>
+
+    <p><strong>3. Group Sharing (each group about 2 minutes)</strong></p>
+    <p>Then the group presents to the other groups their one-sentence summary of the causes of the health problems, and the teacher helps write it on the blackboard in the gallery area. If the teacher notices that a group's explanation is too broad or cannot be falsified (for example, "Because human activities have increased, it is easy to get sick"), they can ask some details on the spot.</p>
+
+    <p><strong>4. Design Reasons</strong></p>
+    <p>In the first round, ask students to make guesses under very little information and based on daily life experience, which is close to the stage of "moving forward in the dark" in real scientific work. By asking students to <strong>write specific falsification conditions</strong>, transform Popper's "falsifiability" from an abstract principle into an operational requirement (Popper, 1959). And public display of explanations can help students realize that their conclusions should be reasonable and responsible for their own conclusions, helping them think deeply.</p>
+
+    <p><strong>Step 2: Second round of evidence - Confirmation and tension (approximately 15 minutes)</strong></p>
+    <p>Students engage in group discussions to analyze the conclusions of other groups from Round 1. They also consider which explanations are like ours and which ones are completely different.</p>
+
+    <p><strong>1. Distribute the second round of Book Bits and have a discussion (approximately 10 minutes)</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Resource</th><th>The Content Displayed by the Fragments</th><th>Expected Reaction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>监测报告 Monitoring Report</td><td>里面有PM2.5，排放等字眼。Contains words such as PM2.5 and emissions.</td><td rowspan="3">Provide students with new clues regarding the evidence of air pollution but also receive new clues that correspond to other groups, allowing them to speculate whether other groups might also be correct.</td></tr>
+        <tr><td>A</td><td>健康问卷 Health Questionnaire</td><td>工厂附近胸闷，咳嗽的居民比例更高；但这些人吸烟和重体力劳动比例也高于全县平均。Residents living near the factory have a higher proportion of those experiencing chest tightness and coughing. However, these people also have a higher proportion of smokers and heavy physical laborers than the county average.</td></tr>
+        <tr><td>A</td><td>访谈记录 Interview Records</td><td>居民说工厂开了以后担心影响健康，经常提心吊胆。Residents said they were worried about the impact on their health after the factory opened, and they were constantly on edge.</td></tr>
+        <tr><td>B</td><td>慢性病报告 Chronic Disease Report</td><td>上面有吸烟率，肥胖率，血压异常的信息；同时里面还有污染水平高等文字。Contains information such as smoking rate, obesity rate, and abnormal blood pressure and it also includes words such as pollution level.</td><td rowspan="2">Strengthen the evidence. But add evidence on "environmental pollution/influenza", while vaguely mentioning hospitalization and intravenous infusion.</td></tr>
+        <tr><td>B</td><td>医生访谈 Doctor Interview</td><td>好多病人抽烟喝酒，最近流感也很厉害，住院输液的人变多了。Many patients smoke and drink alcohol. The flu is also very severe recently, and the number of people admitted for intravenous treatment has increased.</td></tr>
+        <tr><td>C</td><td>疾控中心 CDC Center</td><td>确认流感高发，但是模糊字词说部分重症患者有住院记录和输液史。Confirmed high incidence of flu, but vague words indicate that some severe patients have hospitalization records and infusion histories.</td><td rowspan="3">At the same time, it also enables students to recognize that the previous speculation was reasonable. However, considering the influence of lifestyle and air, and laying the groundwork for the infusion process at the same time.</td></tr>
+        <tr><td>C</td><td>学校缺课统计 School Absence Statistics</td><td>冬季多次出现"全班 1/3 学生缺课"。"One-third of the students in the class" were absent multiple times in winter.</td></tr>
+        <tr><td>C</td><td>报纸 Newspaper</td><td>老年患者多合并基础疾病和长期吸烟史，本地区空气质量亦有待改善。Elderly patients often have underlying diseases and a long history of smoking. The air quality in this area also needs to be improved.</td></tr>
+        <tr><td>D</td><td>心理热线记录 Psychological Phone call Records</td><td>失眠求助电话增加，有好多人提出胸闷，浑身不舒服。The number of calls seeking help for insomnia has increased. Many people have mentioned chest tightness and overall discomfort.</td><td rowspan="3">It was obvious that students had identified the issue of stress. However, the reason that stress caused many people to fall ill was not realistic. Therefore, this group of students might have been the first to start changing their perspective and analyzing other possible causes.</td></tr>
+        <tr><td>D</td><td>卫生院记录 Health Center Records</td><td>很多发烧患者查不到明显病变，但是主观症状较为严重。但是又说部分患者致死原因非心理症状可以解释。Many fever patients have no obvious lesions found upon examination, but their subjective symptoms are relatively severe. However, it is also stated that some patients' causes of death cannot be explained by psychological symptoms alone.</td></tr>
+        <tr><td>D</td><td>新闻报道截图 News Report Screenshot</td><td>本地流感高发，空气质量不佳，生活压力大混合。Local flu outbreak, poor air quality, and high life stress combined.</td></tr>
+      </tbody>
+    </table>
+
+    <p>The team continued to analyze and summarize the reasons behind the occurrence of the health problems, chose to revise and optimize the previous conclusions, and continued to analyze the falsification conditions of this round: which type of future evidence will make us once again admit the need for correction of the explanation? If there is evidence that has emerged but is clearly in conflict with our current story, would we be willing to acknowledge this in this round of class discussion?</p>
+
+    <p><strong>2. Students give a public speech (about 5 minutes)</strong></p>
+    <p>Sharing the reasons for their new conclusions or maintaining their original conclusions. They record the key words and detailed reasoning process on paper, and the teacher writes their conclusions in the "Round 2" area. Then everyone starts voting to choose which group's hypothesis is the most supported.</p>
+    <p>(<strong>If students refuse to change their original explanation,</strong> the teacher can ask guiding questions: "Please point out: On which specific fragments is your explanation the most different from the other groups? Is there any piece of evidence that makes you feel a bit embarrassed, but you decide to temporarily 'ignore'? If an explanation can coexist peacefully with all the evidence, it might be too broad - in Popper's sense, this is actually 'not scientific enough'.)</p>
+
+    <p><strong>3. Design Reasons</strong></p>
+    <p>Public analysis enables the students in other groups to realize that their explanations are just one of many possibilities, emphasizing Popper's "rigorous testing" + contradictory evidence. The second round of materials includes both "seemingly confirming" parts and "disruptive" parts, simulating the complex interaction between data and theories in reality - not a binary of true/false, but "some are more reasonable, some become awkward". The public update explanation allows for "retraction", while also requiring evidence and reasons for the retraction. The stakes have been further raised here; peers can observe your "backtracking", but the <strong>teacher will emphasize that science is about repeated revisions, and not revision is suspicious.</strong> At the same time, voting reflects the option that everyone currently considers the most correct (possibly having been persuaded by other groups).</p>
+
+    <!-- 继续后续内容，由于篇幅限制，这里显示核心框架 -->
+    <p><strong>Step 3: Third round of evidence - Intense impact and structural factors (approximately 15 minutes)</strong></p>
+
+    <p><strong>1. Distribute the third round of Book Bits (approximately 3-5 minutes)</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Resource</th><th>The Content Displayed by the Fragments</th><th>Expected Reaction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>就医记录 Medical Record</td><td>因为发烧，乏力，头痛的就诊人数比之前多，但是有一部分人打一针回去却没有很大好转。Due to fever, fatigue, and headache, the number of patients seeking medical treatment has increased compared to before. However, some people received a single injection and did not show significant improvement.</td><td rowspan="2">It made the students somewhat doubtful about whether there was something wrong with the injections, but they remained in the assumption that those people living near the chemical plant would receive more intravenous infusions.</td></tr>
+        <tr><td>A</td><td>医院访谈 Hospital Interview</td><td>化工厂开了以后看病的人变多了，有人来了好几次输液打针，一到秋冬，输液室全是人，医生和护士都累坏了。After the chemical plant was established, the number of patients seeking medical treatment increased. Some people came for multiple infusions and injections. During the autumn and winter seasons, the infusion room was filled with people. The doctors and nurses were all exhausted.</td></tr>
+        <tr><td>B</td><td>村干部生活观察记录 Village Official Life Observation Record</td><td>生活压力变大，很多人打好几份工，累倒了就去卫生室打一针继续干活，有人去了好几次医院。The pressure of life has increased. Many people have multiple jobs. When they fall ill, they go to the health clinic for a shot and continue working. Some have visited the hospital several times.</td><td rowspan="2">They drew the line of "unhealthy lifestyle + psychological stress → frequent medical visits". However, they repeatedly hinted at injections, which raised suspicions.</td></tr>
+        <tr><td>B</td><td>小道消息 Gossip</td><td>听说去医院抽血能赚钱，最近压力太大了要不要去试试。It is said that getting blood tests at the hospital can earn money. Recently, the pressure has been too great. Should we try it?</td></tr>
+        <tr><td>C</td><td>疾控中心 Disease Control Center</td><td>流感频发，部分患者反复高热，甚至就诊后出现慢性病。旁边批注报告要被销毁。Influenza is frequent. Some patients have repeated high fever and even developed chronic diseases after seeking medical treatment. The report to be destroyed has been noted beside the report.</td><td rowspan="2">Emphasizing the repetition and raising a question: Could influenza develop into a chronic disease?</td></tr>
+        <tr><td>C</td><td>学校缺课统计 School Absence Statistics</td><td>有学生请假去打针，结果隔几周又去了。Some students took leave to receive injections. After a few weeks, they went back to school.</td></tr>
+        <tr><td>D</td><td>心理广告 Psychological Advertisement</td><td>呼吁年轻人身体不适时适当休息，保持身体营养，而不是依赖营养针。Call on young people to take proper rest when they are unwell, maintain good nutrition, and not rely on nutritional injections.</td><td rowspan="2">Repeatedly suggested getting injections and also hinted that there might be problems with the doctor's procedures. "Unskilled doctors just randomly prescribe medications."</td></tr>
+        <tr><td>D</td><td>门诊记录 Outpatient Record</td><td>不少人身体没有明显症状，但是医生觉得"打一针就好了"，是不是没有检测条件？Many people have no obvious symptoms, but the doctors think "a shot will do the trick". Is there a lack of testing conditions?</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>2. Group Discussion and Update (approximately 10–12 minutes)</strong></p>
+    <p>Compare with Round 2's explanation, discuss "Should we modify the previous conclusion based on these new pieces of evidence?" Write down the key words and reasoning on paper, then publicly share the new conclusion. Summarize the conclusion in one sentence and have the teacher write it on the blackboard for Round 3.</p>
+
+    <p><strong>3. Design Reasons</strong></p>
+    <p>In the third round, introduce structural and political information, emphasizing Tsai/sensemaking: "<strong>Reality is not just data, but is intertwined with politics, economy, and institutions</strong>." Economic pressure (can draining blood be profitable?), political considerations (suppressing the report), professional limitations (lack of testing capabilities). These factors reflect what Tsai said, that "reality" is "invented" through institutions, narratives, and power: which deaths and diseases are recorded, recognized, and explained, and which are lost outside of statistical figures. Students are once again forced to revise or overturn their previous "single-factor" story, understanding that scientific explanations are often intertwined with political and economic environments.</p>
+
+    <p><strong>Step 4: Fourth round evidence - Incomplete post-event review (approximately 15 minutes)</strong></p>
+
+    <p><strong>1. Distribute the fourth round Book Bits (approximately 3-5 minutes)</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Resource</th><th>The Content Displayed by the Fragments</th><th>Expected Reaction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>A</td><td>患者日记 Patient Diary</td><td>"护士用了两个一样的针管，但是为什么有一个擦了好几遍？""The nurse used two identical syringes, but why did one of them need to be wiped several times?"</td><td>Students might wonder if the syringe was not clean.</td></tr>
+        <tr><td>B</td><td>门诊满意度问卷 Outpatient Satisfaction Questionnaire</td><td>有人提出有些医生不愿意打针只开口服药，但是因为着急工作他找了别的医生打针。Some patients complained that some doctors were reluctant to administer injections and preferred oral medication. However, due to the urgency of work, the patient sought treatment from another doctor.</td><td>Students might wonder why the doctor was reluctant to give the injection.</td></tr>
+        <tr><td>C</td><td>学生回忆 Student Recollection</td><td>医院打针的人太多了，但是护士动作特别快，感觉每个人没几分钟就搞定了。There were too many injections in the hospital, but the nurses were extremely efficient. It felt like everyone was done within a few minutes.</td><td>The misleading choices might lead students to guess that the nurse was too quick and thus the injection was given carelessly, or to maintain the original attitude.</td></tr>
+        <tr><td>D</td><td>采购单 Purchase Order</td><td>一次性医疗器械采购数量比往年多，尤其是注射器，旁边还标注了可能不够的字样。The quantity of disposable medical devices purchased this year was higher than in previous years, especially for syringes. There was also a note beside it indicating that it might not be sufficient.</td><td>What would students do if they guessed that there were not enough syringes?</td></tr>
+      </tbody>
+    </table>
+
+    <p>Hints: All the above are indicative evidence. You can appropriately add some misleading evidence.</p>
+
+    <p><strong>2. Group Summary (Approximately 10–12 minutes)</strong></p>
+    <p>Discuss "Should we modify the previous conclusion based on these new pieces of evidence?", write down the important keywords and reasoning on paper, and this time indicate what you are confident about, as well as any suspicious clues that were not integrated into the final conclusion. Finally, share and determine the conclusion publicly, and the teacher will write it on the blackboard in the Round 4 section.</p>
+
+    <p><strong>3. Design Reasons</strong></p>
+    <p>In the final round, some more crucial information was provided, which could provide some assurance for the previously given clues, allowing students to verify the conclusion. At the same time, this step compared with the original plan, added students' reflection and summary on their doubts about certain clues, which can better help them reflect and think about what is correct. This precisely reflects the core of "pretty good knowledge": we can have a high degree of confidence in certain explanations, while honestly admitting the limitations of data and methods. Let students think about "the cost and impossibility of obtaining more evidence", guiding them to understand the common incomplete information dilemma in real scientific decision-making.</p>
+
+    <p><strong>Step 5: The teacher explains the true reasons and background, and conducts a review and summary (about 20 minutes)</strong></p>
+
+    <p>"You have accomplished a very difficult task. With only fragmented materials and some of the materials being uncertain, you attempted to explain a major event that occurred in the real world. In real historical research, it is like this - you can never obtain 'complete surveillance footage', but you can get closer to the truth through memories, records, statistical tables, and side testimonies. (This part is the dialog design for teacher)</p>
+
+    <p>Today, let's take a look at the actual history that truly took place in China and was very similar to your reasoning, and see what it looked like. Then the teacher explains that all the fragmented clues were exaggerated adaptations based on real events, but the main cause of this health issue was the improper use of needles and syringes, simplified procedures, unsafe procedures, and even the reuse of needles. The four groups initially received clues about the reasons why residents went to the hospital, but due to the excessive number of patients this year, these more serious problems emerged and left deep hidden dangers.</p>
+
+    <ol>
+      <li>The teacher <strong>organizes a class discussion to review the changes in the explanations</strong>. From Round 1 to Round 4, what did your stories become? Which round was the one where you changed the most? Why? Was there a certain moment when you didn't want to give up a certain explanation, but the evidence was just too ugly? Where does the "testability" manifest?</li>
+      <li>The <strong>whole class comments</strong> on which "contradiction conditions" are clear and specific? Which ones are vague or difficult to operate? What does "adequate knowledge" mean in this activity? In the end, did we completely know what happened in Tongli County?</li>
+      <li>Even so, can we still distinguish that some explanations are obviously better, and some explanations are seriously inconsistent with the evidence? Where is the "meaning construction in the invention of reality" reflected? Which voices are louder in the story? (officials, doctors, media, NGOs, villagers) Which voices have been long ignored or suppressed? If certain people have never been recorded, does their pain exist in our 'reality'?</li>
+    </ol>
+
+    <p><strong>4. Design Reasons</strong></p>
+    <p>This step elevates the "messy stories" that students have just experienced to the theoretical language level of Popper / Feinstein & Waddington / Tsai. Focus on "feelings" and "resistance", making students realize that being falsified is not only a logical issue, but also an issue of identity and emotion. <mark>Here, it is also briefly explained that apart from modifying the source of the story, I have also added that different information comes from different classes or identities, which may allow students to more deeply realize that the completeness and authenticity of information science can change depending on the perspective or class. Everyone has their own viewpoints and perceptions.</mark> This is very crucial for understanding the contemporary "post-truth" phenomenon. At the same time, it lays the foundation for Part 2. Students have already connected their activity experience with real public controversies, and in the next section, you can ask them to design "meaning construction activities for the public".</p>
+
+    <h3 id="weaknesses">6. Additional Weaknesses Identified and Addressed</h3>
+    <p>Beyond the four weaknesses specified in the assignment prompt, I also identified several additional limitations of the original Book Bits activity and addressed them in this redesigned plan.</p>
+    <ol>
+      <li><strong>Hidden language burden and unequal participation</strong> — All core clue fragments are provided in Chinese or bilingual format.</li>
+      <li><strong>Ethical sensitivity and emotional relevance of the backstory</strong> — Fictionalized, anonymized composite inspired by documented incidents.</li>
+      <li><strong>Under-specified teacher facilitation</strong> — Concrete teacher moves and sample questions specified throughout.</li>
+      <li><strong>Limited guidance for adaptation</strong> — Explicit timing and flexible group size recommendations.</li>
+      <li><strong>Extreme low participation and discussion collapse</strong> — Addressed through contingency plans.</li>
+    </ol>
+
+    <h3 id="contingency1">7. Contingency Plans for Replication</h3>
+    <p><mark>[Revision added in response to feedback]</mark></p>
+    <p>To make the lesson more replicable in cases of very low participation or uneven group dynamics, the following contingency plans are built in: Think-Write-Pair-Share sequence, rotating micro-roles, forced specificity prompts, anonymous challenge notes, counterevidence intervention, sentence stems, and emotional sensitivity protocols.</p>
+
+    <hr>
+
+    <h2 id="part2">Part 2: Scientific Knowledge in Public Discussion and Policy Negotiation</h2>
+
+    <h3>1. Overall Position and Objectives of Part 2</h3>
+    <p>In Part 1, students, as "research teams", gradually constructed their explanations of the health crisis in the joint county based on fragmented materials, experiencing the formation and repeated revision of scientific knowledge in the face of uncertainty. This class (Part 2) will build on this foundation and bring the same event into a more complex <strong>public discussion and policy negotiation context</strong>: Students are no longer merely "researchers/investigators", but play different social roles (the county government, the hospital, the disease control center, patient families, the media, NGOs, etc.), and <strong>in a simulated public hearing/counseling session,</strong> use the "pretty good knowledge" from Part 1 for negotiation, debate, and decision-making, and reflect: In the real world, how does scientific evidence be selectively understood, narrated, and used to "invent reality" by different stakeholders.</p>
+
+    <h3>2. Learning Objectives</h3>
+    <ol>
+      <li><strong>Scientific understanding and misunderstandings from the perspective of roles</strong></li>
+      <li><strong>The application and abuse of "pretty good knowledge" in public discussions</strong></li>
+      <li><strong>"Inventing reality" and institutional outcomes</strong></li>
+      <li><strong>Communication and argumentation skills at the practical level</strong></li>
+    </ol>
+
+    <h3>3. Classroom Arrangement and Time Allocation (Suggested Total Duration: 90 minutes)</h3>
+    <p>Step 6: Review Part 1 and Introduce New Task (10 min) → Step 7: Role Assignment and Reading of Positional Materials (20 min) → Step 8: Group Preparation for Hearing Session Speech and Strategies (20 min) → Step 9: Simulated Hearing Session (25-30 min) → Step 10: Class Reflection and Theoretical Reiteration (10-15 min).</p>
+
+    <h3>4. Materials Preparation and Character Design</h3>
+    <p><strong>4.1 Basic Materials: Summary of the Investigation Report from Part 1</strong> — A 1-2 page "Preliminary Investigation Report on Health Issues in Union County (Teaching Version)".</p>
+    <p><strong>4.2 Character Cards and Positional Materials</strong> — 5-7 main characters: Union County Government Representative, Union County People's Hospital Representative, Disease Control Center/Public Health Experts, Patient Families Representative, NGO/Public Interest Lawyers Team, Media Representative, Frontline Medical Staff Representative.</p>
+
+    <h3>5. Classroom Procedure and Step Explanation</h3>
+    <h4>Step 6: Review Part 1 and Introduce New Task (Approximately 10 minutes)</h4>
+
+    <p><strong>1. Teacher quickly reviews the key points of Part 1 (Approximately 5 minutes)</strong></p>
+    <p>Using a projector or blackboard, briefly list the general consensus reached by the students from the previous class. Firstly, there are serious risks related to medical care and blood supply in the joint county, with many pieces of evidence pointing to improper injections and blood transfusions as important amplifiers. Besides the previously obtained evidence, there are still many details that remain uncertain - this is exactly "pretty good knowledge".</p>
+    <p>Reiterate the three theoretical anchors: you have repeatedly written down the conditions for falsification and corrected the explanations (Popper), make "adequate" judgments under incomplete evidence (Feinstein & Waddington), and different materials and narratives in "inventing reality" (Tsai / sensemaking).</p>
+
+    <p><strong>2. Introduce the Part 2 scenario and task (Approximately 5 minutes)</strong></p>
+    <p>The teacher explains that "the real world does not stop at 'the researcher finds a relatively reliable explanation'. In events like the joint county, different roles such as the government, hospitals, disease control centers, patient families, NGOs, media, and frontline medical staff will use the same set of evidence to tell different stories, competing for what is considered 'the true reality'.</p>
+    <p>Today, we will simulate such a public hearing / consultation. All parties will present their explanations, demands, and policy suggestions within a limited time based on the 'almost sufficient knowledge' available."</p>
+
+    <h4>Step 7: Role Assignment and Reading of Position Materials (Approximately 20 minutes)</h4>
+
+    <p><strong>1. Grouping and Role Assignment (Approximately 5 minutes)</strong></p>
+    <p>The teacher divides the students into 5-7 groups based on the number of students in the class, with each group consisting of 4-6 people. Each group draws a name or is assigned a role (government, hospital, disease control center, patient family, NGO, media, frontline medical staff, etc.), and the teacher distributes the corresponding role cards and position materials, as well as the "summary of the investigation report" from Part 1.</p>
+
+    <p><strong>2. Silent Reading and Highlighting Key Points within the Group (Approximately 5-7 minutes)</strong></p>
+    <p>Students analyze the issues their role is most concerned about and how they think the role materials use or avoid scientific evidence.</p>
+
+    <p><strong>3. Group Discussion of Role Positions (Approximately 8 minutes)</strong></p>
+    <p>The group shares their findings and discusses the following questions:</p>
+    <ul>
+      <li>"If we were really this role, what result would we most want to achieve at the hearing?"</li>
+      <li>"What do we hope the audience/host will remember us as? (For example: responsible? victim? reform promoter? stabilizing force?)"</li>
+      <li>"How will we utilize the survey report from Part 1? Which parts will we strongly cite? Which parts will we 'lightly touch upon' or even not mention at all?"</li>
+    </ul>
+
+    <h4>Step 8: Prepare the Hearing Statement and Strategy (Approximately 20 minutes)</h4>
+
+    <p><strong>1. Task Explanation (Whole Class, Approximately 3 minutes)</strong></p>
+    <p>Each group should prepare a 3-minute formal statement from the perspective of their role, explaining the causes and responsibilities of the joint county incident, the current and future policy recommendations (including whether, how to compensate, and how to rectify), and expressing their attitude towards the uncertainties in the survey report.</p>
+    <p>At the same time, each group should prepare at least two types of "expected questions" and brief answers, one from the most obvious opposing role and one prepared for possible scientific inquiries from the "host/expert".</p>
+
+    <p><strong>2. Group Preparation (Approximately 15–17 minutes)</strong></p>
+    <p>Divide the group internally, with 1–2 people responsible for organizing the scientific evidence section (which parts of the Part 1 report are used), 1–2 people responsible for designing the main statement logic from the role perspective, 1 person responsible for drafting the key points of the response to the questions, and 1 person responsible for the final statement (if time permits, they can also take turns speaking).</p>
+    <p>The prompts the teacher gives during the inspection can include: "Is your current statement overly emphasizing the conclusion you want and ignoring the unfavorable evidence in the report for you?" "If an ordinary listener only hears your 3-minute statement, would he think that this incident is caused by a single reason? Does this contradict the complex cause picture you derived in Part 1?" "Have you honestly admitted which parts are 'we don't know' or 'the evidence is insufficient'? What are the consequences of acknowledging uncertainty in public discussions?"</p>
+
+    <h4>Step 9: Simulated Hearing (Approximately 25–30 minutes)</h4>
+
+    <p><strong>1. Setting of the hearing scene (the entire class, approximately 3 minutes)</strong></p>
+    <p>The teacher acts as the hearing chairperson (also the convener of the expert group) and announces to the entire class: "Today, we are holding an open hearing in the provincial health department. We have invited representatives from the joint county government, hospitals, disease control centers, patient families, NGOs, media, and frontline medical staff. The goal of this hearing is to as accurately as possible restore the process and causes of the health crisis in the joint county, listen to the opinions of all parties on responsibility division and compensation plans, and provide references for future institutional reforms and prevention measures.</p>
+    <p>Please help us understand during your statements, how do you view the existing scientific evidence? In the case of incomplete evidence, how do you determine what is an 'adequate' action plan?"</p>
+
+    <p><strong>2. Sequence of statements and time control (approximately 15–18 minutes)</strong></p>
+    <p>Each group will make a 3-minute statement in the predetermined order (the teacher can adjust the order appropriately, for example, having the government and patient families present one after another): County government representative, representative from the joint county hospital, representative from the disease control center, representative from the patient family, NGO / public interest lawyer, media representative, representative from frontline medical staff (if any).</p>
+    <p>The teacher times the statements and can give a reminder 30 seconds before the end. (If time is tight, each group's statement can be compressed to 2 minutes, and the questioning session can be slightly combined.)</p>
+
+    <p><strong>3. Brief mutual questioning and chairperson's follow-up (approximately 10–12 minutes)</strong></p>
+    <p>After every two or three groups make their statements, the teacher can open a 2–3 minutes questioning period, with questioning methods including:</p>
+    <ol>
+      <li>A specific opposing role asks a question to the just-stated role (for example: NGO asks the county government, patient family asks the hospital).</li>
+      <li>The teacher, as the chairperson, raises questions about "scientificity" and "responsibility framework", for example:
+        <ul>
+          <li>"During your repeated emphasis on 'air pollution' and 'lifestyle', but in the investigation report, a considerable proportion of patients are not near factories and do not have obvious bad living habits. How do you explain this?" (possibly about the common people)</li>
+          <li>"Your claim is 'the evidence is not sufficient, it is not appropriate to talk about compensation' at that time, then how do you plan to handle cases that have been diagnosed and are highly likely related to medical operations?" (possibly about the media)</li>
+          <li>"Your references to certain data, but it seems to ignore the 'reused needles' and 'abnormal blood collection and supply records' mentioned in the report. What is the reason for this?" (this might be about the hospital or the government)</li>
+        </ul>
+      </li>
+    </ol>
+    <p>The teacher deliberately allows students to experience the different positions of the same evidence in different narratives at the questioning moment, "uncertainty" can be both an honest scientific attitude towards reality, or can be mobilized as a tool to delay or shift responsibility.</p>
+
+    <h4>Step 10: Class reflection and theoretical connection (approximately 10–15 minutes)</h4>
+
+    <p><strong>1. Individual writing without the role (approximately 3–4 minutes)</strong></p>
+    <p>The teacher asks students to first "drop the role" and briefly answer the following questions as their own identities:</p>
+    <ul>
+      <li>"As the role you just played in the hearing, what trade-offs or 'selective omissions' did you have to make?"</li>
+      <li>"At which moment did you clearly feel: 'If facing the scientific evidence honestly, my position would be more difficult to maintain'?"</li>
+      <li>"If you were an ordinary public, only looking at today's hearing, which statement would you be persuaded by? Why?"</li>
+    </ul>
+
+    <p><strong>2. Class discussion and theoretical connection (approximately 7–10 minutes)</strong></p>
+    
+    <p><strong>Feinstein & Waddington: pretty good knowledge</strong></p>
+    <p>"In the hearing, which speakers were trying to use 'almost adequate knowledge' to drive practical actions? How did they admit uncertainty?" "Who, on the other hand, uses 'incomplete evidence' to prevent actions or blur responsibility?"</p>
+    <p>The teacher concludes that public health decisions are rarely based on 'perfect knowledge' but rather seek a balance between 'adequacy' and 'acceptable risk'.</p>
+
+    <p><strong>Tsai / sensemaking: inventing reality</strong></p>
+    <p>"During today's hearing, which versions of the story gained the upper hand? Which groups' experiences were relatively silent?"</p>
+    <p>"If the final official summary report only records certain voices, what kind of 'combined county' would be 'invented' in the historical record?"</p>
+    <p>The teacher concludes that reality is not simply 'discovered', but is constantly 'invented' and fixed through hearings, media reports, court judgments, policy texts, etc. Those excluded from these processes have their pain excluded from the 'official reality'.</p>
+
+    <p><strong>Popper: Falsifiability and Public Discussion</strong></p>
+    <p>The teacher asks, "At the hearing, was there any party willing to say 'if any future evidence emerges, we will admit our mistakes'?" "If not, what is the difference compared to the conditions for falsification you were asked to write in Part 1?"</p>
+    <p>This leads to the possibility of encouraging a Popperian attitude of falsifiability in the classroom and scientific papers, but in real political and legal games, accepting something that can be overturned often means taking on huge responsibilities. This is why 'science' in public discussions presents a different appearance from textbooks.</p>
+
+    <p><strong>3. Summary and Further Extension (about 2–3 minutes)</strong></p>
+    <p>The teacher concludes: "In these two lessons, we moved from 'struggling to construct explanations in the midst of fragmented evidence' (Part 1), to 'contending in public hearings which explanations can be written into reality' (Part 2).</p>
+    <p>These summaries mainly aim to convey the hope that students understand that science is not a collection of stable correct conclusions, but a practice of speaking with evidence in uncertainty. Even 'adequate enough knowledge', in the real world, also needs to be translated into the game of interests, emotions, and power, as future citizens, professionals, and even policy makers, you need to learn to distinguish when 'uncertainty' is real and honest, and when 'uncertainty' is used as a strategy."</p>
+
+    <h3>6. Design Rationale</h3>
+    <p>Continuity with Part 1; Feinstein & Waddington: The Social Use of "Pretty Good Knowledge"; Tsai / sensemaking: inventing reality; Popper: The Tension between the Ideal of Falsifiability and the Reality Game; How the Three Theories Work Across Part 2.</p>
+
+    <h3>7. Revised Reflection Design for "Pretty Good Knowledge"</h3>
+    <p><mark>[Revision added in response to feedback]</mark> — In this final reflection, the goal is <strong>not</strong> to suggest that fully rational participants would eventually converge on one optimal conclusion. Instead, students are asked to examine what kinds of judgments remain possible and responsible when evidence is incomplete, institutions are unequal, and stakes are high.</p>
+
+    <h3>8. Contingency Plans for Part 2</h3>
+    <p>If role-play energy is low; If statements are too generic; If questioning is weak; If only confident students speak; If the class drifts toward treating one actor as simply "the villain".</p>
+
+    <hr>
+
+    <h2 id="overview">Overview: How This Plan Improves the Original "Book Bits" Activity</h2>
+    
+    <p>This lesson plan is a substantial adaptation of the original "Book Bits" activity provided on Moodle. It preserves the core structure of the activity—multi‑round exposure to incomplete, fragmented evidence, group‑based hypothesis building, and collective comparison of explanations—while systematically revising the context, rationale, and stakes to address the four identified weaknesses.</p>
+    
+    <p>First, the plan defines a concrete teaching context: an undergraduate course titled "Science, Society and Public Discussion," taught in English to Mainland Chinese students who have personally experienced the COVID‑19 pandemic. Their lived experiences of changing expert advice, conflicting media narratives, and public controversy about health measures directly inform both the choice of content and the pedagogical design (addressing Weakness #1).</p>
+    
+    <p>Second, the backstory is replaced. Rather than a remote archaeological book or the historically and geographically distant Kowloon Walled City, the activity now centers on a fictionalized, ethically adapted public health crisis in a county (addressing Weakness #4).</p>
+    
+    <p>Third, the plan explicitly raises students' epistemic and social stakes. In every round, groups must publicly state their current explanation on a "Gallery of Explanations," and write down concrete falsification conditions (addressing Weakness #3).</p>
+    
+    <p>Finally, the philosophical and pedagogical rationale is made explicit and grounded in scholarly literature—Popper, Feinstein & Waddington, and Tsai (addressing Weakness #2).</p>
+    
+    <p>Part 2 extends the activity into a simulated public hearing, where students adopt different social roles and mobilize the "pretty good knowledge" from Part 1 in negotiation and policy discourse. Together, the two parts form a coherent experience of science as falsifiable, provisional, and socially situated.</p>
+
+    <p><strong>References</strong></p>
+    <p>Wikipedia contributors. (2026, January 19). HIV/AIDS in China. In <em>Wikipedia, The Free Encyclopedia</em>. And the 3 articles provided on Moodle website from Feinstein & Waddington, Popper and Tsai.</p>
+
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="placeholder-note">
+    <span>📝 Content from pset3.docx · Full course project document · Download the Word file to view all details</span>
+  </div>
+
+</div>
+</body>
+</html>
