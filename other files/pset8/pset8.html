@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 8 · Who Are We? - Introducing Earth to Aliens</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #8dafb2 0%, #a7c2c3 50%, #c1d6d6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.8rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .text-content h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    .text-content blockquote {
+      border-left: 4px solid #a7c2c3;
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      color: #5a4a3e;
+      font-style: italic;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    .placeholder-note {
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    .appendix-note {
+      background: rgba(200, 190, 185, 0.2);
+      border: 1px dashed #a7c2c3;
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>🪐 PSet 8 · Who Are We?</h1>
+  <p style="color: #6a5a4e; margin-bottom: 1rem; font-size: 1.1rem;"><strong>Session 1: Introducing Earth and Ourselves to Aliens</strong></p>
+
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">🪐</span>
+      <span class="doc-meta"><strong>Class Design</strong> · Astrosociology Summer Camp</span>
+    </div>
+    <a href="pset8.docx" class="download-btn" download>
+      <span>📥</span> Download the revised Word document
+    </a>
+  </div>
+
+  <div class="toc">
+    <h2>📑 Content</h2>
+    <ul>
+      <li><a href="#info">1. Course Basic Information</a></li>
+      <li><a href="#context">2. Teaching Context and Target Students</a></li>
+      <li><a href="#design">3. Course Design Concept and Lesson Rationale</a></li>
+      <li><a href="#lo">4. Learning Outcomes</a></li>
+      <li><a href="#materials">5. Teaching Materials</a></li>
+      <li><a href="#procedure">6. Classroom Procedure and Time Schedule</a></li>
+      <li><a href="#assessment">7. Assessment</a></li>
+      <li><a href="#differentiation">8. Differentiation</a></li>
+      <li><a href="#homework">9. Homework / Extension</a></li>
+      <li><a href="#references">10. References</a></li>
+      <li><a href="#appendix">Appendix</a></li>
+    </ul>
+  </div>
+
+  <div class="text-content">
+    
+    <h2 id="info">1. Course Basic Information</h2>
+    <p><strong>Course Name:</strong> Session 1: Who Are We? - Introducing Earth and Ourselves to Aliens</p>
+    <p><strong>Course Module:</strong> Summer Camp / STEM Across Curriculum / Astro Sociology</p>
+    <p><strong>Target Audience:</strong> Middle school upper grades to high school students (approximately 12–17 years old)</p>
+    <p><strong>Class Duration:</strong> 90 minutes</p>
+    <p><strong>Course Type:</strong> Icebreaker + Cross-disciplinary Inquiry + Creative Expression Course</p>
+    <p><strong>Teaching Language:</strong> Mainly English, with optional bilingual keywords in Chinese and English</p>
+
+    <h2 id="context">2. Teaching Context and Target Students</h2>
+
+    <h3>2.1 Teaching Context</h3>
+    <p>This course design is intended for a summer camp, interdisciplinary thematic course, or extended learning program centered on the concept of "Science and Society". The course does not view science as a static, closed set of facts exclusively mastered by experts. Instead, it emphasizes that scientific knowledge is closely related to social life, cultural expression, and value judgments. In this context, students are not only recipients of knowledge but can also be organizers, interpreters and disseminators of knowledge. The understanding of the universe, the earth and humanity is not only a domain of natural science, but also a common area for social sciences, humanities and civic education.</p>
+    <p>This class is the opening course of the entire summer camp. It not only serves the function of "breaking the ice", but also undertakes the important tasks of establishing the course theme, constructing identity awareness, and opening up a cosmic perspective.</p>
+    <p>The core task of this class is driven by the scenario of "If aliens ask: Who are you? What is Earth? How should we introduce ourselves?" This issue, on the surface, is an interesting imaginative task, but in reality it connects multiple levels of learning:</p>
+    <ol>
+      <li><strong>Scientific aspect:</strong> The position of the Earth in the universe, the basic characteristics of human beings as living beings, the methods of scientific communication.</li>
+      <li><strong>Social aspect:</strong> Culture, values, group identity, global citizenship consciousness.</li>
+      <li><strong>Language and communication aspect:</strong> How to organize information and make expression choices for unfamiliar audiences.</li>
+      <li><strong>Creative aspect:</strong> How to represent humans through images, symbols, models and stories.</li>
+      <li><strong>Reflective aspect:</strong> How do we understand ourselves? What should be said? What is often overlooked?</li>
+    </ol>
+    <p>Unlike traditional self-introductions, this class uses this question to guide students to shift from individual self-introductions to thinking about how the entire human race can express itself. Therefore, this class serves as the emotional and ideological starting point of the summer camp.</p>
+
+    <h3>2.2 Target Students</h3>
+    <p>This course is designed for students in the upper grades of junior high school to high school. The recommended age range is approximately twelve to seventeen years old. At this stage, students usually have a strong interest in topics such as space, aliens, the universe, and future society, and are generally willing to participate in interactive and highly creative classroom activities with ample room for self-expression.</p>
+    <p>In terms of knowledge acquisition, students already possess a certain foundation of scientific knowledge and daily social experience. However, due to the fragmented nature of school education, they have received less explicit interdisciplinary integration training. Students' thinking about "who I am" usually remains at the level of personal identity and individual experience, and they rarely have the opportunity to examine this from the perspective of the Earth community, the cosmic scale, or cultural comparison. This precisely provides an important cognitive development space for this lesson.</p>
+    <p>Therefore, the design of this lesson needs to take into account the needs of multiple aspects simultaneously. Firstly, the entry point must be low enough to ensure all students can quickly participate. Secondly, the course tasks should be highly open, allowing students of different abilities and expression styles to demonstrate their understanding in diverse ways. Thirdly, the course should consciously promote interdisciplinary integration. Finally, as the opening lesson, this lesson also needs to particularly focus on establishing emotional security.</p>
+
+    <h3>2.3 The Improvement of this Re-design Compared to the Course Template</h3>
+    <p><strong>First, the concept description has evolved into an actionable classroom procedure.</strong> This re-design further implements these goals within the specific 90-minute teaching structure.</p>
+    <p><strong>Second, the task becomes one that involves a learning process with scaffolding support.</strong> This redesign provides clearer task support for students of different ability levels through materials such as case comparison tables, keyword support sheets, group task sheets, peer feedback sheets, and exit slips.</p>
+    <p><strong>Thirdly, the activities evolve from participation to observable and evaluable learning outcomes.</strong> This re-design incorporates formative evaluation criteria corresponding to learning objectives, classroom observation forms, and presentation feedback mechanisms.</p>
+    <p><strong>Fourth, it has evolved from a general "interesting opening" to a more specific introductory course in astrosociology.</strong> This redesign places particular emphasis on questions such as "Who can speak on behalf of humanity?" "Are scientific facts sufficient to represent humanity?" "Can alien audiences understand our expressions?"</p>
+
+    <h2 id="design">3. Course Design Concept and Lesson Rationale</h2>
+
+    <h3>3.1 Design Concept</h3>
+    <p>Through an imaginative inter-civilization communication task, students can re-examine the question "Who are we?" at the intersection of science, society and humanities. This class adopts the task of "introducing Earth and humans to aliens", not only because it is interesting, but also because it naturally requires students to cross disciplinary boundaries.</p>
+
+    <h3>3.2 Explanation of "Scientific Identity"</h3>
+    <p>In this lesson, the concept of "scientific identity" does not merely refer to students' acquisition of certain factual knowledge about the Earth and the universe; rather, it indicates that students begin to realize that they can participate in the construction, interpretation and dissemination of scientific meanings. When students attempt to decide "which information is worth telling to aliens", they are actually playing the roles of knowledge organizers and disseminators, rather than just passive recipients.</p>
+
+    <h3>3.3 The Innovative Points</h3>
+    <p><strong>3.3.1 Reconstruct the ordinary ice-breaking activities into cross-civilization communication tasks.</strong> The students' communication targets shift from familiar peers to completely unfamiliar audiences from other civilizations, and the thinking tasks also change from simple narration to purposeful information selection and communication design.</p>
+    <p><strong>3.3.2 Integrate the integration of scientific knowledge and social cultural expression within the same task.</strong> This class requires students to consider not only the location of the Earth, the characteristics of human beings, daily lifestyles, cultural differences, common values, and future hopes.</p>
+    <p><strong>3.3.3 Support imaginative tasks with real historical cases.</strong> The course introduces three real cases: the Pioneer Memorial Plaque, the Arecibo Message, and the Voyager Golden Record. These examples enable students to realize that introducing humanity to outer space is not purely fictional.</p>
+    <p><strong>3.3.4 Redefine the introductory course as the process of constructing one's worldview.</strong> This class helps students temporarily step away from their daily life perspective and start to re-understand themselves from the perspectives of "the entire earth", "human civilization", and "us in the universe".</p>
+
+    <h3>3.4 The Connection with Astrosociology</h3>
+    <p>This class is highly consistent with the core focus of astrosociology. Astrosociology not only focuses on the natural scientific knowledge of outer space itself, but also pays attention to how humans understand society, culture, identity, communication, governance and the imagination of civilization from the perspective of space (Pass & Harrison, 2016). The "universe" in this lesson is not merely a scientific background, but rather a perspective that reorganizes social imagination and human self-understanding. What the students do in this class is not just a creative activity, but rather a typical astrosociological inquiry, that is, rethinking human society and human identity from the perspective of outer space (Treviño, 2018).</p>
+
+    <h3>3.5 The Connection with Subsequent Courses</h3>
+    <p>This class is not only the opening course of the summer camp, but also provides a common problem awareness for the subsequent various themes. The communication theme will further extend to how we can convey information to others. The international governance and simulated UN theme will advance our understanding from who we are to how we make joint decisions. Themes such as Mars migration will further inquire about what values we should carry when designing a new society.</p>
+
+    <h2 id="lo">4. Learning Outcomes</h2>
+    <p><strong>LO1: Develop a preliminary perspective on the universe and a sense of belonging to the Earth community.</strong> It is possible to describe the Earth and humanity on a cosmic scale, understand the Earth's position in the universe, and realize that one is not only an individual member but also part of a shared human community on the Earth.</p>
+    <p><strong>LO2: Understand the dual significance of scientific information and social cultural information in cross-cultural communication.</strong> It can be pointed out that when introducing humans to a foreign civilization, both scientific facts and cultural, value, emotional and social information are required.</p>
+    <p><strong>LO3: Design communication for specific audiences.</strong> It is possible to gather and organize information related to aliens, and design a clear, concise and purposeful introduction.</p>
+    <p><strong>LO4: Achieve creative works through collaboration.</strong></p>
+    <p><strong>LO5: Critical reflection on the value choices and representative issues behind the question "Who are we?"</strong></p>
+
+    <h2 id="materials">5. Teaching Materials</h2>
+
+    <h3>5.1 Teacher's Materials</h3>
+    <p>Teachers should prepare course PPTs, pictures or short videos comparing the scales of the Earth and the universe, as well as concise introduction materials about the Arecibo information, the Pioneer Memorial Marker, and the Voyager Golden Record. The case materials should cover background, conveyed content, expression form and limitations, and should be simplified to suit the understanding level of middle school students. The classroom also needs to be equipped with a whiteboard or blackboard, projection equipment and a timer.</p>
+
+    <h3>5.2 Students' Materials</h3>
+    <p>In terms of construction materials, each group is provided with LEGO blocks or other alternative building materials. The flat creation materials include A3 newsprint or drawing paper, as well as colored pens, markers, scissors and glue. There are a total of six written support materials: Attachment A Case Comparison Table, Attachment B Group Task Sheet, Attachment C Exit Slip, Attachment D Keyword Support Sheet, Attachment E Peer Feedback Sheet, and Attachment F Teacher Observation Sheet.</p>
+
+    <h3>5.3 Optional Materials</h3>
+    <p>Earth, astronauts, galaxies, printed pictures of various cultural activities, tablets/phones (used for taking photos of the works), and group presentation labels.</p>
+
+    <h3>5.4 Design Description</h3>
+    <p>The material design for this lesson adheres to the principle of low entry barriers and high expression levels. Visual materials such as building blocks, posters, and symbol diagrams can lower the language barrier and enable students with different expression styles to participate in the task. Among them, LEGO or other construction materials are not merely for increasing interest, but serve the design goals of this lesson. Compared with pure oral expression or paper-and-pencil writing, three-dimensional building can reduce students' language anxiety and enable abstract concepts to be expressed through structure, color, spatial relationships, and symbolic symbols.</p>
+
+    <h2 id="procedure">6. Classroom Procedure and Time Schedule (90 minutes)</h2>
+
+    <h3>6.1 Classroom Flowchart Overview</h3>
+
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Time /mins</th><th>Part</th><th>Teacher Activity</th><th>Students Activity</th><th>Matched LO</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>5</td><td>Import</td><td>Introduce the course topic and the core issues.</td><td>Enter the situation and understand the task direction.</td><td>LO1, LO5</td></tr>
+        <tr><td>1</td><td>10</td><td>Ice Breaking</td><td>Have the students introduce themselves using three words.</td><td>Introduce themselves using three words.</td><td>LO4, LO5</td></tr>
+        <tr><td>2</td><td>12</td><td>Universe Observation</td><td>Present images of the cosmic scale and facilitate discussions.</td><td>Observe, respond, and reflect on the commonalities between the Earth and humanity.</td><td>LO1</td></tr>
+        <tr><td>3</td><td>18</td><td>Case Comparison</td><td>Introduce three cases of humans transmitting information to outer space.</td><td>The group compares the cases and fills in the table.</td><td>LO2, LO3</td></tr>
+        <tr><td>4</td><td>10</td><td>Framework Description</td><td>Explaining the four levels of human beings.</td><td>Record the framework and prepare to start the creation process.</td><td>LO2, LO3</td></tr>
+        <tr><td>5</td><td>25</td><td>Group Mission</td><td>Issue task lists, conduct inspections and guidance, and inquire further.</td><td>Collaborate on creating the poster and prepare for the presentation.</td><td>LO2, LO3, LO4</td></tr>
+        <tr><td>6</td><td>10</td><td>Display and Share</td><td>Organize each group to present and guide the responses.</td><td>Display the works, listen and ask questions.</td><td>LO3, LO4</td></tr>
+        <tr><td>7</td><td>10</td><td>Reflection</td><td>Lead the whole class in reflection and assign the task cards.</td><td>Participate in the discussion and complete personal reflection.</td><td>LO5</td></tr>
+      </tbody>
+    </table>
+
+    <h3>6.2 Classroom Procedure and Time Allocation</h3>
+
+    <h4>Step 0: Introduction (approximately 5 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> The teacher briefly introduced the topic of the lesson and posed the core question: "Today in this class, we are going to attempt to do something that seems simple but is actually quite complex: If aliens asked us, 'Who are you? What is Earth?' how would we respond?" The teacher explained that this class is not about finding the sole answer, but rather about thinking together: What information truly represents Earth and humanity.</p>
+    <p><strong>Student Activities:</strong> Listen to the teacher's introduction, enter the problem context of the course.</p>
+    <p><strong>Design Rationale:</strong> This introduction helps to quickly establish the learning atmosphere of the course and enables students to realize that this class combines both imagination and critical thinking.</p>
+
+    <h4>Step 1: Ice-breaking Activity - Introduce Yourself in Three Words (Approximately 10 Minutes)</h4>
+    <p><strong>Teacher Activity:</strong> Ask the students to introduce themselves using three words: one to describe themselves, one to describe something they like, and one to describe their place/culture/identity. First, have them share in pairs or small groups, and then invite some students to speak to the whole class. The teacher then asks: "If an alien met you today, what kind of human would it recognize from you?"</p>
+    <p><strong>Student Activities:</strong> Introduce yourself using three words, listen to your peers' sharing, and initially consider how an individual can represent the whole.</p>
+    <p><strong>Design Rationale:</strong> This activity is characterized by low risk and high participation, making it suitable for breaking the ice. At the same time, it helps students make the first cognitive leap from their individual identities to that of representatives of humanity.</p>
+
+    <h4>Step 2: Establishing the cosmic perspective - Where are we? (Approximately 12 minutes)</h4>
+    <p><strong>Teacher Activity:</strong> The teacher plays a video of the universe scale or shows a set of pictures, with the content gradually zooming out from the human body, the Earth, the solar system, to the Milky Way. Then the teacher poses the following questions: (1) When you look at the Earth from space, what do you think of first? (2) At such a scale, are national boundaries still important? (3) If aliens see the Earth from a great distance, what kind of planet would it see? The teacher writes the key words of the students' answers on the blackboard, such as "one planet", "fragile", "shared home", "human".</p>
+    <p><strong>Student Activities:</strong> Watch the videos, answer the questions and participate in the discussions, and record your own feelings and thoughts.</p>
+    <p><strong>Design Rationale:</strong> This part helps students establish an overview effect perspective of the universe, enabling this lesson not only to remain focused on "interesting creation", but to truly shift towards thinking about the entirety of the Earth and humanity as a whole. This part draws on the overview effect often mentioned by astronauts: when people look back at the Earth from space, they tend to more strongly perceive the overallness, fragility, and interconnection of human destinies of the Earth (White, 2014).</p>
+
+    <h4>Step 3: Case Input - How did humans introduce themselves to outer space? (Approximately 18 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> The teacher first introduced three real cases: the Pioneer Memorial Medal, the Arecibo Information, and the Voyager Golden Record. Then, the teacher distributed Attachment A, "Case Comparison Table", and asked the students to discuss in groups: (1) What information was mainly conveyed in this case? (2) Is it more inclined towards scientific facts or cultural expression? (3) What was the most successful aspect of this case? (4) What might be difficult for aliens to understand?</p>
+    <p><strong>Student Activities:</strong> Read the case summaries, the group will complete the comparison table and prepare for a brief presentation.</p>
+    <p><strong>Design Rationale:</strong> Introducing real-life cases can prevent the classroom from becoming a completely unrealistic fantasy. Students will realize that such problems have actually existed in human history, and each expression choice reflects humanity's understanding of itself. By including the question of who is speaking on behalf of humanity, students further realize that any act of representing the Earth is not completely neutral; it involves choices, positions, and possible omissions.</p>
+
+    <h4>Step 4: Presentation Framework - Four-level Self-introduction Structure (Approximately 10 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> The teacher then explained and introduced the four-layer framework of "Earth and Humanity". The first layer is <strong>scientific facts</strong>, including the position of the Earth in the universe and the basic characteristics of human beings as living beings. The second layer is <strong>daily life</strong>, covering how humans live, learn, work, play and feel. The third layer is <strong>culture and values</strong>, encompassing what humans value, what they create, and how they organize society. The fourth layer is <strong>hope for the future</strong>, focusing on what kind of civilization humans aspire to become and what desires they want to convey to other civilizations. The teacher emphasized that good expression should seek a balance among the four layers. The teacher also reminded students that the four-layer framework does not mean that only the positive aspects of humanity can be presented. War, conflict, inequality, misunderstanding and vulnerability are also important components of human society.</p>
+    <p><strong>Student Activities:</strong> Record the framework, understand its application through case studies, and prepare for the group's creation.</p>
+    <p><strong>Design Rationale:</strong> The four-layer framework provides an operational scaffold for the open tasks, which is particularly helpful for students in the middle layer and those with weaker expression skills to better engage with the tasks.</p>
+
+    <h4>Step 5: Core task - Designing "An Introduction to Earth for Aliens" (approximately 25 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> The teacher distributes Attachment B, "Information Design Sheet for Aliens", and explains the task requirements. Each group is required to create a visual work, which can be in the form of a LEGO model, a poster, a collage, a symbol diagram, or a schematic design, and they must prepare a one to two minute oral presentation. The content must include at least one scientific fact, at least one social or cultural information, and at least one value or future hope. During the presentation, the group also needs to briefly explain the reasons for their choice of information, explain why these contents are worthy of representing humanity, and what contents were intentionally omitted. The teacher guides students to deepen their thinking by asking questions during the inspection process, such as asking why you think this information is the most important or if this symbol could be understood by aliens if shown to them.</p>
+    <p><strong>Student Activities:</strong> The team worked collaboratively to complete the design of the work and organize the presentation content.</p>
+    <p><strong>Design Rationale:</strong> Compared with the original group video presentation, this re-designed version adopts a more flexible form of visual works. Visual and constructivist expressions are more suitable for the limited class time of the first lesson, allowing students to focus on information selection and meaning organization. Diverse expression forms can lower the participation threshold and take into account the different expression preferences of different students. This part is the core of the entire lesson, requiring students to make real choices among science, culture, values and expression methods.</p>
+
+    <h4>Step 6: Group Presentation and Sharing (approximately 10 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> Each group should give a 1-2 minute presentation. Encourage other groups to respond using the following sentence patterns: (1) "I noticed that you particularly emphasized..." (2) "I think the most interesting aspect of your design is..." (3) "I would like to ask..." The teacher should record the frequently used key words of each group on the blackboard and guide the students to compare the main points of different groups.</p>
+    <p><strong>Student Activities:</strong> Present your work, listen to the presentations of other groups, ask questions and respond.</p>
+    <p><strong>Design Rationale:</strong> The presentation and comparison enable students to realize that human self-introductions are not inherently uniform but are the result of different value choices.</p>
+
+    <h4>Step 7: Reflection and Summary with Outlining (about 10 minutes)</h4>
+    <p><strong>Teacher Activities:</strong> The teacher organized a class discussion: (1) What did many groups say today? (2) Which contents are common? Which contents rarely appear? (3) Are scientific facts sufficient to represent humanity? (4) If you could only say one sentence to an alien, what would it be? Finally, a summary was given: "From the perspective of the universe, we first share the same planet; but as humans, we have culture, emotions, conflicts, creation and hope. Introducing the Earth is actually a re-understanding of ourselves." Then, the attachment C "Exit Permit" was distributed.</p>
+    <p><strong>Student Activities:</strong> Participate in the discussion and complete personal reflection.</p>
+    <p><strong>Design Rationale:</strong> This conclusion shifts the classroom from creation to reflection, from activities to concepts, and from what was done to the significance of why it was done.</p>
+
+    <h2 id="assessment">7. Assessment</h2>
+    <p>This class adopts formative assessment. It does not emphasize a single correct answer, but rather highlights students' demonstrated understanding, participation, integration ability, and depth of reflection during the process. The focus of the assessment is not on whether students provide "correct answers", but on whether they can demonstrate interdisciplinary integration, audience awareness, cooperative expression, and critical understanding of the act of "speaking on behalf of humanity" in the task.</p>
+    <p><strong>Evaluation Criteria:</strong> (1) Participation in the group discussion; (2) Completion of the case comparison table; (3) Content and structure of the group project; (4) Clarity and relevance of the oral presentation; (5) Quality of reflection in the individual statement card.</p>
+
+    <table>
+      <thead>
+        <tr><th>Evaluation dimension</th><th>LO</th><th>Excellent</th><th>Good</th><th>Developing</th><th>To be improve</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cosmic Perspective and Scientific Understanding</td>
+          <td>LO1</td>
+          <td>Be able to present the position and significance of the Earth and humanity in the universe in an accurate, clear and thoughtful manner.</td>
+          <td>Can describe the Earth and humanity in a clear manner and incorporate basic scientific information.</td>
+          <td>It contains some scientific information, but it is rather scattered or superficial.</td>
+          <td>There is almost no manifestation of a cosmic perspective or scientific understanding.</td>
+        </tr>
+        <tr>
+          <td>Integration of Science and Society</td>
+          <td>LO2</td>
+          <td>Can balance scientific facts with culture, values, and social information, and the content is complete.</td>
+          <td>It contains both types of information, but the integration is not yet sufficient.</td>
+          <td>Only one of the two types is covered in sufficient detail, while the other is covered less comprehensively.</td>
+          <td>The content is simple and lacks interdisciplinary integration.</td>
+        </tr>
+        <tr>
+          <td>Communication design and clarity of expression</td>
+          <td>LO3</td>
+          <td>The information is organized clearly, with the alien audience in mind and the expression purposeful.</td>
+          <td>The information is relatively clear and the main consideration is the audience.</td>
+          <td>The expression is clear, but the logic or purpose is not sufficiently explicit.</td>
+          <td>Expression is unclear and lacks audience awareness.</td>
+        </tr>
+        <tr>
+          <td>Cooperation and Creative Expression</td>
+          <td>LO4</td>
+          <td>The group cooperation was smooth, and the work was creative, highly symbolic, and well-structured.</td>
+          <td>The cooperation was good and the work was complete.</td>
+          <td>There is some cooperation, but the works are relatively simple or the division of labor is not clear.</td>
+          <td>The cooperation was limited and the quality of the work was relatively low.</td>
+        </tr>
+        <tr>
+          <td>Reflection on depth and value consciousness</td>
+          <td>LO5</td>
+          <td>Be able to deeply reflect on the underlying value choices and significance behind the question of "how to introduce human beings".</td>
+          <td>There is a clear reflection, and it can express one's own understanding.</td>
+          <td>There is reflection, but it is more superficial.</td>
+          <td>There was almost no reflection or it was merely a simple repetition.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="differentiation">8. Differentiation</h2>
+
+    <h3>8.1 For students who require more support</h3>
+    <p>Teachers can provide sentence scaffolds, such as "The earth is...", "Humans will...", "We hope aliens know...", etc. as the opening sentences, along with a keyword bank and image support. Such students should be allowed to demonstrate their understanding more through visual creation or keyword organization, rather than being forced to make long oral presentations. When grouping, heterogeneous groups should be arranged so that they can gain more confidence in participation with the support and collaboration of their peers.</p>
+
+    <h3>8.2 For students with strong abilities</h3>
+    <p>Teachers should encourage students to think about more complex and open-ended questions, such as whether we should tell aliens about human wars, conflicts and inequalities, how aliens might misunderstand our cultural symbols, and whether there truly exists a unified self-introduction for humanity. These students are required to not only present the content of the work but also explain the reasons behind their choices and selections of information in the presentation.</p>
+
+    <h3>8.3 For students who are more reserved or have weaker language skills</h3>
+    <p>Teachers can guide students to take on roles such as drawing, building, recording or organizing posters in the group. During the class-wide presentation session, allow them to only be responsible for explaining part of the content. It is recommended to conduct presentation practice within the group first, then make a brief speech to the whole class, gradually building up their confidence in expression.</p>
+
+    <h2 id="homework">9. Homework / Extension</h2>
+    <p>The after-class extension offers three optional directions:</p>
+    <p><strong>Option one: Personal reflection writing.</strong> Students are required to answer: "If you could send just one sentence from Earth to aliens, what would you say? And why?" The suggested length is 150 to 200 words.</p>
+    <p><strong>Option two: Case re-design.</strong> Students can choose one from the Pioneer Memorial Marker, Arecibo Message, or Voyager Golden Record, analyze its most successful aspects and possible omissions, and propose a modern redesign.</p>
+    <p><strong>Option three: Creative expression.</strong> Students can choose to complete any one task, such as designing a "postcard from Earth", recording a 30-second "voice from Earth", designing a poster titled "We Are Earth", or creating an image of "humans as seen by aliens".</p>
+
+    <h2 id="references">10. References</h2>
+    <p>Pass, J., & Harrison, A. A. (2016). Astrosociology (Social Science of Space Exploration). In W. S. Bainbridge & M. C. Roco (Eds.), <em>Handbook of Science and Technology Convergence</em> (pp. 545–558). Springer.</p>
+    <p>Treviño, A. J. (2018). Astrosociology: Social problems on Earth and in outer space. In A. J. Treviño (Ed.), <em>The Cambridge Handbook of Social Problems</em> (Vol. 1, pp. 137–156). Cambridge University Press.</p>
+    <p>White, F. (2014). <em>The Overview Effect: Space Exploration and Human Evolution</em> (3rd ed.). American Institute of Aeronautics and Astronautics.</p>
+
+    <hr>
+
+    <h2 id="appendix">Appendix</h2>
+
+    <div class="appendix-note">
+      <strong>📎 Please refer to the source file pset8.docx for the detailed templates in the attachments below:</strong>
+    </div>
+
+    <h3>Appendix A: Case Comparison Table</h3>
+    <p><em>(see in word)</em> — A comparative table and discussion questions covering three case studies: the Pioneer Memorial Medal, the Arecibo Message and the Voyager Golden Record.</p>
+
+    <h3>Appendix B: Group Task Sheet</h3>
+    <p><em>(see in word)</em> — Task sheet for the ‘Design of Information for Aliens’ group, including sections for filling in a four-tier framework, selecting modes of expression, and preparing for the presentation.</p>
+
+    <h3>Appendix C: Leave Permit</h3>
+    <p><em>(see in word)</em> — Personal reflection cards, containing three questions: one thing to tell an alien about humanity; whether scientific information is sufficient to describe humanity; and one thing to reflect on today.</p>
+
+    <h3>Appendix D: Keyword Support Option</h3>
+    <p><em>(see in word)</em> — A list of supported keywords, including terms such as Earth, Universe, The Milky Way Galaxy, Species, Culture, Identity, Communication, Values, Civilisation, and Perspective, along with their classroom definitions.</p>
+
+    <h3>Appendix E: Peer Feedback Form</h3>
+    <p><em>(see in word)</em> — Peer feedback form, including the observation group, the clearest point of expression, the most interesting or surprising aspect, and any questions you would like to ask.</p>
+
+    <h3>Attachment F: Teacher Classroom Observation Form</h3>
+    <p><em>(see in word)</em> — Classroom observation form for teachers, covering aspects such as pupils’ names, participation in discussions, collaborative work, integration of scientific and social science information, clear expression, and the ability to reflect deeply.</p>
+
+  </div>
+
+  <div class="placeholder-note">
+    <span>📝 Content from pset8.docx, download the Word file to view all attachment templates</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 6 · Sushi got a problem</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #7f9f8a 0%, #9bb39b 50%, #b6c9b0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    .author-info {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+    /* 文档信息栏 */
+    .doc-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .doc-type {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .doc-icon {
+      font-size: 2rem;
+    }
+
+    .doc-meta {
+      color: #6a5a4e;
+      font-size: 0.95rem;
+    }
+
+    /* 下载按钮 */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(220, 190, 170, 0.5);
+      color: #4a3a32;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(180, 140, 120, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: rgba(220, 190, 170, 0.7);
+      border-color: rgba(180, 140, 120, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* 目录样式 */
+    .toc {
+      background: rgba(250, 242, 235, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+    }
+
+    .toc h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #4a3a32;
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .toc a {
+      color: #5a4a3e;
+      text-decoration: none;
+      border-bottom: 1px dotted #b59886;
+    }
+
+    .toc a:hover {
+      color: #3a2a22;
+      border-bottom: 1px solid #b59886;
+    }
+
+    /* 文字内容区域 */
+    .text-content {
+      background: rgba(250, 242, 235, 0.6);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(200, 170, 150, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1.5rem;
+    }
+
+    .text-content h2 {
+      font-size: 1.8rem;
+      font-weight: 550;
+      color: #4a3a32;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(200, 170, 150, 0.3);
+    }
+
+    .text-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .text-content h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #5a4a3e;
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .text-content h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #5a4a3e;
+      margin: 1.2rem 0 0.6rem;
+    }
+
+    .text-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3d342e;
+      margin-bottom: 1.2rem;
+    }
+
+    .text-content strong {
+      color: #4a3a32;
+      font-weight: 600;
+    }
+
+    .text-content ul, .text-content ol {
+      margin: 0.8rem 0 1.2rem 1.8rem;
+    }
+
+    .text-content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #3d342e;
+      margin-bottom: 0.4rem;
+    }
+
+    .text-content blockquote {
+      border-left: 4px solid #9bb39b;
+      padding-left: 1.2rem;
+      margin: 1.2rem 0;
+      color: #5a4a3e;
+      font-style: italic;
+    }
+
+    /* 表格样式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      background: rgba(255, 250, 245, 0.6);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+      vertical-align: top;
+    }
+
+    th {
+      background: rgba(200, 170, 150, 0.3);
+      font-weight: 600;
+      color: #4a3a32;
+    }
+
+    td {
+      color: #3d342e;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(200, 170, 150, 0.3);
+      margin: 2rem 0;
+    }
+
+    /* 图片占位符 */
+    .image-placeholder {
+      background: rgba(200, 180, 165, 0.2);
+      border: 1px dashed #b59886;
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      color: #6a5a4e;
+      font-size: 0.9rem;
+    }
+
+    /* 底部提示 */
+    .placeholder-note {
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .text-content { padding: 1.5rem; }
+      .doc-info { flex-direction: column; align-items: flex-start; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页 -->
+  <a href="../../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>🤖 PSet 6 · Algorithm Class Framework Design</h1>
+
+  <!-- 作者信息 -->
+  <div class="author-info">
+    <strong>Individual: </strong> Lin Jiayuan
+  </div>
+
+  <!-- 文档信息栏 + 下载按钮 -->
+  <div class="doc-info">
+    <div class="doc-type">
+      <span class="doc-icon">🤖</span>
+      <span class="doc-meta"><strong>Class Design</strong> · Overfitting Unplugged Activity</span>
+    </div>
+    <a href="pset6.docx" class="download-btn" download>
+      <span>📥</span>Download the revised Word document
+    </a>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <h2>📑 Content</h2>
+    <ul>
+      <li><a href="#intro">1. Introduction / Overview</a></li>
+      <li><a href="#audience">2. Target Audience, Concept, Context, Philosophy</a></li>
+      <li><a href="#algorithm">3. The Core Algorithm I Chose</a></li>
+      <li><a href="#activity">4. Full Description of the Unplugged Activity</a></li>
+      <li><a href="#teaching">5. Teaching / Discussion Plan</a></li>
+      <li><a href="#variation">6. Variation Follow-up Activity</a></li>
+      <li><a href="#literature">7. Literature Support</a></li>
+      <li><a href="#replication">8. Replication Notes</a></li>
+      <li><a href="#assessment">9. Assessment</a></li>
+      <li><a href="#appendix">Appendix</a></li>
+    </ul>
+  </div>
+
+  <!-- 主要内容区 -->
+  <div class="text-content">
+    
+    <h2 id="intro">1. Introduction / Overview</h2>
+
+    <h3>1.1 Selected Chapter and Core Algorithmic Idea</h3>
+    <p>This lesson design is based on the chapter on <strong>overfitting</strong> in <em>Algorithms to Live By</em> by Brian Christian and Tom Griffiths. Strictly speaking, overfitting is not a step-by-step algorithm like sorting or searching. Instead, it is a core <strong>algorithmic idea about modeling, prediction, and decision-making under uncertainty</strong>. It helps learners think about an important question: when we form a rule from limited past data, how do we avoid making the rule so detailed that it only works for old cases?</p>
+    <p>This topic is suitable for a hands-on classroom activity because students do not need programming or advanced mathematics to experience it. They can discover the idea by making rules, testing them on new cases, and revising them when those rules fail.</p>
+
+    <h3>1.2 Why Choose this Topic</h3>
+    <p>I chose overfitting because it connects strongly to everyday life and to educational settings. Students often form conclusions from limited evidence: for example, deciding what study method "always works," judging a person or pattern after seeing only a few examples, or assuming that a small number of cases reveals a stable rule. These are all situations in which people generalize from incomplete data.</p>
+    <p>This topic is also valuable because it highlights a human tendency: when people want to explain everything they have already seen, they may create increasingly complex rules. Those rules may sound intelligent, but they often fail in new situations. This makes overfitting a powerful topic for immersive algorithmic thinking, because students can experience not only pattern-finding, but also <strong>uncertainty, error, revision, and the limits of explanation</strong>.</p>
+
+    <h3>1.3 Core Issue</h3>
+    <p>This activity centers on a core question: when we establish prediction rules based on existing information, why is it that a rule that "better explains the data at hand" is not necessarily a "better rule"? Further speaking, what kind of rules are more trustworthy? Is it a rule that can explain every detail clearly, or a rule that can continue to work in new data?</p>
+
+    <h3>1.4 Usage Scenarios</h3>
+    <p>This activity is designed for <strong>Grade 11–12 students or first-year university students who are not computer science majors</strong>. It can be used in data literacy, introductory statistics, computational thinking, general AI, or interdisciplinary STEM classes. The lesson is designed for a <strong>face-to-face classroom</strong>, with <strong>20–36 students</strong>, working in <strong>groups of 3–4</strong>. The full version takes about <strong>120 minutes</strong>.</p>
+
+    <h2 id="audience">2. Target Audience, Concept, Context, Philosophy</h2>
+
+    <h3>2.1 Target audience</h3>
+    <p>The intended learners are upper secondary students or first-year university students with basic graph-reading ability but without formal machine learning training. This audience is suitable because students are mature enough to discuss data and prediction, but they have not yet become dependent on technical formulas. They can therefore enter the concept through experience, discussion, and comparison.</p>
+
+    <h3>2.2 Target concept</h3>
+    <p>The core concept focused on in this activity is "overfitting", and it also involves the following related concepts: prediction rules, training data and new data, noise, local fluctuations, model complexity, and generalization ability. Students do not need to master strict mathematical definitions, but they should understand the following non-technical expressions through activities: If a rule becomes increasingly complex to fit the current sample, it may merely "remember" the details of the past without truly grasping the generalizable patterns.</p>
+
+    <h3>2.3 Context</h3>
+    <p>This is an <strong>unplugged classroom activity</strong>. Students work in groups and take on active roles as rule-makers, predictors, critics, and revisers. The teacher does not give the "correct answer" at the start. Instead, the teacher presents evidence gradually, asks questions, and organizes comparison and reflection.</p>
+    <p>The design includes two parts: (1) <strong>Main activity:</strong> students build a prediction rule in a relatively stable data setting with some noise. (2) <strong>Variation follow-up:</strong> students face a new dataset in which a key assumption has changed, and they must decide whether the original strategy still applies.</p>
+
+    <h3>2.4 Philosophy</h3>
+    <p>This lesson is guided by four principles.</p>
+    <p><strong>First, experience before terminology.</strong> Students should first feel the tension between simple and complex rules before hearing the word <em>overfitting</em>.</p>
+    <p><strong>Second, strategy comparison instead of answer delivery.</strong> The teacher should not announce a best model at the beginning. Students need to compare alternative rules and evaluate them based on future performance.</p>
+    <p><strong>Third, focus on human–algorithm interaction.</strong> Students are not simply following instructions. They are making judgments under uncertainty, deciding how much detail to include, taking the risk of being wrong, and revising their strategies when new evidence appears.</p>
+    <p><strong>Fourth, emphasize contextual limits.</strong> The lesson should show that one algorithmic strategy does not fit all situations. When assumptions change, strategies may also need to change.</p>
+
+    <h2 id="algorithm">3. The Core Algorithm I Chose</h2>
+
+    <h3>3.1 The Main Idea</h3>
+    <p>The central algorithmic idea is <strong>overfitting in prediction and modeling</strong>.</p>
+
+    <h3>3.2 The Basic Ideas in the Book</h3>
+    <p>In this chapter of "Algorithms to Live By", what is discussed is that when we establish rules, models or judgment criteria based on past experience, if we overly pursue explaining the known situation without any loopholes, it is very likely that those fluctuations, noises and exceptions that originally occurred only by chance will also be included in the rules. The rules obtained in this way may seem more refined and intelligent on the surface, but their predictive ability for the future may actually decline.</p>
+    <p>To put it in very plain terms, overfitting means remembering even the minor details as rules. If a person summarizes many complex rules based on a few examples, he may seem very good at analysis, but in fact, he might just have memorized past special cases. Once new examples emerge, this complex set of rules no longer works. On the contrary, a slightly simpler rule that captures major trends, although it cannot explain every small detail, may be more suitable for making new judgments.</p>
+
+    <h2 id="activity">4. Full Description of the Unplugged Activity</h2>
+
+    <h3>4.1 Learning Outcomes</h3>
+    <p>&lt;LO1&gt; Propose a prediction rule from limited information and recognize that more than one rule may be possible.</p>
+    <p>&lt;LO2&gt; Compare simple and complex rules and explain why a more detailed explanation does not always lead to better prediction.</p>
+    <p>&lt;LO3&gt; Revise an original rule after seeing new data and justify the revision instead of blindly adding patches.</p>
+
+    <h4>4.1.1 Why the Activity Is Unplugged</h4>
+    <p>No electronic devices are required during the main activity. Students use printed cards, worksheets, poster paper, and discussion. This is appropriate because the key issue is not programming technique but how humans form and revise rules from limited information.</p>
+
+    <h3>4.2 Materials</h3>
+
+    <h4>4.2.1 Teacher's materials</h4>
+    <p><strong>Import a set of "Guess the Rule Cards", totaling 12 cards.</strong> The recommended size is A5 or half an A4 sheet. Each card is printed with several graphics. The attributes include color (red, blue, yellow, green), shape (circle, triangle, square, star), quantity (1 to 4) and arrangement. Cards are divided into three groups: Group A (initial evidence, 4 cards), Group B (supplementary evidence, 4 cards), Group C (breaking complex patches, 4 cards).</p>
+    <p><strong>PPT or projection file</strong> includes title page, objective page, card images, data pages, summary page and Exit ticket page.</p>
+    <p><strong>One copy of the teacher observation record form.</strong></p>
+
+    <h4>4.2.2 Student Materials (one copy per group)</h4>
+    <ul>
+      <li>One page for activity description</li>
+      <li>Worksheet 1: Import rule guessing record sheet</li>
+      <li>Worksheet 2: Main activity data modeling worksheet</li>
+      <li>Worksheet 3: Variant activity worksheet</li>
+      <li>One A3-sized poster</li>
+      <li>Blank sticky notes and colored pens</li>
+    </ul>
+
+    <h3>4.3 Setup</h3>
+    <p>The activity is held in a regular classroom. Roles within each group: recorder (fills out worksheet), draftsman (draws coordinate chart and poster), speaker (presents), and doubter/challenger (asks "What if new data comes out?").</p>
+
+    <h3>4.4 Rules and Procedure (120 minutes)</h3>
+
+    <h4>4.4.1 Overview of the overall course time structure</h4>
+    <table>
+      <thead>
+        <tr><th>Time</th><th>Course section</th><th>Goals</th><th>Outputs</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0–10 mins</td><td>Opening and Grouping</td><td>Establish task scenarios and norms</td><td>Grouping and role determination</td></tr>
+        <tr><td>10–30 mins</td><td>Import: Guess the rule card</td><td>Experience rules becoming complex</td><td>Worksheet 1</td></tr>
+        <tr><td>30–40 mins</td><td>Discussion and transition</td><td>Connect guessing to modeling</td><td>Blackboard Consensus</td></tr>
+        <tr><td>40–65 mins</td><td>First round: Training data modeling</td><td>Find trends from samples</td><td>Worksheet 2 + poster</td></tr>
+        <tr><td>65–80 mins</td><td>Presentation and mutual evaluation</td><td>Compare different complexity rules</td><td>Rule wall</td></tr>
+        <tr><td>80–95 mins</td><td>New data verification</td><td>Test generalization ability</td><td>Prediction results</td></tr>
+        <tr><td>95–110 mins</td><td>Variant follow-up activities</td><td>Respond to changed assumptions</td><td>Worksheet 3</td></tr>
+        <tr><td>110–118 mins</td><td>Summary and naming</td><td>Introduce overfitting explicitly</td><td>Class summary</td></tr>
+        <tr><td>118–120 mins</td><td>Exit ticket</td><td>Individual reflection</td><td>Exit slips</td></tr>
+      </tbody>
+    </table>
+
+    <h4>4.4.2 Phase One: Opening and Task Construction (0-10 minutes)</h4>
+    <p>Teacher writes three questions on the board: (1) How do we build a rule from limited information? (2) Why does explaining the past not always mean predicting the future? (3) If assumptions change, does the same rule still work?</p>
+    <p>Teacher explains: "In today's class, you won't first hear a concept definition and then do exercises. First, you need to act like algorithm designers, facing limited information, and propose your own rules, test them, and modify them."</p>
+    <p><strong>Teachers' Notes:</strong> Throughout the entire activity, teachers should not hint at the correct answer at any stage. Even if students propose rules exactly the same as the hidden rules, affirmation of "correct answer" should not be given.</p>
+
+    <h4>4.4.3 Phase Two: Introduce the mini-game - Guess the Rule Cards (10-30 minutes)</h4>
+    <p><strong>Round One (Group A, Initial Evidence):</strong> Teacher shows A1 (blue circle, red triangle, yellow square) — "belongs to"; A2 (blue star, green circle, red square) — "belongs to"; A3 (blue circle, red square) — "doesn't belong"; A4 (blue triangle, red circle, green square, yellow star) — "doesn't belong".</p>
+    <p><strong>Round Two (Group B, Breaking simple rules):</strong> B1 (red circle, green circle, yellow triangle) — "doesn't belong"; B2 (blue square, blue triangle, red star) — "belongs to"; B3 (blue circle) — "doesn't belong"; B4 (green square, yellow circle, blue star) — "belongs to".</p>
+    <p><strong>Round Three (Group C, Breaking Complex Patches):</strong> C1 (blue circle, blue square, yellow star) — "belongs to"; C2 (red square, red circle, green star) — "doesn't belong"; C3 (blue triangle, green star, yellow circle) — "belongs to"; C4 (blue circle, blue triangle, yellow square, green star) — "doesn't belong".</p>
+    <p>Teacher asks: "Are your rules getting longer and longer?" "Are you trying to explain all the old cards or are you looking for a rule that might be useful in the future?"</p>
+
+    <h4>4.4.4 Phase Three: Introduction Discussion and Concept Transition (30-40 minutes)</h4>
+    <p>Teacher invites 2–3 groups to share how their rules changed. Discussion prompts: At what point did your rule become more complicated? Why did you feel the need to add extra conditions? Did the longer rule become better, or just more fragile?</p>
+    <p>Board summary: <strong>small sample → propose a rule → new evidence appears → revise the rule → more complexity is tempting → more complexity is not always better</strong></p>
+
+    <h4>4.4.5 Phase Four: Main Activity Round One - Establish Rules Based on Training Data (40-65 minutes)</h4>
+    <p>Teacher distributes a table showing sleep duration and quiz scores (8 students):</p>
+    <table>
+      <thead><tr><th>Student</th><th>Sleeping time (hours)</th><th>Test score</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>4.0</td><td>58</td></tr>
+        <tr><td>B</td><td>5.0</td><td>63</td></tr>
+        <tr><td>C</td><td>6.0</td><td>71</td></tr>
+        <tr><td>D</td><td>6.5</td><td>73</td></tr>
+        <tr><td>E</td><td>7.0</td><td>78</td></tr>
+        <tr><td>F</td><td>7.5</td><td>76</td></tr>
+        <tr><td>G</td><td>8.0</td><td>82</td></tr>
+        <tr><td>H</td><td>9.0</td><td>80</td></tr>
+      </tbody>
+    </table>
+    <p>Task: build a prediction rule that can estimate quiz score from sleep time. Students draw points on coordinate graph, discuss trends, write prediction rule, and note "Why do you believe in this rule?" and "The risks or weaknesses of this rule."</p>
+    <p><strong>The Reasons for Choosing the Situation:</strong> Sleep and academic performance are real problems students face daily, allowing them to draw on life experiences while challenging intuition through data.</p>
+
+    <h4>4.4.6 Phase Five: Presentation and Comparison (65-80 minutes)</h4>
+    <p>Each group has 2–3 minutes to present their poster. Teacher posts rules on the rule wall, categorizing by complexity: simple trend type, segmented explanation type, highly sample fitting type.</p>
+
+    <h4>4.4.7 Phase Six: New Data Testing (80-95 minutes)</h4>
+    <p><strong>New data release (sleep time only):</strong> I: 5.5 hrs, J: 8.5 hrs, K: 7.0 hrs. After predictions, actual scores: I=67, J=81, K=77.</p>
+    <p>Students compare predicted vs actual values and reflect: Where did the original rule work and where did it fail? Revise rules with justification.</p>
+
+    <h4>4.4.8 Phase Seven: Variant Follow-up Activity (95-110 minutes)</h4>
+    <p>Teacher distributes second dataset (mixed from two classes):</p>
+    <table>
+      <thead><tr><th>Student</th><th>Sleeping time (hours)</th><th>Test Score</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>4</td><td>70</td></tr><tr><td>B</td><td>5</td><td>75</td></tr><tr><td>C</td><td>6</td><td>79</td></tr><tr><td>D</td><td>7</td><td>83</td></tr><tr><td>E</td><td>8</td><td>86</td></tr>
+        <tr><td>F</td><td>4</td><td>82</td></tr><tr><td>G</td><td>5</td><td>80</td></tr><tr><td>H</td><td>6</td><td>77</td></tr><tr><td>I</td><td>7</td><td>73</td></tr><tr><td>J</td><td>8</td><td>69</td></tr>
+      </tbody>
+    </table>
+    <p>Students discover the overall graph no longer supports a simple single-direction trend. Discussion: "Should we classify or group first before modeling?"</p>
+
+    <h4>4.4.9 Phase Eight: Summary, Naming and Class-wide Comparison (110-118 minutes)</h4>
+    <p>Teacher formally introduces <strong>overfitting</strong>. Board summary: <strong>Overfitting:</strong> too close to old samples; noise treated as pattern; poor performance on new data. <strong>One type doesn't fit all:</strong> if assumptions change, the same strategy may no longer work.</p>
+
+    <h4>4.4.10 Phase Nine: Exit Ticket (118-120 minutes)</h4>
+    <p>Each student answers: (1) What rule did your group propose first? (2) How did new data challenge it? (3) In your own words, what is overfitting? (4) When should the original strategy not be copied directly?</p>
+
+    <h3>4.5 Why this is immersive</h3>
+    <p>Students are placed in the role of decision-makers. They must build rules from incomplete information, commit to predictions, face uncertainty, compare alternatives, and revise after error.</p>
+
+    <h3>4.6 Classroom management / safety</h3>
+    <p>Teacher should control speaking order during card introduction, ensure clear division of labor in groups, limit presentation time, and avoid right/wrong evaluation language.</p>
+
+    <h2 id="teaching">5. Teaching / Discussion Plan for the Unplugged Phase</h2>
+    <h3>5.1 Before the activity</h3>
+    <p>Teacher only introduces situation and goal, does not announce "overfitting" or imply correct answer.</p>
+    <h3>5.2 During the activity</h3>
+    <p>Teacher observes typical strategies: impulsive conclusions, constant patching, concise trend-oriented explanations, abandoning overall rules due to local deviations. Follow-up questions: "Why must this detail be written into rules?" "Will this rule still work on new examples?" "Are you grasping overall trend or memorizing samples?"</p>
+    <h3>5.3 After the activity</h3>
+    <p>Discussion focuses on: Why did rules form this way? What happened when new data emerged? Do you care more about explaining past or minimizing future errors?</p>
+
+    <h2 id="variation">6. Variation Follow-up Activity</h2>
+    <h3>6.1 Design Purpose</h3>
+    <p>To show that usefulness of a modeling strategy depends on assumptions.</p>
+    <h3>6.2 Comparison between Main Activity and Variant Activity</h3>
+    <p>Main: stable dataset with noise → avoid overfitting local fluctuations. Variant: mixed mechanisms → forcing one rule causes problems regardless of complexity.</p>
+    <h3>6.3 Comparison table</h3>
+    <table>
+      <thead><tr><th>Project</th><th>Main Activity</th><th>Variant Activity</th></tr></thead>
+      <tbody>
+        <tr><td>Core algorithmic thought</td><td>Overfitting</td><td>Limits of same modeling idea under changed assumptions</td></tr>
+        <tr><td>Key assumptions</td><td>One stable population with noise</td><td>Mixed populations / multiple mechanisms</td></tr>
+        <tr><td>Expected discovery</td><td>Simpler rules may generalize better</td><td>One type does not fit all, grouping may be needed</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="literature">7. Literature Support</h2>
+    <h3>7.1 Course Reading Support</h3>
+    <p>CS Unplugged (Bell, Witten, & Fellows, 1998); Kolb's (1984) experiential learning theory; Schwartz & Bransford's (1998) "A Time for Telling".</p>
+    <h3>7.2 Book Support</h3>
+    <p>Christian & Griffiths (2016) <em>Algorithms to Live By</em>, Chapter 7.</p>
+
+    <h2 id="replication">8. Replication Notes</h2>
+    <h3>8.1 Duration</h3>
+    <p>Standard: 120 minutes. Can compress to ~90 minutes by reducing presentations.</p>
+    <h3>8.2 Number of people</h3>
+    <p>Recommended 20–36 students, groups of 3–4.</p>
+    <h3>8.5 Age-appropriate Recommendations</h3>
+    <p>Most suitable for senior high school and first-year college students.</p>
+
+    <h2 id="assessment">9. Assessment</h2>
+    <h3>9.1 Rubric</h3>
+    <table>
+      <thead><tr><th>Evaluation dimension</th><th>Linked LO</th><th>Excellent</th><th>Good</th><th>Needs improved</th></tr></thead>
+      <tbody>
+        <tr><td>Rule generation and metacognition</td><td>LO1</td><td>Proposes clear rule, recognizes alternatives</td><td>Proposes rule, acknowledges alternatives when prompted</td><td>Treats one rule as only answer</td></tr>
+        <tr><td>Overfitting understanding</td><td>LO2</td><td>Clearly explains why complex rules fail on new data</td><td>Understands "too complicated" can be risky</td><td>Cannot explain complexity-generalization relation</td></tr>
+        <tr><td>Correction ability</td><td>LO3</td><td>Revises based on new data with clear justification</td><td>Revises with limited justification</td><td>Clings to original rule</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="appendix">10. Acknowledgment & References</h2>
+    <p>Bell, T., Witten, I. H., & Fellows, M. (1998). <em>Computer Science Unplugged</em>.</p>
+    <p>Christian, B., & Griffiths, T. (2016). <em>Algorithms to live by</em>.</p>
+    <p>Kolb, D. A. (1984). <em>Experiential learning</em>.</p>
+    <p>Schwartz, D. L., & Bransford, J. D. (1998). A time for telling. <em>Cognition and Instruction</em>.</p>
+
+    <hr>
+
+    <h2>Appendix</h2>
+
+    <h3>Appendix A. Import Section Cards (Teacher's hidden rules)</h3>
+    <p>Cards belonging: exactly three figures AND at least one blue graphic.</p>
+
+    <h3>Appendix B. Worksheet 1: Import rule guessing record sheet</h3>
+    <table>
+      <thead><tr><th>Current card</th><th>The rules we guessed</th><th>Our basis</th><th>Which new card overturned it?</th><th>How do we modify it?</th></tr></thead>
+      <tbody><tr><td>A1–A4</td><td></td><td></td><td></td><td></td></tr></tbody>
+    </table>
+    <p><strong>Reflection questions:</strong> (1) At which step do our rules start to become complicated? (2) Why do we want to add newly emerged exceptions? (3) What might be wrong with a rule that is "too good at explaining old cards"?</p>
+
+    <h3>Appendix C. Worksheet 2: Main Activity Data Modeling Worksheet</h3>
+    <p>Includes training data table, coordinate graph area, pattern observation, prediction rules, risk assessment, new data prediction table, comparison after true values, and rule revision.</p>
+
+    <h3>Appendix D. Worksheet 3: Variant Activity Worksheet</h3>
+    <p>Includes new data table, "uniform rule" reflection, classification/grouping comparison, and assumption change analysis.</p>
+
+    <h3>Appendix G. Exit Ticket</h3>
+    <p>(1) What rules did your group write at the very beginning? (2) How did the new data challenge this rule? (3) Explain in your own words: What is overfitting? (4) When should the original rules not be copied directly?</p>
+
+    <h3>Appendix H. Examples of Blackboard Design</h3>
+    <p><strong>Opening:</strong> Today's questions... <strong>Summary:</strong> Overfitting = too close to old sample; treating noise as rule; new data performance deteriorates; One type doesn't fit all.</p>
+
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="placeholder-note">
+    <span>📝 Content from pset6.docx, download the Word file to view all details and appendices</span>
+  </div>
+
+</div>
+</body>
+</html>
