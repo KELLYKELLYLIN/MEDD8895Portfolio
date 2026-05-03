@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSet 7 · Great Scientists </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2e9e1 0%, #e5d9cf 100%);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #2d2a35;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(60, 40, 30, 0.15),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(240, 220, 200, 0.5);
+    }
+
+    /* 返回链接 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: #7a6254;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .back-link:hover {
+      border-bottom-color: #b59886;
+      color: #5a4a3e;
+    }
+
+    /* 标题区 */
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #5a4e5a 0%, #7a6b6b 50%, #b57e75 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(200, 170, 150, 0.25);
+    }
+
+    /* 电视机容器 */
+    .tv-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0 2rem;
+    }
+
+    /* 电视机外框 */
+    .television {
+      background: #2a252b;
+      background: linear-gradient(145deg, #322c33, #231f25);
+      padding: 2rem 2rem 1.8rem;
+      border-radius: 3rem 3rem 2rem 2rem;
+      box-shadow: 
+        0 20px 0 #161316,
+        0 30px 30px -10px rgba(0, 0, 0, 0.3),
+        inset 0 2px 8px rgba(255, 255, 255, 0.08);
+      border: 1px solid #4a4048;
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* 电视机顶部天线 (装饰) */
+    .television::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 30px;
+      background: linear-gradient(135deg, #6a5a6a, #4a3a4a);
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+    }
+
+    .television::after {
+      content: "";
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 15px;
+      background: #8a7a8a;
+      border-radius: 5px;
+    }
+
+    /* 屏幕区域 (内屏) */
+    .tv-screen {
+      background: #1a181a;
+      padding: 0.8rem;
+      border-radius: 1.8rem;
+      box-shadow: 
+        inset 0 0 0 3px #0e0c0e,
+        inset 0 0 20px #000000,
+        0 4px 0 #0e0c0e;
+      border: 1px solid #5a5058;
+    }
+
+    /* 视频播放器 */
+    .tv-video {
+      width: 100%;
+      height: auto;
+      max-height: 450px;
+      display: block;
+      border-radius: 1.2rem;
+      background: #000;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+      outline: none;
+    }
+
+    /* 电视机底部控制面板装饰 */
+    .tv-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding: 0 0.5rem;
+    }
+
+    .tv-brand {
+      color: #9a8a8a;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .tv-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .tv-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #4a3a3a;
+      box-shadow: inset 0 1px 3px #1a1212, 0 1px 0 #5a4a4a;
+    }
+
+    .tv-btn.green {
+      background: #3a6a4a;
+      box-shadow: inset 0 1px 3px #1a2a1a, 0 1px 0 #5a8a5a;
+    }
+
+    /* 占位符提示 */
+    .placeholder-note {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(220, 200, 185, 0.4);
+      border-radius: 40px;
+      text-align: center;
+      color: #5a4a3e;
+      font-size: 0.95rem;
+      border: 1px dashed #b59886;
+      backdrop-filter: blur(4px);
+    }
+
+    .video-filename {
+      font-family: monospace;
+      background: rgba(0,0,0,0.05);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .page { padding: 1.8rem 1.2rem; }
+      h1 { font-size: 2.2rem; }
+      .television { padding: 1.5rem 1.5rem 1.2rem; }
+      .tv-screen { padding: 0.5rem; }
+    }
+
+    /* 小组成员 */
+    .group-members {
+      background: rgba(200, 180, 170, 0.2);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #5a4a3e;
+      border: 1px solid rgba(180, 150, 130, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+<div class="page">
+  
+  <!-- 返回作品集主页 -->
+  <a href="../final.html" class="back-link">← Back to the main page</a>
+
+  <h1>🎬 PSet 7 · Great Scientists </h1>
+
+    <!-- 小组成员 -->
+  <div class="group-members">
+    <strong>Group work:</strong> Lin Jiayuan, Yang Yuandi
+  </div>
+
+  <!-- 电视机区域 -->
+  <div class="tv-wrapper">
+    <div class="television">
+      <div class="tv-screen">
+        <!-- 视频播放器：指向 pset7video.mp4 -->
+        <video class="tv-video" controls playsinline>
+          <source src="pset7video.mp4" type="video/mp4">
+          <p>Your browser does not support HTML5 video playback.<a href="pset7video.mp4">Click to download the video                                 </a></p>
+        </video>
+      </div>
+      
+      <!-- 电视机装饰元素 -->
+      <div class="tv-controls">
+        <span class="tv-brand">RETRO·VISION</span>
+        <div class="tv-buttons">
+          <span class="tv-btn"></span>
+          <span class="tv-btn green"></span>
+          <span class="tv-btn"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 占位符提示 -->
+  <div class="placeholder-note">
+    <span>📺 Find the answer:</span>
+    <!--<span class="video-filename">pset7video.mp4</span>-->
+    <span> How the tree grow up?</span>
+  </div>
+
+</div>
+</body>
+</html>
