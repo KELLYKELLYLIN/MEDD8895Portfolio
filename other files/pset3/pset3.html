@@ -63,14 +63,81 @@
       border-bottom: 2px solid rgba(200, 170, 150, 0.25);
     }
 
+    /* ========== 新增：修订概览区 ========== */
+    .revision-overview {
+      background: rgba(255, 245, 235, 0.7);
+      border-left: 5px solid #b18597;
+      border-radius: 1.2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .revision-overview h3 {
+      font-size: 1.3rem;
+      color: #7a4a5e;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .revision-overview ul {
+      margin-left: 1.5rem;
+      color: #4a3a32;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .revision-overview li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ========== 新增：修订标注样式 ========== */
+    .revision-highlight {
+      background: #fff0f3;
+      padding: 0.15rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #d4a0b0;
+    }
+
     .revision-note {
-      background: rgba(250, 242, 235, 0.6);
+      background: rgba(220, 200, 210, 0.2);
+      border-left: 4px solid #b18597;
+      padding: 0.8rem 1.2rem;
+      margin: 0.8rem 0 1.2rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #5a4a3e;
+      backdrop-filter: blur(2px);
+    }
+
+    .revision-note strong {
+      color: #7a4a5e;
+    }
+
+    .revision-note .tag {
+      display: inline-block;
+      background: #b18597;
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-right: 0.4rem;
+    }
+
+    /* 顶部修订说明 */
+    .top-revision-note {
+      background: rgba(250, 242, 245, 0.7);
       border-radius: 1.5rem;
       padding: 1.5rem;
       margin-bottom: 2rem;
       border-left: 4px solid #b18597;
-      font-style: italic;
       color: #4a3a32;
+    }
+
+    .top-revision-note strong {
+      color: #7a4a5e;
     }
 
     /* 文档信息栏 */
@@ -103,7 +170,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(220, 190, 170, 0.5);
+      background: rgba(220, 190, 200, 0.5);
       color: #4a3a32;
       text-decoration: none;
       padding: 0.7rem 1.5rem;
@@ -111,13 +178,13 @@
       font-weight: 500;
       font-size: 0.95rem;
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(180, 140, 120, 0.3);
+      border: 1px solid rgba(180, 140, 160, 0.3);
       transition: all 0.2s ease;
     }
 
     .download-btn:hover {
-      background: rgba(220, 190, 170, 0.7);
-      border-color: rgba(180, 140, 120, 0.5);
+      background: rgba(220, 190, 200, 0.7);
+      border-color: rgba(180, 140, 160, 0.5);
       transform: translateY(-2px);
     }
 
@@ -332,22 +399,29 @@
 
   <h1>📚 PSet 3 · Book Bits Class Redesign</h1>
 
-    <!-- 小组成员 -->
+  <!-- 小组成员 -->
   <div class="group-members">
     <strong>Individual:</strong> Lin Jiayuan
   </div>
 
-  <!-- 修订说明 -->
-  <div class="revision-note">
-    <strong>📝 Revision Note</strong><br>
-    This revised version strengthens three areas identified in feedback: (1) It makes more explicit how Popper, Feinstein & Waddington, and Tsai work together in practice across the lesson rather than functioning as isolated theoretical references. (2) It adds more concrete contingency plans for extreme low participation and uneven discussion. (3) It revises the final reflection in Part 2 to more clearly approximate "pretty good knowledge" without implying that one fully rational or optimal conclusion should necessarily emerge.
+  <!-- ========== 新增：修订概览区 ========== -->
+  <div class="revision-overview">
+    <h3>✍️ Revision Overview</h3>
+    <p style="margin-bottom: 0.8rem; color: #4a3a32; font-size: 0.95rem;">
+      This revised version addresses instructor feedback on three areas. Key changes are annotated inline below:
+    </p>
+    <ul>
+      <li><strong>Theoretical integration (Section 3.4):</strong> Added a new subsection explaining how Popper, Feinstein & Waddington, and Tsai work <em>together</em> as a layered pedagogical sequence — not as isolated references. This responds to feedback that the original "slightly less discussion on the combination of multiple theories in practical application."</li>
+      <li><strong>Contingency plans (Section 7 & Section 8):</strong> Added seven concrete contingency plans for extreme low participation and uneven group dynamics — addressing feedback about "minor lack of specific contingency plans for extreme low participation."</li>
+      <li><strong>Revised reflection design (Part 2, Section 7):</strong> Rewrote the final reflection to avoid implying one rational/optimal conclusion. Now emphasizes that "pretty good knowledge" means making accountable judgments when evidence is incomplete — not convergence toward one best answer. Responds to feedback about "a slight hint of rational judgment as the optimal conclusion."</li>
+    </ul>
   </div>
 
   <!-- 文档信息栏 + 下载按钮 -->
   <div class="doc-info">
     <div class="doc-type">
       <span class="doc-icon">📘</span>
-      <span class="doc-meta"><strong>Course Design Document</strong> · Revised Version</span>
+      <span class="doc-meta"><strong>Revised Version</strong> — Course Design Document</span>
     </div>
     <a href="pset3.docx" class="download-btn" download>
       <span>📥</span> Download the revised Word document
@@ -372,7 +446,6 @@
 
   <!-- 主要内容区 -->
   <div class="text-content">
-
 
     <h2 id="part1">Part 1: Modification and Optimization of Classroom Book Bits Activity</h2>
 
@@ -414,12 +487,18 @@
     <p><strong>4. Design Reasons</strong></p>
     <blockquote>
       Multiple rounds of evidence allow students to experience scientific sensemaking as iterative and unstable. Requiring them to separate supporting and conflicting evidence discourages simple confirmation bias. Public display increases social stakes and accountability. The addition of unresolved doubts makes it easier to embody Feinstein and Waddington's idea that knowledge can be "good enough for now" without being complete.<br>
-      <mark>[Revision added in response to feedback]</mark><br>
+      <span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span><br>
       The materials and procedures are not only inspired separately by Popper, Feinstein & Waddington, and Tsai, but are designed so that the three perspectives operate together. Students first make testable claims under Popperian pressure; then they must decide which claims are still workable under incomplete evidence, reflecting "pretty good knowledge"; finally, because the evidence is distributed across institutions and voices, they begin to see that what counts as the event itself is shaped through socially uneven narration and institutional filtering, which anticipates Tsai's sensemaking perspective. In other words, the lesson does not move from one theory to another in isolated blocks. Rather, students simultaneously experience testability, provisional adequacy, and socially structured meaning-making.<br><br>
       Finally, I hope the text fragments are not limited to book fragments but extend to news reports from newspapers and books and other more diverse sources of information, so that students can have a stronger sense of participating in the detective game and increase their enthusiasm.<br><br>
       Supporting evidence/contradictory evidence/potential falsification conditions transform the abstract concept of falsifiability into specific operational steps, and at the same time add student guidance steps, allowing them to purposefully record their observations, making it more convenient for students to analyze.<br><br>
       "The Gallery of Explanations" raises students' psychological and social stakes. It is not a quiet discussion within the group but being seen and compared by the entire class.
     </blockquote>
+
+    <div class="revision-note">
+      <span class="tag">Revision 1</span>
+      <strong>Added explanation of how the three theories work together in the materials design.</strong>
+      The original submitted version explained Popper, Feinstein & Waddington, and Tsai separately as theoretical anchors, but didn't show how they interact <em>in practice</em> during the activity. This revision explicitly describes the layered pedagogical sequence: Popper provides discipline (testable claims), Feinstein & Waddington provide epistemic orientation (adequate-for-now judgments), and Tsai provides sociopolitical depth (whose evidence counts). This responds to instructor feedback about "slightly less discussion on the combination of multiple theories in practical application."
+    </div>
 
     <h3 id="theory">3. Philosophical / Theoretical Framework</h3>
     
@@ -438,12 +517,18 @@
     <p>A sensemaking perspective highlights that public reality is not simply discovered but also constructed through institutions, categories, archives, and narratives. Some voices become visible and count as evidence more easily than others. In this activity, students work with unevenly distributed traces from villagers, officials, doctors, media, and NGOs. They see that different actors frame the same event differently, and that what later becomes the "official version" of reality is shaped not only by data but also by authority, genre, and political convenience.</p>
 
     <p><strong>3.4 How the Three Frameworks Work Together in This Lesson</strong></p>
-    <p><mark>[Revision added in response to feedback]</mark></p>
+    <p><span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span></p>
     <p>The three frameworks should not be read as separate labels attached to different moments of the lesson. In practice, they form a layered pedagogical sequence.</p>
     <p>First, Popper gives the lesson its discipline: students cannot merely tell plausible stories; they must articulate claims that can be challenged by future evidence. This prevents the activity from becoming free-form interpretation.</p>
     <p>Second, Feinstein & Waddington give the lesson its epistemic orientation: because evidence is incomplete and distributed, students must still decide what counts as a reasonable and action-guiding explanation for now. This prevents Popperian falsification from being misunderstood as a search for immediate certainty or decisive elimination.</p>
     <p>Third, Tsai gives the lesson its sociopolitical depth: the activity is not only about whether an explanation fits evidence, but also about whose evidence becomes visible, credible, and consequential in the first place. This prevents "pretty good knowledge" from being treated as merely individual reasoning detached from institutions and power.</p>
     <p>Together, the three perspectives support the central design principle of the lesson: students learn that scientific claims are testable, provisional, and socially situated all at once. A hypothesis may be falsifiable in form, adequate enough for present action, and yet still circulate unevenly depending on who is allowed to define the event publicly. The lesson therefore treats science not as a pipeline toward a final truth, but as a disciplined, revisable, and collective practice of making sense under uncertainty.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 2</span>
+      <strong>Added Section 3.4: "How the Three Frameworks Work Together in This Lesson."</strong>
+      This is the most significant revision in Part 1. The original submission treated Popper, Feinstein & Waddington, and Tsai as parallel theoretical anchors — each well-explained but functioning in isolation. Instructor feedback noted this as a minor deduction. The new section explains how the three perspectives form a <em>layered pedagogical sequence</em>: Popper provides discipline (testable claims), Feinstein & Waddington provide epistemic orientation (adequate-for-now judgments), and Tsai provides sociopolitical depth (whose evidence becomes visible). This also connects to later course learning about designing activities where multiple theoretical frameworks operate simultaneously rather than sequentially.
+    </div>
 
     <p><strong>4. Specific Course Arrangement (One class session, approximately 90 minutes)</strong></p>
     <p><strong>1. Overview of the Classroom Process</strong></p>
@@ -543,7 +628,6 @@
     <p><strong>3. Design Reasons</strong></p>
     <p>Public analysis enables the students in other groups to realize that their explanations are just one of many possibilities, emphasizing Popper's "rigorous testing" + contradictory evidence. The second round of materials includes both "seemingly confirming" parts and "disruptive" parts, simulating the complex interaction between data and theories in reality - not a binary of true/false, but "some are more reasonable, some become awkward". The public update explanation allows for "retraction", while also requiring evidence and reasons for the retraction. The stakes have been further raised here; peers can observe your "backtracking", but the <strong>teacher will emphasize that science is about repeated revisions, and not revision is suspicious.</strong> At the same time, voting reflects the option that everyone currently considers the most correct (possibly having been persuaded by other groups).</p>
 
-    <!-- 继续后续内容，由于篇幅限制，这里显示核心框架 -->
     <p><strong>Step 3: Third round of evidence - Intense impact and structural factors (approximately 15 minutes)</strong></p>
 
     <p><strong>1. Distribute the third round of Book Bits (approximately 3-5 minutes)</strong></p>
@@ -620,8 +704,28 @@
     </ol>
 
     <h3 id="contingency1">7. Contingency Plans for Replication</h3>
-    <p><mark>[Revision added in response to feedback]</mark></p>
-    <p>To make the lesson more replicable in cases of very low participation or uneven group dynamics, the following contingency plans are built in: Think-Write-Pair-Share sequence, rotating micro-roles, forced specificity prompts, anonymous challenge notes, counterevidence intervention, sentence stems, and emotional sensitivity protocols.</p>
+    <p><span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span></p>
+    <p>To make the lesson more replicable in cases of very low participation or uneven group dynamics, the following contingency plans are built in:</p>
+
+    <p><strong>7.1 If students are silent at the beginning:</strong> Use a <strong>Think–Write–Pair–Share</strong> sequence before whole group talk — 2 minutes individual annotation, 2 minutes pair discussion, then group discussion. This lowers the threshold for students who are hesitant to speak publicly.</p>
+
+    <p><strong>7.2 If one or two students dominate the group:</strong> Assign rotating micro-roles: Evidence finder, skeptic, recorder, spokesperson. Also require that the public report be delivered by a student who did <strong>not</strong> speak in the previous round.</p>
+
+    <p><strong>7.3 If groups keep producing overly broad explanations:</strong> Teacher distributes a <strong>forced specificity prompt</strong>: "Name one observation that would strongly weaken your explanation." / "Which fragment is hardest for your theory to explain?" / "What is one competing explanation that currently fits at least some of the evidence better?"</p>
+
+    <p><strong>7.4 If students refuse to challenge other groups publicly:</strong> Replace open confrontation with anonymous challenge notes. Each group must write one serious question to another group, and one clue they think another group may be underusing. The teacher then redistributes the notes.</p>
+
+    <p><strong>7.5 If the whole class becomes attached to one dominant explanation too early:</strong> Teacher introduces a short "counterevidence intervention": each group receives one new fragment selected specifically to trouble the dominant class narrative and must spend two minutes explaining whether it can still be accommodated.</p>
+
+    <p><strong>7.6 If participation is extremely low in reflection:</strong> Use sentence stems on the board: "The hardest evidence for us to face was..." / "We realized our bias when..." / "At first we assumed..., but later..." / "One thing we still cannot explain is..." Students write individually first, then the teacher invites volunteers to share.</p>
+
+    <p><strong>7.7 If emotional sensitivity becomes high:</strong> Because the activity draws on public health suffering, the teacher should remind students that the goal is not to dramatize tragedy but to analyze how explanations are built and contested. Students may step out briefly if needed. The fictionalized nature of the case should be reiterated.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 3</span>
+      <strong>Added seven concrete contingency plans for replication.</strong>
+      Instructor feedback noted "minor lack of specific contingency plans for extreme low participation." The original submission included general adaptation notes (class size, time) but no <em>pedagogical</em> contingency plans for when discussion collapses, one student dominates, or the whole class converges too early. These seven plans — Think-Write-Pair-Share, rotating micro-roles, forced specificity prompts, anonymous challenge notes, counterevidence intervention, sentence stems, and emotional sensitivity protocols — draw on <em>structured talk routines and equitable participation strategies</em> discussed later in the course (PSet-5's group facilitation, PSet-6's hands-on management).
+    </div>
 
     <hr>
 
@@ -639,11 +743,49 @@
     </ol>
 
     <h3>3. Classroom Arrangement and Time Allocation (Suggested Total Duration: 90 minutes)</h3>
-    <p>Step 6: Review Part 1 and Introduce New Task (10 min) → Step 7: Role Assignment and Reading of Positional Materials (20 min) → Step 8: Group Preparation for Hearing Session Speech and Strategies (20 min) → Step 9: Simulated Hearing Session (25-30 min) → Step 10: Class Reflection and Theoretical Reiteration (10-15 min).</p>
+    <p><strong>Step 6: Review Part 1 and Introduce New Task (Approximately 10 minutes)</strong></p>
+    <p>The teacher leads the students to briefly review the main findings and theoretical anchors of Part 1 (Popper, Feinstein & Waddington, Tsai) and introduces the context of this class: the joint county health crisis enters the stage of public discussion and policy handling.</p>
+    <p><strong>Step 7: Role Assignment and Reading of Positional Materials (Approximately 20 minutes)</strong></p>
+    <p>Students are grouped and draw social role cards (or the teacher assigns them in advance), each group reads the positional materials tailored for this role (1-2 pages) and discusses the main position and demands of the role within the group.</p>
+    <p><strong>Step 8: Group Preparation for Hearing Session Speech and Strategies (Approximately 20 minutes)</strong></p>
+    <p>Each group prepares a 3-minute presentation and a 1-minute "responding to questions" plan based on their role, clearly defining how they will use the "joint county event explanation" and evidence formed in Part 1.</p>
+    <p><strong>Step 9: Simulated Hearing Session (Approximately 25–30 minutes)</strong></p>
+    <p>Each group presents in sequence at the "public hearing," with the teacher playing the role of "host + expert panel," and arranging several students to play the role of "observers," allowing for brief questioning and inquiries among them.</p>
+    <p><strong>Step 10: Class Reflection and Theoretical Reiteration (Approximately 10–15 minutes)</strong></p>
+    <p>Students step out of their roles and reflect on the process from their own perspectives. The teacher guides them to connect the experience with the viewpoints of Feinstein & Waddington, Tsai, and Popper.</p>
+
 
     <h3>4. Materials Preparation and Character Design</h3>
-    <p><strong>4.1 Basic Materials: Summary of the Investigation Report from Part 1</strong> — A 1-2 page "Preliminary Investigation Report on Health Issues in Union County (Teaching Version)".</p>
-    <p><strong>4.2 Character Cards and Positional Materials</strong> — 5-7 main characters: Union County Government Representative, Union County People's Hospital Representative, Disease Control Center/Public Health Experts, Patient Families Representative, NGO/Public Interest Lawyers Team, Media Representative, Frontline Medical Staff Representative.</p>
+    <p><strong>4.1 Basic Materials: Summary of the Investigation Report from Part 1</strong></p>
+    <p>Before Part 2, the teacher needs to compile a 1-2 page "Preliminary Investigation Report on Health Issues in Union County (Teaching Version)" based on the students' work in the previous section. This report will serve as the common base material for all characters (it can be distributed in advance via Moodle or handed out in class). The report includes:</p>
+    <p>1.	Commonly recognized facts by students in Part 1 (for example):
+Since certain years, there has been an increase in patients with long-term fever, emaciation, respiratory problems, etc. in Union County and surrounding towns.
+Many patients have had experiences of selling blood, frequent intravenous infusions or blood transfusions.
+There are suspicion of reusing needles and infusion sets in county hospitals and some private clinics.
+The local government has issued explanatory announcements such as "air pollution" and "seasonal influenza".
+Media reports and NGO investigations have questioned local practices.
+</p>
+    <p>2.	Several key questions that remain uncertain or controversial (for example):
+Which type of medical operation is the main transmission route, and the evidence is still incomplete.
+How many people have been affected, and the official statistics differ from NGO reports.
+There is room for interpretation regarding the legal basis for compensation standards and liability division.
+</p>
+    <p>The teacher does not need to re-post all the fragments from Part 1 but should "distill" it into an abstract that looks like a semi-finished official/academic report, deliberately retaining uncertainties and blanks to highlight "pretty good knowledge". Of course, if the teacher deems it necessary, they can also compile all the "book bits" materials from the previous class into a single document for students to refer to.</p>
+<p><strong>4.2 Character Cards and Positional Materials</strong></p>
+<p>It is recommended to set 5-7 main characters, with one group for each character (with 4-6 people per group), adjusting the number based on the class size. The following characters are examples, which can be added, deleted, or combined as needed:</p>
+<p><strong>1.	Representative of the Union County Government (County Governor or Deputy Governor in charge): </strong>Responsible for social stability, economic development, maintaining the local government's image, and controlling fiscal expenditures. They tend to downplay the statements about illegal operations in the early years and emphasize "historical reasons", "multiple factors combined", and "efforts of the entire society".</p>
+<p><strong>2.	Representative of the Union County People's Hospital (Hospital Director or Business Vice Director): </strong>Hospital reputation, psychological pressure on medical staff, avoiding being defined as the "main responsible party", tend to admit some "early management irregularities", but oppose attributing all responsibility to the medical institution.</p>
+<p><strong>3.	Disease Control Center or Provincial Public Health Experts: </strong>Reputation of the public health system, scientific, and future prevention and control system construction. They tend to emphasize "scientific evidence is not yet complete" and "more data are needed", while advocating for improving the system.</p>
+<p><strong>4.	Representative of Patient Families (for example: a villager who lost a loved one): </strong>Truth, apology, fair compensation, cessation of risky operations. They tend to demand recognition of systemic responsibility in the medical process and government supervision, emphasizing the tragic experiences of individuals and families.</p>
+<p><strong>5.	Local or Foreign NGO / Public Interest Lawyers Team: </strong>Rights relief, system reform, public right to know, "benchmark significance" of cases. They tend to highlight systemic problems and structural injustice, and push for the establishment of compensation mechanisms and preventive mechanisms.</p>
+<p><strong>6.	Media Representative (Investigation Journalist or Large Media Editor): </strong>Public right to know, visibility of the report, news ethics and review pressure. They tend to inquire about the truth of responsibility, showcase typical cases, while considering the consequences of the report and pressure from superiors.</p>
+<p><strong>7.	Representatives of Medical Staff on the Frontline of Union County (Nurses, Doctors at Township Health Centers): </strong>Frontline work burden, lack of training and resources, differences in responsibility between the person giving orders and the executor. They tend to emphasize system and resource constraints, and do not want to be simplified to "a few bad people".</p>
+<p><strong>Each character card and positional material should include the following elements (1-2 pages):</strong></p>
+<p>1.	 Brief introduction to the basic identity and responsibilities of the character.</p>
+<p>2.	How does this character understand the causes of the health crisis in the Union County (refer to the information in the basic investigation report, but with a biased perspective)?</p>
+<p>3.	The priority demands of this character (for example: clarifying responsibility, economic compensation, preventing panic, promoting legislative amendments, etc.).</p>
+<p>4.	The attitude of this character towards "scientific evidence": Which evidence is willing to emphasize? Which evidence might selectively ignore or downplay?</p>
+<p>5.	Internal contradictions or confusion in items 1-2, reminding students not to make the character too one-dimensional (for example: there are also officials within the county government who are worried that "it will get worse if we delay" etc.).</p>
 
     <h3>5. Classroom Procedure and Step Explanation</h3>
     <h4>Step 6: Review Part 1 and Introduce New Task (Approximately 10 minutes)</h4>
@@ -698,9 +840,9 @@
       <li>A specific opposing role asks a question to the just-stated role (for example: NGO asks the county government, patient family asks the hospital).</li>
       <li>The teacher, as the chairperson, raises questions about "scientificity" and "responsibility framework", for example:
         <ul>
-          <li>"During your repeated emphasis on 'air pollution' and 'lifestyle', but in the investigation report, a considerable proportion of patients are not near factories and do not have obvious bad living habits. How do you explain this?" (possibly about the common people)</li>
-          <li>"Your claim is 'the evidence is not sufficient, it is not appropriate to talk about compensation' at that time, then how do you plan to handle cases that have been diagnosed and are highly likely related to medical operations?" (possibly about the media)</li>
-          <li>"Your references to certain data, but it seems to ignore the 'reused needles' and 'abnormal blood collection and supply records' mentioned in the report. What is the reason for this?" (this might be about the hospital or the government)</li>
+          <li>"During your repeated emphasis on 'air pollution' and 'lifestyle', but in the investigation report, a considerable proportion of patients are not near factories and do not have obvious bad living habits. How do you explain this?"</li>
+          <li>"Your claim is 'the evidence is not sufficient, it is not appropriate to talk about compensation' at that time, then how do you plan to handle cases that have been diagnosed and are highly likely related to medical operations?"</li>
+          <li>"Your references to certain data, but it seems to ignore the 'reused needles' and 'abnormal blood collection and supply records' mentioned in the report. What is the reason for this?"</li>
         </ul>
       </li>
     </ol>
@@ -736,13 +878,45 @@
     <p>These summaries mainly aim to convey the hope that students understand that science is not a collection of stable correct conclusions, but a practice of speaking with evidence in uncertainty. Even 'adequate enough knowledge', in the real world, also needs to be translated into the game of interests, emotions, and power, as future citizens, professionals, and even policy makers, you need to learn to distinguish when 'uncertainty' is real and honest, and when 'uncertainty' is used as a strategy."</p>
 
     <h3>6. Design Rationale</h3>
-    <p>Continuity with Part 1; Feinstein & Waddington: The Social Use of "Pretty Good Knowledge"; Tsai / sensemaking: inventing reality; Popper: The Tension between the Ideal of Falsifiability and the Reality Game; How the Three Theories Work Across Part 2.</p>
+    <p><strong>1. Continuity with Part 1:</strong> Part 1 focuses on the construction, falsification, and revision of scientific explanations under incomplete evidence. Part 2 places the same event within the public discussion and policy negotiation framework, demonstrating how scientific knowledge is mobilized and narrated by different entities.</p>
+    <p><strong>2. Feinstein & Waddington: The Social Use of "Pretty Good Knowledge":</strong> Students experience that some roles use "pretty good knowledge" to drive reforms and compensation, while others use "not certain" to delay or shirk responsibility.</p>
+    <p><strong>3. Tsai / sensemaking: inventing reality:</strong> Through role-playing and simulated hearings, students observe which "reality" is written into official records, media reports, and policy texts.</p>
+    <p><strong>4. Popper: The Tension between the Ideal of Falsifiability and the Reality Game:</strong> Students find that admitting "if certain evidence emerges, I will admit my mistake" means taking potential risks at the political and legal levels.</p>
+    <p><strong>5. How the Three Theories Work Across Part 2:</strong> <span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span> Part 2 does not leave behind the theoretical concerns of Part 1. Instead, it relocates them. Popperian testability remains relevant when roles are questioned about what evidence would force them to revise their claims. Feinstein and Waddington remain central because participants must decide what can responsibly be done with incomplete knowledge. Tsai becomes especially visible because the hearing itself is a site where public reality is being assembled through selective narration, legitimacy, and institutional voice. Thus, Part 2 shows that scientific knowledge in society is never only about whether claims are true in abstraction; it is also about who can use them, with what authority, under what constraints, and toward what consequences.</p>
 
     <h3>7. Revised Reflection Design for "Pretty Good Knowledge"</h3>
-    <p><mark>[Revision added in response to feedback]</mark> — In this final reflection, the goal is <strong>not</strong> to suggest that fully rational participants would eventually converge on one optimal conclusion. Instead, students are asked to examine what kinds of judgments remain possible and responsible when evidence is incomplete, institutions are unequal, and stakes are high.</p>
+    <p><span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span></p>
+    <p>In this final reflection, the goal is <strong>not</strong> to suggest that fully rational participants would eventually converge on one optimal conclusion. Instead, students are asked to examine what kinds of judgments remain possible and responsible when evidence is incomplete, institutions are unequal, and stakes are high.</p>
+    <p>The teacher may ask: Which positions in today's hearing were responsible even though they were still incomplete? Which claims acknowledged uncertainty honestly, and which ones used uncertainty to avoid action? Did different roles reach different but still partly defensible judgments from the same body of evidence? What kind of action becomes possible when knowledge is not final but is still good enough to matter? What forms of disagreement remained legitimate even after substantial discussion?</p>
+    <p>The teacher should conclude that <strong>"pretty good knowledge" does not mean moving smoothly toward one final best answer</strong>. Rather, it means learning how to make accountable, revisable, and context-sensitive judgments in situations where waiting for certainty may itself cause harm. Some disagreement may remain, and the educational goal is not to eliminate that disagreement artificially, but to help students distinguish stronger from weaker uses of evidence and more responsible from less responsible uses of uncertainty.</p>
+
+    <p><strong>Reflection prompts:</strong></p>
+    <ol>
+      <li>As the role you played, what evidence did you emphasize or downplay?</li>
+      <li>At what moment did your position become harder to defend if you were fully honest about the evidence?</li>
+      <li>Which statement in the hearing sounded persuasive, and why?</li>
+      <li>Did the hearing produce consensus, partial alignment, or persistent disagreement? What does that suggest about science in public life?</li>
+    </ol>
+
+    <div class="revision-note">
+      <span class="tag">Revision 4</span>
+      <strong>Rewrote the Part 2 final reflection to better approximate "pretty good knowledge."</strong>
+      Instructor feedback noted "a slight hint of rational judgment as the optimal conclusion in the final reflection." The original reflection design could be read as implying that well-reasoned participants should converge toward one optimal conclusion. The revised version explicitly frames "pretty good knowledge" as <em>making accountable, revisable, context-sensitive judgments when evidence is incomplete</em> — not as progressing toward one best answer. It now asks whether different roles reached <em>different but still partly defensible</em> judgments, and emphasizes that persistent disagreement may be legitimate rather than a failure. This reflects deeper engagement with Feinstein & Waddington's argument that science in society involves collective sensemaking where multiple reasonable positions can coexist.
+    </div>
 
     <h3>8. Contingency Plans for Part 2</h3>
-    <p>If role-play energy is low; If statements are too generic; If questioning is weak; If only confident students speak; If the class drifts toward treating one actor as simply "the villain".</p>
+    <p><span class="revision-highlight"><mark>[Revision added in response to feedback]</mark></span></p>
+    <p><strong>8.1 If role-play energy is low:</strong> Teacher assigns one required emotional or political pressure to each role — budget pressure, fear of blame, urgency for compensation, concern for public panic, concern for professional reputation. This helps students inhabit the role more concretely.</p>
+    <p><strong>8.2 If statements are too generic:</strong> Teacher requires every group to cite one piece of evidence that helps them, one piece that complicates their position, and one thing they cannot confidently claim.</p>
+    <p><strong>8.3 If questioning is weak:</strong> Assign one group as <strong>designated challengers</strong> after every two speeches. Assign another small set of students as <strong>evidence auditors</strong> who listen specifically for selective use of evidence.</p>
+    <p><strong>8.4 If only confident students speak:</strong> Require that one student gives the statement, another different student answers the first question, and a third posts the group's written summary.</p>
+    <p><strong>8.5 If the class drifts toward treating one actor as simply "the villain":</strong> Teacher asks: What constraints shaped this role's behavior? What evidence did this actor have access to at the time? How is explanation different from moral excuse? This keeps the analysis sociologically and epistemically complex.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 5</span>
+      <strong>Added five contingency plans specific to Part 2's simulated hearing.</strong>
+      These parallel the Part 1 contingency plans but are tailored to role-play scenarios: low energy interventions, anti-generic requirements, designated challengers and evidence auditors, rotating speaking roles, and anti-scapegoating prompts. These ensure the hearing remains a <em>sociologically and epistemically complex</em> activity rather than devolving into simplistic blame attribution — connecting to Tsai's emphasis on understanding institutional constraints rather than moralizing.
+    </div>
 
     <hr>
 
@@ -761,13 +935,14 @@
     <p>Part 2 extends the activity into a simulated public hearing, where students adopt different social roles and mobilize the "pretty good knowledge" from Part 1 in negotiation and policy discourse. Together, the two parts form a coherent experience of science as falsifiable, provisional, and socially situated.</p>
 
     <p><strong>References</strong></p>
-    <p>Wikipedia contributors. (2026, January 19). HIV/AIDS in China. In <em>Wikipedia, The Free Encyclopedia</em>. And the 3 articles provided on Moodle website from Feinstein & Waddington, Popper and Tsai.</p>
+    <p>Wikipedia contributors. (2026, January 19). HIV/AIDS in China. In <em>Wikipedia, The Free Encyclopedia</em>. Retrieved 09:15, February 23, 2026, from https://en.wikipedia.org/w/index.php?title=HIV/AIDS_in_China&oldid=1333816889</p>
+    <p>And the 3 articles provided on Moodle website from Feinstein & Waddington, Popper and Tsai.</p>
 
   </div>
 
   <!-- 底部提示 -->
   <div class="placeholder-note">
-    <span>📝 Content from pset3.docx · Full course project document · Download the Word file to view all details</span>
+    <span>📝 PSet 3 Revised Version — Annotations show revisions based on instructor feedback and course learning</span>
   </div>
 
 </div>
