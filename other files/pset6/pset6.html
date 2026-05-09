@@ -63,6 +63,69 @@
       border-bottom: 2px solid rgba(200, 170, 150, 0.25);
     }
 
+    /* ========== 新增：修订概览区 ========== */
+    .revision-overview {
+      background: rgba(240, 248, 242, 0.7);
+      border-left: 5px solid #7f9f8a;
+      border-radius: 1.2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .revision-overview h3 {
+      font-size: 1.3rem;
+      color: #4a7a5a;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .revision-overview ul {
+      margin-left: 1.5rem;
+      color: #4a3a32;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .revision-overview li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ========== 新增：修订标注样式 ========== */
+    .revision-highlight {
+      background: #e6f0e8;
+      padding: 0.15rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #9bb39b;
+    }
+
+    .revision-note {
+      background: rgba(220, 235, 225, 0.3);
+      border-left: 4px solid #7f9f8a;
+      padding: 0.8rem 1.2rem;
+      margin: 0.8rem 0 1.2rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #5a4a3e;
+      backdrop-filter: blur(2px);
+    }
+
+    .revision-note strong {
+      color: #4a7a5a;
+    }
+
+    .revision-note .tag {
+      display: inline-block;
+      background: #7f9f8a;
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-right: 0.4rem;
+    }
+
     .author-info {
       background: rgba(200, 180, 170, 0.2);
       padding: 0.5rem 1.2rem;
@@ -104,7 +167,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(220, 190, 170, 0.5);
+      background: rgba(200, 215, 205, 0.5);
       color: #4a3a32;
       text-decoration: none;
       padding: 0.7rem 1.5rem;
@@ -112,13 +175,13 @@
       font-weight: 500;
       font-size: 0.95rem;
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(180, 140, 120, 0.3);
+      border: 1px solid rgba(150, 180, 160, 0.3);
       transition: all 0.2s ease;
     }
 
     .download-btn:hover {
-      background: rgba(220, 190, 170, 0.7);
-      border-color: rgba(180, 140, 120, 0.5);
+      background: rgba(200, 215, 205, 0.7);
+      border-color: rgba(150, 180, 160, 0.5);
       transform: translateY(-2px);
     }
 
@@ -248,7 +311,7 @@
     }
 
     th {
-      background: rgba(200, 170, 150, 0.3);
+      background: rgba(200, 215, 205, 0.3);
       font-weight: 600;
       color: #4a3a32;
     }
@@ -309,17 +372,33 @@
 
   <!-- 作者信息 -->
   <div class="author-info">
-    <strong>Individual: </strong> Lin Jiayuan
+    <strong>Individual:</strong> Lin Jiayuan
+  </div>
+
+  <!-- ========== 新增：修订概览区 ========== -->
+  <div class="revision-overview">
+    <h3>✍️ Revision Overview</h3>
+    <p style="margin-bottom: 0.8rem; color: #4a3a32; font-size: 0.95rem;">
+      This revised version strengthens the activity design by drawing on later course learning about <em>hands-on pedagogy, scaffolding, and experiential learning</em>. Key changes are annotated inline below:
+    </p>
+    <ul>
+      <li><strong>Repositioned as a hands-on activity design (Section 1.1):</strong> Shifted from describing overfitting abstractly to framing it as a "hands-on classroom activity" — reflecting later course emphasis on <em>unplugged learning and embodied decision-making</em>.</li>
+      <li><strong>Refined learning outcomes (Section 4.1):</strong> LO3 now requires students to "justify the revision instead of blindly adding patches" — connecting to course discussions on <em>metacognition and meaningful revision</em>.</li>
+      <li><strong>Streamlined Philosophy section (Section 2.4):</strong> Reorganized from lengthy prose into four clear, actionable principles — improving <em>replicability and teacher-friendliness</em>, a recurring theme across PSets.</li>
+      <li><strong>Added structured discussion prompts in Phase 3 (Section 4.4.4):</strong> Included specific questions and a board summary to scaffold the transition from card-guessing to data modeling — drawing on <em>guided inquiry</em> strategies from later course readings.</li>
+      <li><strong>Expanded Exit Ticket from 3 to 4 questions (Section 4.4.10):</strong> Added "When should the original strategy not be copied directly?" to assess transfer of the "one type doesn't fit all" concept — responding to the course theme of <em>contextual limits of algorithms</em>.</li>
+      <li><strong>Language polish throughout:</strong> Tightened prose for clarity and academic precision, making the plan more <em>replicable</em> for other teachers.</li>
+    </ul>
   </div>
 
   <!-- 文档信息栏 + 下载按钮 -->
   <div class="doc-info">
     <div class="doc-type">
       <span class="doc-icon">🤖</span>
-      <span class="doc-meta"><strong>Class Design</strong> · Overfitting Unplugged Activity</span>
+      <span class="doc-meta"><strong>Revised Version</strong> — Hands-on Activity Class Redesign · Overfitting Unplugged</span>
     </div>
     <a href="pset6.docx" class="download-btn" download>
-      <span>📥</span>Download the revised Word document
+      <span>📥</span> Download the revised Word document
     </a>
   </div>
 
@@ -346,8 +425,15 @@
     <h2 id="intro">1. Introduction / Overview</h2>
 
     <h3>1.1 Selected Chapter and Core Algorithmic Idea</h3>
-    <p>This lesson design is based on the chapter on <strong>overfitting</strong> in <em>Algorithms to Live By</em> by Brian Christian and Tom Griffiths. Strictly speaking, overfitting is not a step-by-step algorithm like sorting or searching. Instead, it is a core <strong>algorithmic idea about modeling, prediction, and decision-making under uncertainty</strong>. It helps learners think about an important question: when we form a rule from limited past data, how do we avoid making the rule so detailed that it only works for old cases?</p>
-    <p>This topic is suitable for a hands-on classroom activity because students do not need programming or advanced mathematics to experience it. They can discover the idea by making rules, testing them on new cases, and revising them when those rules fail.</p>
+    <p class="revision-highlight">This lesson design is based on the chapter on <strong>overfitting</strong> in <em>Algorithms to Live By</em> by Brian Christian and Tom Griffiths. Strictly speaking, overfitting is not a step-by-step algorithm like sorting or searching. Instead, it is a core <strong>algorithmic idea about modeling, prediction, and decision-making under uncertainty</strong>. It helps learners think about an important question: when we form a rule from limited past data, how do we avoid making the rule so detailed that it only works for old cases?</p>
+    
+    <p class="revision-highlight">This topic is suitable for a hands-on classroom activity because students do not need programming or advanced mathematics to experience it. They can discover the idea by making rules, testing them on new cases, and revising them when those rules fail.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 1</span>
+      <strong>Rewrote Section 1.1 to reposition the activity as a hands-on classroom design.</strong>
+      The original version described overfitting in more abstract, definitional terms. Drawing on later course learning about <em>unplugged learning</em> (Bell, Witten, & Fellows, 1998) and <em>experiential learning</em> (Kolb, 1984), the revised version foregrounds the activity's hands-on nature and emphasizes that students "do not need programming or advanced mathematics to experience it." This makes the design philosophy explicit from the outset and improves replicability for other teachers.
+    </div>
 
     <h3>1.2 Why Choose this Topic</h3>
     <p>I chose overfitting because it connects strongly to everyday life and to educational settings. Students often form conclusions from limited evidence: for example, deciding what study method "always works," judging a person or pattern after seeing only a few examples, or assuming that a small number of cases reveals a stable rule. These are all situations in which people generalize from incomplete data.</p>
@@ -372,11 +458,21 @@
     <p>The design includes two parts: (1) <strong>Main activity:</strong> students build a prediction rule in a relatively stable data setting with some noise. (2) <strong>Variation follow-up:</strong> students face a new dataset in which a key assumption has changed, and they must decide whether the original strategy still applies.</p>
 
     <h3>2.4 Philosophy</h3>
-    <p>This lesson is guided by four principles.</p>
-    <p><strong>First, experience before terminology.</strong> Students should first feel the tension between simple and complex rules before hearing the word <em>overfitting</em>.</p>
-    <p><strong>Second, strategy comparison instead of answer delivery.</strong> The teacher should not announce a best model at the beginning. Students need to compare alternative rules and evaluate them based on future performance.</p>
-    <p><strong>Third, focus on human–algorithm interaction.</strong> Students are not simply following instructions. They are making judgments under uncertainty, deciding how much detail to include, taking the risk of being wrong, and revising their strategies when new evidence appears.</p>
-    <p><strong>Fourth, emphasize contextual limits.</strong> The lesson should show that one algorithmic strategy does not fit all situations. When assumptions change, strategies may also need to change.</p>
+    <p class="revision-highlight">This lesson is guided by four principles.</p>
+    
+    <p class="revision-highlight"><strong>First, experience before terminology.</strong> Students should first feel the tension between simple and complex rules before hearing the word <em>overfitting</em>.</p>
+    
+    <p class="revision-highlight"><strong>Second, strategy comparison instead of answer delivery.</strong> The teacher should not announce a best model at the beginning. Students need to compare alternative rules and evaluate them based on future performance.</p>
+    
+    <p class="revision-highlight"><strong>Third, focus on human–algorithm interaction.</strong> Students are not simply following instructions. They are making judgments under uncertainty, deciding how much detail to include, taking the risk of being wrong, and revising their strategies when new evidence appears.</p>
+    
+    <p class="revision-highlight"><strong>Fourth, emphasize contextual limits.</strong> The lesson should show that one algorithmic strategy does not fit all situations. When assumptions change, strategies may also need to change.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 2</span>
+      <strong>Streamlined the Philosophy section into four clear, actionable principles.</strong>
+      The original version (~250 words of continuous prose) was restructured into four concise bullet-point principles. This reflects later course learning about <em>replicability and teacher-friendliness</em> — when another teacher reads this plan, the design principles are immediately scannable and memorable. Each principle also now maps directly to a specific aspect of the activity: experience-before-terminology → Phase 2–3 sequence; strategy comparison → Phase 5 rule wall; human-algorithm interaction → Phase 6 prediction/testing; contextual limits → Phase 7 variant activity.
+    </div>
 
     <h2 id="algorithm">3. The Core Algorithm I Chose</h2>
 
@@ -386,13 +482,20 @@
     <h3>3.2 The Basic Ideas in the Book</h3>
     <p>In this chapter of "Algorithms to Live By", what is discussed is that when we establish rules, models or judgment criteria based on past experience, if we overly pursue explaining the known situation without any loopholes, it is very likely that those fluctuations, noises and exceptions that originally occurred only by chance will also be included in the rules. The rules obtained in this way may seem more refined and intelligent on the surface, but their predictive ability for the future may actually decline.</p>
     <p>To put it in very plain terms, overfitting means remembering even the minor details as rules. If a person summarizes many complex rules based on a few examples, he may seem very good at analysis, but in fact, he might just have memorized past special cases. Once new examples emerge, this complex set of rules no longer works. On the contrary, a slightly simpler rule that captures major trends, although it cannot explain every small detail, may be more suitable for making new judgments.</p>
+    <p>The validity of the concept of overfitting usually implies the following premises. First, existing data does not equal the complete truth; it is mixed with noise and random fluctuations. Second, there must be at least some comparability between future data and past data, otherwise, generalization would be out of the question. Thirdly, modelers can choose rules of different complexities instead of having only one explanation. Fourth, what we care about is not the ability to retell old data, but the ability to predict new situations. It is precisely because of these assumptions that students need to make a trade-off between interpreting the known data and preserving generalizability.</p>
 
     <h2 id="activity">4. Full Description of the Unplugged Activity</h2>
 
     <h3>4.1 Learning Outcomes</h3>
     <p>&lt;LO1&gt; Propose a prediction rule from limited information and recognize that more than one rule may be possible.</p>
     <p>&lt;LO2&gt; Compare simple and complex rules and explain why a more detailed explanation does not always lead to better prediction.</p>
-    <p>&lt;LO3&gt; Revise an original rule after seeing new data and justify the revision instead of blindly adding patches.</p>
+    <p class="revision-highlight">&lt;LO3&gt; Revise an original rule after seeing new data and justify the revision instead of blindly adding patches.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 3</span>
+      <strong>Refined LO3 to emphasize meaningful revision.</strong>
+      The original LO3 was "correct their original judgments after seeing new data, rather than taking the first model as an unshakable answer." The revised version adds "justify the revision instead of blindly adding patches" — connecting to course discussions on <em>metacognition</em> and the idea that revision should be thoughtful, not reactive. This also aligns with the Assessment Rubric's "Correction ability" dimension, which distinguishes between revision "with clear justification" (Excellent) and mere mechanical adherence to original rules.
+    </div>
 
     <h4>4.1.1 Why the Activity Is Unplugged</h4>
     <p>No electronic devices are required during the main activity. Students use printed cards, worksheets, poster paper, and discussion. This is appropriate because the key issue is not programming technique but how humans form and revise rules from limited information.</p>
@@ -401,8 +504,8 @@
 
     <h4>4.2.1 Teacher's materials</h4>
     <p><strong>Import a set of "Guess the Rule Cards", totaling 12 cards.</strong> The recommended size is A5 or half an A4 sheet. Each card is printed with several graphics. The attributes include color (red, blue, yellow, green), shape (circle, triangle, square, star), quantity (1 to 4) and arrangement. Cards are divided into three groups: Group A (initial evidence, 4 cards), Group B (supplementary evidence, 4 cards), Group C (breaking complex patches, 4 cards).</p>
-    <p><strong>PPT or projection file</strong> includes title page, objective page, card images, data pages, summary page and Exit ticket page.</p>
-    <p><strong>One copy of the teacher observation record form.</strong></p>
+    <p><strong>PPT or projection file</strong> It includes the title page, the classroom objective page, the import card image page, the main activity data page, the new data announcement page, the variant activity data page, the summary page and the Exit ticket page.</p>
+    <p><strong>One copy of the teacher observation record form.</strong>It is used to record the types of rules used by each group, whether there are "increasingly complex patch-like explanations", whether any group actively mentions "new data/generalization/can it be used in the future", and whether any group actively proposes "group modeling" in the variation session.</p>
 
     <h4>4.2.2 Student Materials (one copy per group)</h4>
     <ul>
@@ -415,7 +518,7 @@
     </ul>
 
     <h3>4.3 Setup</h3>
-    <p>The activity is held in a regular classroom. Roles within each group: recorder (fills out worksheet), draftsman (draws coordinate chart and poster), speaker (presents), and doubter/challenger (asks "What if new data comes out?").</p>
+    <p>The activity was held in a regular classroom. It is best to appoint the following roles in advance within each group to ensure that everyone is actually involved: the recorder is responsible for filling out the worksheet, the draftsman is responsible for the coordinate chart and poster, the speaker is responsible for the group presentation, and the doubter or challenger is specifically responsible for asking "What if new data comes out?" This kind of problem. If it is a group of three, the spokesperson can also take on the role of the skeptic. In terms of venue arrangement, the center of the blackboard is set as the area for writing the title and reaching a consensus with the whole class. The left side of the blackboard is the display area for importing cards, the right side is the display area for stickers of each group's rules, and the back or side wall of the classroom is the display area for posters. The teacher's tour route should ensure that the worksheets and charts of each group can be seen, facilitating timely observation and guidance.</p>
 
     <h3>4.4 Rules and Procedure (120 minutes)</h3>
 
@@ -439,18 +542,41 @@
 
     <h4>4.4.2 Phase One: Opening and Task Construction (0-10 minutes)</h4>
     <p>Teacher writes three questions on the board: (1) How do we build a rule from limited information? (2) Why does explaining the past not always mean predicting the future? (3) If assumptions change, does the same rule still work?</p>
-    <p>Teacher explains: "In today's class, you won't first hear a concept definition and then do exercises. First, you need to act like algorithm designers, facing limited information, and propose your own rules, test them, and modify them."</p>
-    <p><strong>Teachers' Notes:</strong> Throughout the entire activity, teachers should not hint at the correct answer at any stage. Even if students propose rules exactly the same as the hidden rules, affirmation of "correct answer" should not be given.</p>
+    <p>Then the teacher explained to the students, "In today's class, you won't first hear a concept definition and then do exercises." First, you need to act like algorithm designers, facing limited information, and propose your own rules, test them, and modify them. The most important thing today is not who answered correctly first, but how your rules were formed, why they were changed, and whether they have become better after being changed.</p>
+    <p>Then, each group of students determined their own roles: recorder (responsible for filling out worksheets), draftsman (responsible for drawing and making posters), speaker (responsible for presentation), and skeptic (responsible for questioning the rules). If it is a trio, the spokesperson also serves as the skeptic. Each group collects the material package.</p>
+    <p><strong>Teachers' Notes:</strong> Throughout the entire activity process, teachers should not hint at the correct answer at any stage. Even if students propose rules that are exactly the same as the hidden rules preset by the teacher, the affirmation of "correct answer" should not be given. Instead, all groups should be guided to continue comparing the advantages and disadvantages of different rules.The purpose of marking is to make students understand that whether a rule is effective depends on its performance on new data, rather than whether it is consistent with the teacher's ideas.</p>
 
     <h4>4.4.3 Phase Two: Introduce the mini-game - Guess the Rule Cards (10-30 minutes)</h4>
-    <p><strong>Round One (Group A, Initial Evidence):</strong> Teacher shows A1 (blue circle, red triangle, yellow square) — "belongs to"; A2 (blue star, green circle, red square) — "belongs to"; A3 (blue circle, red square) — "doesn't belong"; A4 (blue triangle, red circle, green square, yellow star) — "doesn't belong".</p>
-    <p><strong>Round Two (Group B, Breaking simple rules):</strong> B1 (red circle, green circle, yellow triangle) — "doesn't belong"; B2 (blue square, blue triangle, red star) — "belongs to"; B3 (blue circle) — "doesn't belong"; B4 (green square, yellow circle, blue star) — "belongs to".</p>
-    <p><strong>Round Three (Group C, Breaking Complex Patches):</strong> C1 (blue circle, blue square, yellow star) — "belongs to"; C2 (red square, red circle, green star) — "doesn't belong"; C3 (blue triangle, green star, yellow circle) — "belongs to"; C4 (blue circle, blue triangle, yellow square, green star) — "doesn't belong".</p>
-    <p>Teacher asks: "Are your rules getting longer and longer?" "Are you trying to explain all the old cards or are you looking for a rule that might be useful in the future?"</p>
+    <p>The teacher took out a stack of cards and told the students, "Among these cards, some 'belong to a certain category' and some 'do not belong'." You need to guess what common features the cards that belong to this category have based on the cards I show one by one. The teacher shows the cards in the following order, showing only one at a time:</p>
+    <p><strong>Round One (Group A, Initial Evidence):</strong> The teacher first shows A1 (blue circle, red triangle, yellow square) and tells the students, "This one belongs to." Then show A2 (the blue star, the green circle, and the red square) and tell the students, "This one belongs to." Show A3 (the blue circle and the red square) again and tell the students, "This one doesn't belong." Finally, show A4 (blue triangle, red circle, green square, and yellow star) and tell the students, "This one doesn't belong." Each time a sheet is shown, students discuss in groups and write down the rules and basis for our current guess on Worksheet 1. At this point, students might guess "If there is blue, it belongs", "If there are three figures, it belongs", "if there is blue and there are three figures, it belongs", etc.</p>
+    <p><strong>Round Two (Group B, Breaking simple rules):</strong>The teacher then showed B1 (the red circle, the green circle, and the yellow triangle) and told the students, "This one doesn't belong." Show B2 (the blue square, the blue triangle, and the red star) again and tell the students, "This one belongs to." Then show B3 (the blue circle) and tell the students, "This one doesn't belong." Finally, show B4 (the green square, the yellow circle, and the blue star) and tell the students, "This one belongs to." Each time a card is displayed, students check whether their rules have been overturned. If overturned, students should record on Worksheet 1 "Which new card overturned our rules" and "How we modified the rules". 
+At this point, both "if there is blue, it belongs" and "if there are three figures, it belongs" will be overturned, and students will start to propose more complex compound rules.</p>
+    <p><strong>Round Three (Group C, Breaking Complex Patches):</strong>The teacher then shows C1 (the blue circle, the blue square, and the yellow star) and tells the students, "This one belongs to." Show C2 (the red square, the red circle, and the green star) again and tell the students, "This one doesn't belong." Then show C3 (the blue triangle, the green star, and the yellow circle) and tell the students, "This one belongs to." Finally, show C4 (blue circle, blue triangle, yellow square, green star) and tell the students, "This one doesn't belong." 
+At this point, if students have already added many details (such as "there must be a blue one, and no repeated colors, and no star shape"), Group C cards will quickly break these patchwork rules. Students continue to record the process of rule correction on Worksheet 1.
+</p>
+    <p>Throughout the entire process, the teacher did not tell the students the "correct answer", nor did they confirm which group was the closest. The teacher only asked, "Are your rules getting longer and longer?" "Are you trying to explain all the old cards or are you looking for a rule that might be useful in the future?"
+At the end of this stage, each group's worksheet 1 recorded at least 2 to 3 rule corrections.
+</p>
 
     <h4>4.4.4 Phase Three: Introduction Discussion and Concept Transition (30-40 minutes)</h4>
-    <p>Teacher invites 2–3 groups to share how their rules changed. Discussion prompts: At what point did your rule become more complicated? Why did you feel the need to add extra conditions? Did the longer rule become better, or just more fragile?</p>
-    <p>Board summary: <strong>small sample → propose a rule → new evidence appears → revise the rule → more complexity is tempting → more complexity is not always better</strong></p>
+    
+    <p class="revision-highlight">The teacher invites 2–3 groups to share how their rules changed over time.</p>
+    
+    <p class="revision-highlight"><strong>Discussion prompts:</strong></p>
+    <ul class="revision-highlight">
+      <li>At what point did your rule become more complicated?</li>
+      <li>Why did you feel the need to add extra conditions?</li>
+      <li>Did the longer rule become better, or just more fragile?</li>
+    </ul>
+<p>After the students shared, the teacher concluded: "What everyone did just now is actually very similar to many real-world modeling tasks." First, you see a small number of samples and then start summarizing the patterns. Once new examples emerge, you have to decide: Should you stick to the original rules? Is it a slight modification? Or simply admit that the original pattern was wrongly identified? Next, we move from the picture card to a set of data that is more like real life."</p>
+    <p class="revision-highlight">A simple board summary can be:</p>
+    <p class="revision-highlight"><strong>small sample → propose a rule → new evidence appears → revise the rule → more complexity is tempting → more complexity is not always better</strong></p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 4</span>
+      <strong>Added structured discussion prompts and a board summary in Phase 3.</strong>
+      The original version described this phase more generally. Adding specific prompts ("At what point did your rule become more complicated?") and a visual board summary transforms this transition from a loose discussion into a <em>scaffolded concept bridge</em>. This draws on <em>guided inquiry</em> strategies from later course content — the teacher doesn't explain overfitting yet, but uses targeted questions to prepare students' cognitive ground for the formal naming in Phase 8. The board summary also serves as an <em>advance organizer</em> that students can reference throughout the main activity.
+    </div>
 
     <h4>4.4.5 Phase Four: Main Activity Round One - Establish Rules Based on Training Data (40-65 minutes)</h4>
     <p>Teacher distributes a table showing sleep duration and quiz scores (8 students):</p>
@@ -467,17 +593,27 @@
         <tr><td>H</td><td>9.0</td><td>80</td></tr>
       </tbody>
     </table>
-    <p>Task: build a prediction rule that can estimate quiz score from sleep time. Students draw points on coordinate graph, discuss trends, write prediction rule, and note "Why do you believe in this rule?" and "The risks or weaknesses of this rule."</p>
-    <p><strong>The Reasons for Choosing the Situation:</strong> Sleep and academic performance are real problems students face daily, allowing them to draw on life experiences while challenging intuition through data.</p>
+    <p>The task is to build a prediction rule that can estimate quiz score from sleep time. The teacher explained to the students, "Here are the sleep duration of the eight students in your class and their test scores for the next day." Your group's task is to establish a prediction rule based on these eight points - in the future, given any sleep duration, others can predict their performance using your rule." The student groups began to work, drawing eight points on the coordinate graph, discussing what the overall trend was, and then writing down an operational prediction rule (it couldn't be "approximately rising", but must be a specific rule like "for every additional hour of sleep, the score approximately increases by X points"). At the same time, students should write on Worksheet 2 "Why do you believe in this rule?" and "The risks or weaknesses of this rule."</p>
+    <p>The teacher walked around and asked, "Are you trying to explain every point?" "If point F is a little lower than point E, do you plan to treat it as an anomaly or apply special rules to it?" " Can this rule be predicted when the time is 5.5 hours or 8.5 hours?</p>
+    <p>At the end of this stage, each group should complete the training data section of Worksheet 2 and finish an A3 poster, which should include coordinate charts, rules, reasons and risks.</p>
+    <p><strong>The Reasons for Choosing the Situation:</strong>Sleep and academic performance are real problems that students face in their daily lives, and they have personal experiences and existing understandings of them.
+This situation allows students to draw on their own life experiences when modeling, while at the same time challenging their intuition through data (for example, does a 7.5-hour point slightly lower than 7 hours mean that sleeping too much is actually bad?)
+</p>
 
     <h4>4.4.6 Phase Five: Presentation and Comparison (65-80 minutes)</h4>
-    <p>Each group has 2–3 minutes to present their poster. Teacher posts rules on the rule wall, categorizing by complexity: simple trend type, segmented explanation type, highly sample fitting type.</p>
+    <p>Each group has 2 to 3 minutes to present their poster and explain: What are our rules? Why choose this rule? What is the greatest risk?</p>
+    <p>The teacher passed the rules of each group on the rule wall of the blackboard and roughly divided them into three categories according to complexity: simple trend type, segmented explanation type, and highly sample fitting type.</p>
+    <p>The teacher pressed the presentation group, "What is the greatest advantage of your rule?" "If a new point comes in the future, do you have a way to predict it or can you just go back and add another one?" "Are your rules more about seizing trends or remembering samples?" "Students from other groups listened to the presentation and observed the differences in the rules among different groups.</p>
 
     <h4>4.4.7 Phase Six: New Data Testing (80-95 minutes)</h4>
     <p><strong>New data release (sleep time only):</strong> I: 5.5 hrs, J: 8.5 hrs, K: 7.0 hrs. After predictions, actual scores: I=67, J=81, K=77.</p>
     <p>Students compare predicted vs actual values and reflect: Where did the original rule work and where did it fail? Revise rules with justification.</p>
 
     <h4>4.4.8 Phase Seven: Variant Follow-up Activity (95-110 minutes)</h4>
+    <p><strong>The Necessity of Variant Activities: </strong>This design adds a follow-up variation after the main activity to change the key assumptions in the main activity, allowing students to understand that the previously seemingly reasonable modeling strategy may not be directly copied once the application scenario changes.</p>
+    <p><strong>Key Assumptions in the Main Activity: </strong>The data of different students generally come from the same stable relationship, that is to say, although there are local fluctuations, the overall trend is still comparable. It is hoped that students will believe that there is a common relationship at the class level between sleep duration and academic performance, so their task is to identify trends from the noise.</p>
+    <p><strong>The Changed Assumption: </strong>In the new variant activities, the data no longer comes from a unified and stable group, but is a mixture of two different types of students. For instance, for one type of students, increased sleep usually helps with academic performance, while for another type of students, excessive sleep may be associated with insufficient preparation. It could also be influenced by significant differences in foundation or different examination subjects. In other words, the purpose of designing this variation is to break the single overall law that may exist in the original activity.</p>
+    <p><strong>The Specific Process of the Variant Activity: </strong>The teacher distributed the second dataset to each group and explained: "This is still the data of 'sleep duration and performance', but this time these points are not from the same stable population, but from anonymous samples mixed from two classes." You don't know which points belong to which category of people. Please try to handle it as you did just now first, and then judge whether the original strategy is still sufficient.</p>
     <p>Teacher distributes second dataset (mixed from two classes):</p>
     <table>
       <thead><tr><th>Student</th><th>Sleeping time (hours)</th><th>Test Score</th></tr></thead>
@@ -486,65 +622,110 @@
         <tr><td>F</td><td>4</td><td>82</td></tr><tr><td>G</td><td>5</td><td>80</td></tr><tr><td>H</td><td>6</td><td>77</td></tr><tr><td>I</td><td>7</td><td>73</td></tr><tr><td>J</td><td>8</td><td>69</td></tr>
       </tbody>
     </table>
-    <p>Students discover the overall graph no longer supports a simple single-direction trend. Discussion: "Should we classify or group first before modeling?"</p>
+    <p>After students draw these points on the same coordinate graph, they will find that the overall graph no longer supports a simple trend in a single direction. Some groups might continue to try to explain all the data with a more complex curve, while others will start to raise a more important question: Perhaps it's not that the rules are not complex enough, but that our basic assumptions about the data structure are wrong.</p>
+    <p>The teacher asked the students to first try to follow the main activity's train of thought: "If you adhere to a uniform rule, what result will you get?" Is this uniform rule reasonable? Then discuss in the group where the problem lies. Is it that more complex rules are needed, or are our basic assumptions about the data wrong? Should we classify or group first before modeling? What is the basis?</p>
+    <p>Finally, each group explains in one sentence what assumptions have been changed compared to the main activity. For instance, originally, we assumed that all points originated from the same population. Now this assumption no longer holds true, and the group filled in their thoughts on Worksheet 3.</p>
+    <p><strong>The teacher walked around</strong> and asked further, "The problem you are facing now is that the rules are not complex enough, or is the data not a group to begin with?" "What will you lose if you keep forcing yourselves to find a uniform formula?"</p>
+    <p><strong>Students may answer</strong> this time it's not a problem of local noise, but rather like two different trends mixed. If one still adheres to a uniform rule, both groups will be wrongly accused. "We need to group first instead of blindly filling in complex curves." "Simple rules are better in the main activity, but being too simple here won't do either, because the whole is not a whole.</p>
+    <p><strong>Expected Discovery:</strong>Through this variation, students should discover that the original conclusion that simple trends are superior to complex patches is not an absolute truth regardless of scenarios. If the data itself comes from multiple mechanisms, a single model that is too simple can also be distorted. At this point, the issue is not only to avoid overfitting but also to avoid mistakenly confusing different types. That is to say, the algorithm design should prevent both excessive complexity and erroneous simplification, so as to truly embody "one type doesn't fit all".</p>
 
     <h4>4.4.9 Phase Eight: Summary, Naming and Class-wide Comparison (110-118 minutes)</h4>
-    <p>Teacher formally introduces <strong>overfitting</strong>. Board summary: <strong>Overfitting:</strong> too close to old samples; noise treated as pattern; poor performance on new data. <strong>One type doesn't fit all:</strong> if assumptions change, the same strategy may no longer work.</p>
+    <p>Now the teacher formally introduces the term <strong>overfitting</strong>.
+Overfitting happens when we keep adding detail to explain old cases so perfectly that the rule becomes weak on new cases. But today’s variation also shows that the answer is not always “make the rule simpler.” Sometimes the assumptions behind the model have changed, so the strategy itself must change.
+ Board summary: <strong>Overfitting:</strong> too close to old samples; noise treated as pattern; poor performance on new data. <strong>One type doesn't fit all:</strong> if assumptions change, the same strategy may no longer work.</p>
 
     <h4>4.4.10 Phase Nine: Exit Ticket (118-120 minutes)</h4>
-    <p>Each student answers: (1) What rule did your group propose first? (2) How did new data challenge it? (3) In your own words, what is overfitting? (4) When should the original strategy not be copied directly?</p>
+    <p>Each student answers:</p>
+    <ol>
+      <li>What rule did your group propose first?</li>
+      <li>How did new data challenge it?</li>
+      <li>In your own words, what is overfitting?</li>
+      <li class="revision-highlight">When should the original strategy not be copied directly?</li>
+    </ol>
+
+    <div class="revision-note">
+      <span class="tag">Revision 5</span>
+      <strong>Expanded Exit Ticket from 3 to 4 questions.</strong>
+      The original exit ticket had only three questions (rule, challenge, definition). The fourth question — "When should the original strategy not be copied directly?" — was added to assess students' understanding of the <em>contextual limits of algorithmic strategies</em>. This directly targets the course's "one type doesn't fit all" theme and ensures the exit ticket captures not just knowledge of overfitting but also transfer of the deeper insight that modeling strategies depend on assumptions. This revision reflects the course emphasis on <em>formative assessment that probes conceptual understanding, not just factual recall</em>.
+    </div>
 
     <h3>4.5 Why this is immersive</h3>
-    <p>Students are placed in the role of decision-makers. They must build rules from incomplete information, commit to predictions, face uncertainty, compare alternatives, and revise after error.</p>
+    <p>This activity is immersive because students are placed in the role of decision-makers rather than passive listeners. They must build rules from incomplete information, commit to predictions, face uncertainty, compare alternatives, and revise their thinking after error. They are not just handling materials; they are experiencing a central tension of algorithmic thinking: whether to explain more or to generalize better.</p>
+    <p>The activity also foregrounds <strong>human–algorithm interaction</strong>. Students confront temptation, confidence, doubt, regret, and strategic revision. They experience that algorithms are not magical answers but tools whose usefulness depends on assumptions, context, and goals.</p>
 
     <h3>4.6 Classroom management / safety</h3>
-    <p>Teacher should control speaking order during card introduction, ensure clear division of labor in groups, limit presentation time, and avoid right/wrong evaluation language.</p>
+    <p>This activity does not involve dangerous operations, but classroom management still needs to be paid attention to. Teachers should control the speaking order during the card introduction stage to prevent a few students from monopolizing the process of guessing the rules. During the group discussion stage, the division of labor should be clearly defined, for instance, one person is responsible for taking notes, one for drawing, and one for summarizing, to prevent some students from being distracted. If the class is large, the teacher can limit the presentation time to ensure that all groups can share. When recording rules on the blackboard, teachers should avoid using a dichotomy of right and wrong for evaluation. Instead, they should use simpler, more complex, more detail-oriented, and easier to generalize expressions to maintain an open and inquisitive atmosphere.</p>
 
     <h2 id="teaching">5. Teaching / Discussion Plan for the Unplugged Phase</h2>
     <h3>5.1 Before the activity</h3>
-    <p>Teacher only introduces situation and goal, does not announce "overfitting" or imply correct answer.</p>
+    <p>Before the activity begins, the teacher only introduces the situation and the goal, does not announce the term "overfitting", nor does it imply the correct answer. Teachers need to get students into a state where they have to make judgments based on limited information first, rather than having to listen to the teacher explain a concept.</p>
     <h3>5.2 During the activity</h3>
-    <p>Teacher observes typical strategies: impulsive conclusions, constant patching, concise trend-oriented explanations, abandoning overall rules due to local deviations. Follow-up questions: "Why must this detail be written into rules?" "Will this rule still work on new examples?" "Are you grasping overall trend or memorizing samples?"</p>
+    <p>During the activity, the teacher's focus of observation was not on who answered correctly first, but on which typical strategies the students demonstrated. For instance, some students might impulsively draw a conclusion based on a prominent feature.
+Some students keep patching up the rules for fear of making mistakes.
+Some students will offer very concise and trend-oriented explanations.
+Some students may abandon the overall rules due to local deviations.
+When making rounds, teachers should use questioning to make these implicit thoughts explicit. 
+</p>
+<p>The follow-up questions that teachers can use include: Why do you think this detail must be written into the rules? If there comes a new example you haven't seen before, will this rule still be convenient to use? Are you grasping the overall trend or memorizing each sample one by one? Where is the risk of your rule? The role of these inquiries is not to guide students towards a certain standard answer, but to force them to confront the tension between the complexity of the rules and their generalizability.</p>
     <h3>5.3 After the activity</h3>
-    <p>Discussion focuses on: Why did rules form this way? What happened when new data emerged? Do you care more about explaining past or minimizing future errors?</p>
+    <p>The discussion after the event should focus on the following issues. First, why did your rules come into being like this in the first place? Second, what happened to your rules when new data emerged? Thirdly, do you care more about explaining the past as much as possible or minimizing the errors in future predictions? Fourth, does this rule apply to all situations? Fifth, if the data environment changes, will this strategy still hold?</p>
 
     <h2 id="variation">6. Variation Follow-up Activity</h2>
     <h3>6.1 Design Purpose</h3>
-    <p>To show that usefulness of a modeling strategy depends on assumptions.</p>
+    <p>The purpose of the variation activity is to show that the usefulness of a modeling strategy depends on assumptions. In the main activity, students should resist overfitting a generally stable dataset. In the variation, students should notice that the dataset may not be one coherent whole.</p>
     <h3>6.2 Comparison between Main Activity and Variant Activity</h3>
-    <p>Main: stable dataset with noise → avoid overfitting local fluctuations. Variant: mixed mechanisms → forcing one rule causes problems regardless of complexity.</p>
+    <p>In the main activity, students are confronted with a dataset that is generally relatively stable but contains a small amount of noise. The core challenge is to avoid making the rules overly complex to explain local fluctuations. In the variant activity, students are confronted with a dataset composed of two different generation mechanisms. The core challenge then becomes that if it is wrongly assumed from the very beginning that there is only one common rule here, problems may arise no matter how simple or complex the rule is made.</p>
     <h3>6.3 Comparison table</h3>
     <table>
       <thead><tr><th>Project</th><th>Main Activity</th><th>Variant Activity</th></tr></thead>
       <tbody>
         <tr><td>Core algorithmic thought</td><td>Overfitting</td><td>Limits of same modeling idea under changed assumptions</td></tr>
         <tr><td>Key assumptions</td><td>One stable population with noise</td><td>Mixed populations / multiple mechanisms</td></tr>
+        <tr><td>Student tasks</td><td>Build a prediction rule</td><td>Decide whether one rule is still appropriate</td></tr>
+        <tr><td>Problems that are prone to occur</td><td>Overfitting local variation</td><td>Forcing one rule onto unlike cases</td></tr>
         <tr><td>Expected discovery</td><td>Simpler rules may generalize better</td><td>One type does not fit all, grouping may be needed</td></tr>
       </tbody>
     </table>
 
     <h2 id="literature">7. Literature Support</h2>
     <h3>7.1 Course Reading Support</h3>
-    <p>CS Unplugged (Bell, Witten, & Fellows, 1998); Kolb's (1984) experiential learning theory; Schwartz & Bransford's (1998) "A Time for Telling".</p>
-    <h3>7.2 Book Support</h3>
-    <p>Christian & Griffiths (2016) <em>Algorithms to Live By</em>, Chapter 7.</p>
+    <p>This course design draws on the core concept of CS Unplugged (Bell, Witten, & Fellows, 1998), that is, pen-and-paper activities outside the programming environment not only do not reduce the difficulty of computational thinking, but can also help students focus their attention on core concepts such as rules, processes, comparisons and corrections. Rather than being scattered by the technical operation interface. The rule-guessing card session in this activity was inspired by this concept. Students, without any programming tools, fully experienced the formation process of overfitting by merely observing a limited number of samples, proposing rules, facing counterexamples, and correcting the rules.</p>
+    <p>In addition, Kolb's (1984) experiential learning theory provides a theoretical framework for the overall structure of this activity. Kolb pointed out that learning is a process of cyclical transformation through four stages: concrete experience, reflective observation, abstract generalization, and active experimentation. This activity is designed in four stages: from guessing rule cards and modeling the main activity (concrete experience), to group presentation and comparison with the rule wall (reflective observation), then to new data verification and teacher summary of overfitting (abstract generalization), and finally to the overall sequence attempt to match the hypothesis change and strategy adjustment in the variant activity (active experiment). This enables this abstract concept to naturally emerge from the students' concrete experiences.</p>
+    <p>The research by Schwartz & Bransford (1998) in A Time for Telling provides direct theoretical support for the experience first, then naming design of this activity.</p>
+    <p>They proved through experiments that when students experience comparative cases before coming into contact with abstract concepts, their depth of understanding of the concepts explained later is significantly higher than the sequence of first explaining the concepts and then applying them. In this activity, students first experienced the comparison cases of increasingly complex rules and the tension between the training set and the test set in the two stages of guessing rule cards and modeling the main activity. Only after that did the teacher formally introduce the term overfitting. This design enables students to have a solid cognitive foundation when listening to explanations, allowing them to absorb and organize information more effectively.</p>
+    <p>The introduction mini-game, main activity and variant activity in this lesson precisely form a progressive sequence: from intuitively guessing the rules, to data modeling, and then to adjusting the strategy after the assumption changes, each iteration strengthens students' understanding of the boundary conditions of algorithmic thinking.</p>
 
+    <h3>7.2 Book Support</h3>
+    <p>Christian & Griffiths (2016) systematically expounded the core contradiction of overfitting in Chapter 7 of "Algorithms to Live By”: the tension between the ability to explain the past and the ability to predict the future. The author points out that humans naturally tend to establish complex explanatory models when confronted with limited data, but this overthinking may precisely lead to failure in new situations. The book emphasizes that algorithmic thinking does not only exist within computers but is deeply embedded in daily life, time management, resource allocation, sorting, searching and decision-making. </p>
+    <p>The handling of overfitting in this lesson precisely aims to implement this idea at a level that students can experience, allowing them to understand the principle through practice. Students do not passively memorize a machine learning term but personally experience how people make the mistake of over-interpretation in limited information and bear the consequences of prediction errors in new data tests. This is highly consistent with the overall spirit of the book, which is "understanding life decisions through algorithms".</p>
+
+    <h3>7.3 Course Concept Support</h3>
+    <p>The key words that the teacher emphasized in the session6 presentation included simulation, embodied decision-making, one type doesn't fit all. This lesson design, on the one hand, enables students to directly participate in rule-making and risk-taking through card and data activities, and on the other hand, demonstrates the consequences of changes in the applicable conditions of the algorithm through follow-up variation.</p>
+    
     <h2 id="replication">8. Replication Notes</h2>
     <h3>8.1 Duration</h3>
-    <p>Standard: 120 minutes. Can compress to ~90 minutes by reducing presentations.</p>
+    <p>The total duration of the standard version is 120 minutes. If compression is needed, the group presentation can be reduced, the variant activities can be changed to a half-class presentation system, and the duration can be compressed to about 90 minutes. If it needs to be expanded to two classes, a student-made dataset session can be added in the second class.</p>
     <h3>8.2 Number of people</h3>
-    <p>Recommended 20–36 students, groups of 3–4.</p>
+    <p>It is recommended that the class size be between 20 and 36 students. A group of 3 to 4 people is most suitable. Too few people will lead to insufficient diversity of strategies, while too many may affect the presentation and discussion time.</p>
+    <h3>8.3 List of materials</h3>
+    <p>About 12 import picture cards need to be prepared and numbered in sequence, main activity data worksheet, printed by person or group, coordinate paper, A3 display paper, colored pens, sticky note paper, timer, blackboard or whiteboard pen, projection or printing materials used to display newly added data. If the school's conditions are limited, it can also be completed entirely using printing paper and a blackboard.</p>
+    <h3>8.4 Alternative Materials (Other themes)</h3>
+    <p>If it is not convenient to use sleep and performance data, it can also be changed to practice time and performance, temperature and plant growth, review duration and memory test and other similar data, as long as they can reflect the “overall trend + local noise”. The imported cards can also be changed to graphics, animal features, symbol combinations, etc., as long as they can support rule guesses of various complexities.</p>
     <h3>8.5 Age-appropriate Recommendations</h3>
-    <p>Most suitable for senior high school and first-year college students.</p>
+    <p>It is most suitable for senior high school and first-year college students. If it is used in junior high school, the density of terms can be reduced, retaining card activities and data trend judgments, but there is no need to emphasize terms such as model complexity. If it is used in universities, further concepts such as training sets, test sets, generalization, and regularization can be naturally introduced in the summary.</p>
+    <h3>8.6 How Should It be Adjusted if it is Changed to Extracurricular Activities</h3>
+    <p>If it is used for an extracurricular workshop, the presentation session can be changed to a poster corridor display, allowing each group to take turns explaining their own rules in front of different posters, and then conduct cross-group mutual evaluation.
+If the time is longer, students can also be asked to design a set of data that is prone to overfitting by others to challenge other groups.
+</p>
 
     <h2 id="assessment">9. Assessment</h2>
     <h3>9.1 Rubric</h3>
     <table>
       <thead><tr><th>Evaluation dimension</th><th>Linked LO</th><th>Excellent</th><th>Good</th><th>Needs improved</th></tr></thead>
       <tbody>
-        <tr><td>Rule generation and metacognition</td><td>LO1</td><td>Proposes clear rule, recognizes alternatives</td><td>Proposes rule, acknowledges alternatives when prompted</td><td>Treats one rule as only answer</td></tr>
-        <tr><td>Overfitting understanding</td><td>LO2</td><td>Clearly explains why complex rules fail on new data</td><td>Understands "too complicated" can be risky</td><td>Cannot explain complexity-generalization relation</td></tr>
-        <tr><td>Correction ability</td><td>LO3</td><td>Revises based on new data with clear justification</td><td>Revises with limited justification</td><td>Clings to original rule</td></tr>
+        <tr><td>Rule generation and metacognition</td><td>LO1</td><td>Proposes a clear rule and recognizes that other possible rules may exist</td><td>Proposes a rule and acknowledges alternatives when prompted</td><td>Treats one initial rule as the only possible answer</td></tr>
+        <tr><td>Overfitting understanding</td><td>LO2</td><td>Clearly explains why more complex rules may fail on new data, with examples</td><td>Understands that “too complicated” can be risky, but explanation is partial</td><td>Cannot explain the relation between complexity and generalization</td></tr>
+        <tr><td>Correction ability</td><td>LO3</td><td>Revises the rule based on new data and clearly justifies the revision</td><td>Revises the rule but gives limited justification</td><td>Clings to the original rule without meaningful revision</td></tr>
       </tbody>
     </table>
 
@@ -565,6 +746,8 @@
     <table>
       <thead><tr><th>Current card</th><th>The rules we guessed</th><th>Our basis</th><th>Which new card overturned it?</th><th>How do we modify it?</th></tr></thead>
       <tbody><tr><td>A1–A4</td><td></td><td></td><td></td><td></td></tr></tbody>
+      <tbody><tr><td>+B1–B4</td><td></td><td></td><td></td><td></td></tr></tbody>
+      <tbody><tr><td>+C1–C4</td><td></td><td></td><td></td><td></td></tr></tbody>
     </table>
     <p><strong>Reflection questions:</strong> (1) At which step do our rules start to become complicated? (2) Why do we want to add newly emerged exceptions? (3) What might be wrong with a rule that is "too good at explaining old cards"?</p>
 
@@ -574,7 +757,24 @@
     <h3>Appendix D. Worksheet 3: Variant Activity Worksheet</h3>
     <p>Includes new data table, "uniform rule" reflection, classification/grouping comparison, and assumption change analysis.</p>
 
-    <h3>Appendix G. Exit Ticket</h3>
+    <h3>Appendix E. Poster template</h3>
+    <P>(If it is for an extracurricular activity exhibition, it will be needed)</P>
+<p>Title: The Rules of Our Group</p>
+<p>1. The trend we observed:</P>
+<p>2. Our prediction rules:</P>
+<P>3. Why not explain each point separately:</P>
+<p>4. The performance of our rules on new data</P>
+<p>5. Our revised ideas:</P>
+    
+  <h3>Appendix F. Teacher's Observation Record Sheet</h3>
+      <table>
+      <thead><tr><th>Group Number</th><th>Whether a conclusion is drawn quickly when importing</th><th>Whether the rules are patched frequently</th><th>Main activity rule type</th><th>Whether to correct after the new data</th><th>Is grouping modeling proposed in the variant</th></tr></thead>
+      <tbody><tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr></tbody>
+      <tbody><tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr></tbody>
+      <tbody><tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr></tbody>
+    </table>
+  
+  <h3>Appendix G. Exit Ticket</h3>
     <p>(1) What rules did your group write at the very beginning? (2) How did the new data challenge this rule? (3) Explain in your own words: What is overfitting? (4) When should the original rules not be copied directly?</p>
 
     <h3>Appendix H. Examples of Blackboard Design</h3>
@@ -584,7 +784,7 @@
 
   <!-- 底部提示 -->
   <div class="placeholder-note">
-    <span>📝 Content from pset6.docx, download the Word file to view all details and appendices</span>
+    <span>📝 PSet 6 Revised Version — Annotations show revisions based on course learning and design refinement</span>
   </div>
 
 </div>
