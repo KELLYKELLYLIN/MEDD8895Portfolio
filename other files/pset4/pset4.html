@@ -72,6 +72,69 @@
       border: 1px solid rgba(180, 150, 130, 0.2);
     }
 
+    /* ========== 新增：修订概览区 ========== */
+    .revision-overview {
+      background: rgba(255, 245, 235, 0.7);
+      border-left: 5px solid #e0a46b;
+      border-radius: 1.2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .revision-overview h3 {
+      font-size: 1.3rem;
+      color: #8a5e3e;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .revision-overview ul {
+      margin-left: 1.5rem;
+      color: #4a3a32;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .revision-overview li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ========== 新增：修订标注样式 ========== */
+    .revision-highlight {
+      background: #fef3e4;
+      padding: 0.15rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #e0a46b;
+    }
+
+    .revision-note {
+      background: rgba(240, 220, 200, 0.2);
+      border-left: 4px solid #e0a46b;
+      padding: 0.8rem 1.2rem;
+      margin: 0.8rem 0 1.2rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #5a4a3e;
+      backdrop-filter: blur(2px);
+    }
+
+    .revision-note strong {
+      color: #8a5e3e;
+    }
+
+    .revision-note .tag {
+      display: inline-block;
+      background: #e0a46b;
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-right: 0.4rem;
+    }
+
     .doc-info {
       display: flex;
       align-items: center;
@@ -100,7 +163,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(220, 190, 170, 0.5);
+      background: rgba(220, 200, 180, 0.5);
       color: #4a3a32;
       text-decoration: none;
       padding: 0.7rem 1.5rem;
@@ -108,13 +171,13 @@
       font-weight: 500;
       font-size: 0.95rem;
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(180, 140, 120, 0.3);
+      border: 1px solid rgba(200, 160, 130, 0.3);
       transition: all 0.2s ease;
     }
 
     .download-btn:hover {
-      background: rgba(220, 190, 170, 0.7);
-      border-color: rgba(180, 140, 120, 0.5);
+      background: rgba(220, 200, 180, 0.7);
+      border-color: rgba(200, 160, 130, 0.5);
       transform: translateY(-2px);
     }
 
@@ -300,7 +363,7 @@
     }
 
     th {
-      background: rgba(200, 170, 150, 0.3);
+      background: rgba(220, 200, 180, 0.3);
       font-weight: 600;
       color: #4a3a32;
     }
@@ -363,22 +426,37 @@
     <strong>Individual:</strong> Lin Jiayuan
   </div>
 
-  <div class="doc-info">
+  <!-- ========== 新增：修订概览区 ========== -->
+  <div class="revision-overview">
+    <h3>✍️ Revision Overview</h3>
+    <p style="margin-bottom: 0.8rem; color: #4a3a32; font-size: 0.95rem;">
+      This revised version enhances the game experience and learning depth, drawing on later course learning about <em>embodied learning, student motivation, and AI integration</em>. Key changes are annotated inline below:
+    </p>
+    <ul>
+      <li><strong>Repositioned title and framing (Section I):</strong> Changed from "Future Wave Game" to "Learning something from the game" — emphasizing that the game is a <em>learning tool</em>, not just a game. This reflects the course's recurring theme of <em>serious play and experiential learning</em> (Kolb, 1984).</li>
+      <li><strong>Added Step 5 "Time Warp to 2036" animation (Game Page):</strong> A new black-screen animation with spinning rings and confetti creates an <em>embodied, emotional transition</em> into the final report generation. This draws on course content about <em>immersion, embodiment, and emotional engagement</em> in learning design.</li>
+      <li><strong>Added confetti celebration system (Game Page):</strong> Colorful confetti bursts when generating the final report, providing <em>positive reinforcement and a sense of achievement</em> — connecting to course discussions on <em>student motivation and gamification</em>.</li>
+      <li><strong>Streamlined AI prompt templates (Section V):</strong> Simplified several prompts for better usability while preserving their educational value — responding to the course theme of <em>AI literacy and prompt engineering as a scaffolded skill</em>.</li>
+      <li><strong>Improved visual design consistency (Game Page):</strong> Enhanced the color scheme and animation smoothness to create a more <em>polished, professional learning experience</em> that maintains student engagement across all 5 steps.</li>
+    </ul>
+  </div>
+
+  <!--<div class="doc-info">
     <div class="doc-type">
       <span class="doc-icon">🎮</span>
-      <span class="doc-meta"><strong>Game Design</strong> · 5-Step Digital Card Game</span>
+      <span class="doc-meta"><strong>Revised Version</strong> — Game Design Document · 5-Step Digital Card Game</span>
     </div>
-    <a href="pset4.docx" class="download-btn" download>
+     <a href="pset4.docx" class="download-btn" download>
       <span>📥</span> Download the revised Word document
     </a>
-  </div>
+  </div>-->
 
   <!-- 游戏按钮 -->
   <div class="game-button-wrapper">
-    <a href="pset4game.html" class="game-button">🎮 click here to play the game</a>
+    <a href="pset4game.html" class="game-button"><span class="revision-highlight">🎮 click here to play the revised game</span></a>
   </div>
   <p class="game-link-text">
-    Online: <a href="https://kellykellylin.github.io/8895pset4/pset419.html" target="_blank">https://kellykellylin.github.io/8895pset4/pset419.html</a>
+    Online: <a href="https://kellykellylin.github.io/8895pset4/pset422.html" target="_blank">https://kellykellylin.github.io/8895pset4/pset422.html</a>
   </p>
 
   <!-- 目录 -->
@@ -410,6 +488,14 @@
       <li>build STEM stories and design career missions on a visual "stage" with a dress-up metaphor,</li>
       <li>generate a complete 2036 career report and receive AI prompt templates for further exploration.</li>
     </ul>
+
+    <p class="revision-highlight"><strong>Updated feature:</strong> In the revised version, when students reach Step 5, they first experience a "Time Warp to 2036" animation — a black-screen transition with spinning rings and confetti — before generating their final report. This embodied, celebratory moment was added based on course learning about <em>emotional engagement and gamification</em>, giving students a tangible sense of "arriving in the future" rather than just reading a text report.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 1</span>
+      <strong>Added Step 5 "Time Warp" animation and confetti system.</strong>
+      The original game simply generated a text report at Step 5. Drawing on later course content about <em>embodied learning</em> and <em>student motivation through gamification</em>, I added a multi-sensory transition: a black screen with spinning warp rings, followed by a confetti celebration. This transforms the final step from a purely cognitive task into an <em>emotional milestone</em>, making the future feel tangibly "arrived at" rather than just described. The confetti also provides <em>immediate positive reinforcement</em>, which is especially motivating for students who may have struggled through earlier steps.
+    </div>
 
     <h3>One-sentence description</h3>
     <p>A 5-step digital card game where students create a future self, explore emerging trends, connect STEM with whole-person competencies, and co-create career missions on a visual dress-up stage—supported by structured AI prompts.</p>
@@ -491,20 +577,19 @@
 - 专业/兴趣：${major || '（未填写，你可以先假设一个通用的"文/理/工/社科/艺术"方向）'}
 
 【我想要你帮的事】
-请帮我为这个专业设计「3 套不同风格」的 STEM 拆解，每一套都用下面这个结构：
-- S（Science / 调查）：我通常会用哪些方法去「弄清楚一个问题」？
-- T（Technology / 技术工具）：我常用或应该去掌握的技术/软件/工具有哪些？
-- E（Engineering / 设计与系统）：我会如何「设计一个系统/方案/服务」来解决问题？
-- M（Math / 数据与判断）：我会怎样用数据/指标来判断方案是不是有效？
-
-要求：
-1. 至少给出 2–3 套不同角度的拆解（比如：偏研究型 / 偏实践型 / 偏设计型）
-2. 每一套都尽量口语化、短句化，适合学生直接复制粘贴使用
-3. 输出时用中文</div>
+请帮我为这个专业设计「3 套不同风格」的 STEM 拆解...</div>
 
     <h3>AI Feature 2: Future Career Mission Generator (Step 5)</h3>
     <p><strong>What it does:</strong> In Step 5, students can click the "生成「Mission Generator」提问模板" button to export all game data into a comprehensive prompt, receiving 3-5 new career missions with different difficulty levels plus teacher adaptation ideas.</p>
-    <p><strong>Prompt template:</strong> Includes student's profile (major, intro, identity), value allocation summary, whole-person competencies list, per-Wave task drafts, timeline imagination (2030 & 2036), and shock scenarios. The AI is instructed to design 3–5 complete future career missions with context, role position, main challenge, action steps (3–5 items including STEM abilities and soft skills), expected impact, and reflection questions.</p>
+    <p><strong>Prompt template:</strong> Includes student's profile (major, intro, identity), value allocation summary, whole-person competencies list, per-Wave task drafts, timeline imagination (2030 & 2036), and shock scenarios.</p>
+
+    <p class="revision-highlight"><strong>Updated in revision:</strong> The Mission Generator prompt has been streamlined for better usability. The original ~2000-character prompt was condensed to focus on the most essential context, making it easier for students to copy, paste, and receive useful responses from AI without being overwhelmed. This reflects the course principle of <em>scaffolded AI literacy</em> — prompts should be rich enough to produce meaningful output, but not so long that students lose sight of what they're asking.</p>
+
+    <div class="revision-note">
+      <span class="tag">Revision 2</span>
+      <strong>Streamlined AI prompt templates for better student usability.</strong>
+      After testing the game with peers, I noticed that some of the longer prompt templates were intimidating for students to copy and use. Drawing on course discussions about <em>AI literacy as a developmental skill</em>, I trimmed the prompts to keep the essential context while removing redundancy. The goal is to make AI interaction feel accessible and productive on the first try, even for students with no prior experience using AI assistants.
+    </div>
 
     <h3>AI Feature 3: AI Reflection Mentor (Ending Page)</h3>
     <p><strong>What it does:</strong> At the end, students click "🤔 反思助手" to generate a simple prompt asking AI to provide 3–5 reflection questions and a short first-person summary paragraph based on their chosen major and whole-person competencies.</p>
@@ -530,12 +615,12 @@
     <p><strong>Step 2 - Draw Waves:</strong> Draw 7 Future Wave cards (Technology×2, other domains×1)</p>
     <p><strong>Step 3 - Key Waves & Values:</strong> Select 2-3 main Waves, allocate 6 value points</p>
     <p><strong>Step 4 - STEM Stories & Missions:</strong> 4.1: Write S/T/E+M sentences about your major; 4.2: Design missions for each Wave (head/neck/body accessories); 4.3: Write 2030 story and 2036 headline</p>
-    <p><strong>Step 5 - Generate Report:</strong> Get your 2036 career report</p>
+    <p><strong>Step 5 - Generate Report:</strong> <span class="revision-highlight">Experience the Time Warp animation, then</span> Get your 2036 career report</p>
 
   </div>
 
   <div class="placeholder-note">
-    <span>📝 Game can teach too! </span>
+    <span>📝 PSet 4 Revised Version — Annotations show revisions based on course learning and design refinement</span>
   </div>
 
 </div>
