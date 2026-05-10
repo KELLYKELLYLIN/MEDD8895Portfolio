@@ -32,7 +32,6 @@
       border: 1px solid rgba(240, 220, 200, 0.5);
     }
 
-    /* 返回链接 */
     .back-link {
       display: inline-block;
       margin-bottom: 1.5rem;
@@ -49,7 +48,6 @@
       color: #5a4a3e;
     }
 
-    /* 标题区 */
     h1 {
       font-size: 2.5rem;
       font-weight: 550;
@@ -58,12 +56,11 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
       border-bottom: 2px solid rgba(200, 170, 150, 0.25);
     }
 
-    /* 小组成员 */
     .group-members {
       background: rgba(200, 180, 170, 0.2);
       padding: 0.5rem 1.2rem;
@@ -75,7 +72,69 @@
       border: 1px solid rgba(180, 150, 130, 0.2);
     }
 
-    /* 文档信息栏 */
+    /* ========== 修订概览区 ========== */
+    .revision-overview {
+      background: rgba(245, 240, 250, 0.7);
+      border-left: 5px solid #a48bb4;
+      border-radius: 1.2rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .revision-overview h3 {
+      font-size: 1.3rem;
+      color: #6a4e7a;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .revision-overview ul {
+      margin-left: 1.5rem;
+      color: #4a3a32;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .revision-overview li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ========== 修订标注样式 ========== */
+    .revision-highlight {
+      background: #f3eef7;
+      padding: 0.15rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid #a48bb4;
+    }
+
+    .revision-note {
+      background: rgba(235, 225, 240, 0.3);
+      border-left: 4px solid #a48bb4;
+      padding: 0.8rem 1.2rem;
+      margin: 0.8rem 0 1.2rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #5a4a3e;
+      backdrop-filter: blur(2px);
+    }
+
+    .revision-note strong {
+      color: #6a4e7a;
+    }
+
+    .revision-note .tag {
+      display: inline-block;
+      background: #a48bb4;
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-right: 0.4rem;
+    }
+
     .doc-info {
       display: flex;
       align-items: center;
@@ -100,12 +159,11 @@
       font-size: 0.95rem;
     }
 
-    /* 下载按钮 */
     .download-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(220, 190, 170, 0.5);
+      background: rgba(220, 190, 210, 0.5);
       color: #4a3a32;
       text-decoration: none;
       padding: 0.7rem 1.5rem;
@@ -113,17 +171,16 @@
       font-weight: 500;
       font-size: 0.95rem;
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(180, 140, 120, 0.3);
+      border: 1px solid rgba(180, 140, 170, 0.3);
       transition: all 0.2s ease;
     }
 
     .download-btn:hover {
-      background: rgba(220, 190, 170, 0.7);
-      border-color: rgba(180, 140, 120, 0.5);
+      background: rgba(220, 190, 210, 0.7);
+      border-color: rgba(180, 140, 170, 0.5);
       transform: translateY(-2px);
     }
 
-    /* ========== Part 1: 视频播放区 ========== */
     .video-section {
       margin-bottom: 2.5rem;
     }
@@ -137,7 +194,6 @@
       border-bottom: 1px solid rgba(200, 170, 150, 0.3);
     }
 
-    /* 电视机风格播放器 */
     .tv-wrapper {
       display: flex;
       justify-content: center;
@@ -246,7 +302,6 @@
       margin-left: 0.5rem;
     }
 
-    /* ========== 目录样式 ========== */
     .toc {
       background: rgba(250, 242, 235, 0.5);
       border-radius: 1.5rem;
@@ -284,7 +339,6 @@
       border-bottom: 1px solid #b59886;
     }
 
-    /* 文字内容区域 */
     .text-content {
       background: rgba(250, 242, 235, 0.6);
       border-radius: 2rem;
@@ -348,7 +402,6 @@
       font-style: italic;
     }
 
-    /* 表格样式 */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -377,7 +430,6 @@
       color: #3d342e;
     }
 
-    /* 图片占位符提示 */
     .image-placeholder {
       background: rgba(200, 180, 165, 0.2);
       border: 1px dashed #b59886;
@@ -401,7 +453,6 @@
       margin: 2rem 0;
     }
 
-    /* 占位符提示 */
     .placeholder-note {
       padding: 1rem 1.5rem;
       background: rgba(220, 200, 185, 0.4);
@@ -413,7 +464,6 @@
       backdrop-filter: blur(4px);
     }
 
-    /* 响应式 */
     @media (max-width: 700px) {
       .page { padding: 1.8rem 1.2rem; }
       h1 { font-size: 2rem; }
@@ -429,28 +479,39 @@
 <body>
 <div class="page">
   
-  <!-- 返回作品集主页 -->
   <a href="../../final.html" class="back-link">← Back to the main page</a>
 
-  <h1>💪 PSet 5 · EMG  Electromyography test</h1>
+  <h1>💪 PSet 5 · EMG Electromyography Testing</h1>
 
-  <!-- 小组成员 -->
   <div class="group-members">
     <strong>Group work:</strong> Fan Aoyu, Yang Yuandi, Lin Jiayuan
   </div>
 
-  <!-- 文档信息栏 + 下载按钮 -->
+  <!-- ========== 修订概览区 ========== -->
+  <div class="revision-overview">
+    <h3>✍️ Revision Overview</h3>
+    <p style="margin-bottom: 0.8rem; color: #4a3a32; font-size: 0.95rem;">
+      This revision adds three new sections that connect the student experience directly to curriculum design decisions. These additions draw on the course themes of <em>design-based learning, student-voiced curriculum, and translating lived experience into pedagogical structure</em>.
+    </p>
+    <ul>
+      <li><strong>Added "Design Implications" section at the end of Part 2 (Experiment Log):</strong> Each technical failure and adjustment recorded in the experiment log is now explicitly translated into a concrete curriculum design recommendation. This closes the loop between "what went wrong" and "how a teacher would prevent or handle it."</li>
+      <li><strong>Added "How Student Experience Shaped This Curriculum" section after Part 4 (Curriculum Outline):</strong> This section directly quotes the three design journals to justify scaffolding choices, using the group's real emotional trajectory as design evidence. It addresses the course principle that curriculum design should be informed by authentic learner experience, not just pedagogical theory.</li>
+      <li><strong>Added "Looking Back: Re-reading My Own Design Journal" at the end of Part 5 (Design Journal):</strong> A short retrospective reflection on my own journal entry, written from the perspective of having now completed the full semester. It models the kind of metacognitive move that the course has been encouraging throughout.</li>
+    </ul>
+  </div>
+
+  <!--
   <div class="doc-info">
     <div class="doc-type">
       <span class="doc-icon">📋</span>
-      <span class="doc-meta"><strong>Experiment Report</strong> Electromyography Testing and Course Design</span>
+      <span class="doc-meta"><strong>Revised Version</strong> — Experiment Report · EMG Testing and Course Design</span>
     </div>
     <a href="pset5.docx" class="download-btn" download>
       <span>📥</span> Download the revised Word document
     </a>
-  </div>
+  </div>-->
 
-  <!-- ========== Part 1: 视频播放区 ========== -->
+  <!-- 视频播放区 -->
   <div class="video-section">
     <h2>🎥 Part 1: Exercise Activity</h2>
     
@@ -459,7 +520,7 @@
         <div class="tv-screen">
           <video class="tv-video" controls playsinline>
             <source src="pset5video.mp4" type="video/mp4">
-            <p>你Your browser does not support HTML5 video playback.<a href="pset5video.mp4">Click to download the video</a></p>
+            <p>Your browser does not support HTML5 video playback. <a href="pset5video.mp4">Click to download the video</a></p>
           </video>
         </div>
         <div class="tv-controls">
@@ -475,18 +536,18 @@
     
   </div>
 
-  <!-- ========== 目录 ========== -->
+  <!-- 目录 -->
   <div class="toc">
     <h3>📑 Content</h3>
     <ul>
-      <li><a href="#part2">Part 2: Electromyography (EMG) Testing Experiment Log</a></li>
+      <li><a href="#part2">Part 2: EMG Testing Experiment Log</a></li>
       <li><a href="#part3">Part 3: Movement Table</a></li>
       <li><a href="#part4">Part 4: Curriculum Outline</a></li>
       <li><a href="#part5">Part 5: Design Journal</a></li>
     </ul>
   </div>
 
-  <!-- ========== 主要内容区 ========== -->
+  <!-- 主要内容区 -->
   <div class="text-content">
     
     <h2 id="part2">Part 2: Electromyography (EMG) Testing Experiment Log</h2>
@@ -571,17 +632,17 @@
       <li>Interpretation: The signal started low at rest, rose with contraction (e.g., shoulder elevation), and dropped during the stretch, reflecting relaxation of the upper trapezius.</li>
     </ol>
 
-<img src="media/image1.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+    <img src="media/image1.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
 
     <p><strong>Figure 2: Shoulder Rolls</strong></p>
     <p>Interpretation: Regular peaks in the blue line matched the rhythm of contraction and relaxation during the movement. The orange line showed the overall trend. After the movement, the signal returned to a level below the starting baseline.</p>
 
-<img src="media/image2.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+    <img src="media/image2.png" alt="Figure 2" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
 
     <p><strong>Figure 3: Overhead Stretch with Hands Clasped and Head Tilted Back</strong></p>
     <p>Interpretation: An initial peak appeared during arm elevation. During the head tilt, the signal stayed low and stable. Small fluctuations at the end were likely due to returning to a neutral posture.</p>
 
-<img src="media/image3.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+    <img src="media/image3.png" alt="Figure 3" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
 
     <h3>7. Conclusion and Reflection</h3>
 
@@ -595,12 +656,53 @@
       <li>Simultaneously collect EMG signals from both the upper trapezius and the middle/lower trapezius to more clearly illustrate the activation patterns of antagonist muscles.</li>
     </ol>
 
+    <!-- ========== 新增：Section 8 Design Implications ========== -->
+    <h3 class="revision-highlight">8. Design Implications for Curriculum Development</h3>
+
+    <div class="revision-note">
+      <span class="tag">New Section</span>
+      <strong>Added in revision: Translating experiment failures into curriculum design recommendations.</strong>
+      This section connects each technical problem we encountered during the experiment to a concrete, actionable design decision for the student body lab curriculum. It embodies the course principle that curriculum design should be informed by authentic learner experience.
+    </div>
+
+    <p>Every technical problem recorded in this experiment log carries a curriculum design implication. The table below translates each failure into a concrete recommendation for the student body lab.</p>
+
+    <table>
+      <thead>
+        <tr><th>Experiment Failure</th><th>Design Implication</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Port selection and upload failure (5.1)</strong><br>We spent nearly an hour troubleshooting code upload because the wrong port was selected and the board model didn't match.</td>
+          <td><strong>Pre-class equipment checklist:</strong> Before the lab, every Arduino board should be pre-tested with the same USB cable that will be used in class. Each station should have a small label indicating the correct port name and board model. A one-page visual troubleshooting card (with screenshots of common error messages and their fixes) should be placed at each station. This prevents the most frustrating kind of delay—the kind where students don't even know what they're looking at.</td>
+        </tr>
+        <tr>
+          <td><strong>Electrode placement on wrong tissue (3.1)</strong><br>We initially placed electrodes on tendons and bony areas, getting near-zero or noisy signals. We only learned through trial and error that the muscle belly is essential.</td>
+          <td><strong>Just-in-time anatomy mini-lesson before sensor setup:</strong> Rather than letting students discover this through frustration, the teacher should spend five minutes explaining why the muscle belly generates a detectable electrical signal while tendons do not. A simple analogy helps: imagine trying to hear a conversation by pressing your ear against a wall versus against the door. The wall (tendon) transmits almost nothing; the door (muscle belly) lets the sound through. This small conceptual investment at the start saves enormous frustration later.</td>
+        </tr>
+        <tr>
+          <td><strong>Sudden large signal jumps (5.2)</strong><br>Signal jumped to over 200 units when electrodes became loose or the participant made an abrupt movement.</td>
+          <td><strong>Post-setup signal check protocol:</strong> After placing electrodes, each group should perform three quick shoulder shrugs while watching the Serial Plotter. If the signal spikes cleanly with each shrug and returns to baseline between them, the setup is good. If it jumps erratically or stays flat, the electrodes need rechecking. This protocol takes thirty seconds and catches most placement problems before data collection begins.</td>
+        </tr>
+        <tr>
+          <td><strong>Baseline drift (5.3)</strong><br>Even when the participant stayed still, the baseline slowly drifted, likely due to sweating or environmental interference.</td>
+          <td><strong>Environmental setup checklist and re-calibration reminder:</strong> The teacher should remind students to keep electronic devices (especially phones) at least one meter away from the Arduino board. If baseline drift exceeds a visible threshold during an experiment, the group should pause, dry the skin, and re-establish the baseline before continuing. Normalizing this as a routine maintenance step (rather than a sign of failure) reduces student anxiety.</td>
+        </tr>
+        <tr>
+          <td><strong>Signal lag during fast movement (5.4)</strong><br>The sampling rate was too fast for smooth movement capture, causing jagged, incomplete data.</td>
+          <td><strong>Pre-set code template with annotated delay values:</strong> Provide students with working code that already has the delay set to 100 milliseconds, along with a comment explaining what the delay does and how changing it affects the signal. This gives students a stable starting point while still leaving room for curious groups to experiment with different settings.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Across all five failures, a common pattern emerges: the most significant barriers were not conceptual but logistical. Students understood the science quickly once the equipment was working. The curriculum should therefore front-load technical setup support while keeping the biological inquiry at the center of the experience. Every minute saved on troubleshooting is a minute gained for genuine scientific discovery.</p>
+
     <hr>
 
     <h2 id="part3">Part 3: Movement Table</h2>
 
     <div class="image-placeholder" style="margin-bottom: 1.5rem;">
-      <span>📋 The original Word document contains images and complex tables; we recommend referring directly to the Word file downloaded above to view the full formatting.</span>
+      <span>📋 The original Word document contains images and complex tables; please refer to the downloaded Word file to view the full formatting.</span>
     </div>
 
     <p><strong>Action 1: Neck Multi-Directional Stretch</strong> — Sit upright, tilt head left/right, forward/back. Goal: elongate upper trapezius fibers, relieve tension, improve cervical range of motion.</p>
@@ -645,7 +747,30 @@
 
     <h3>3. Class Flow Mindmap</h3>
 
-<img src="media/image8.png" alt="Figure 1" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+    <img src="media/image8.png" alt="Class Flow Mindmap" style="width: 100%; border-radius: 1rem; margin: 1rem 0;">
+
+    <!-- ========== 新增：Section 4 课程设计如何被学生体验所塑造 ========== -->
+    <h3 class="revision-highlight">4. How Student Experience Shaped This Curriculum</h3>
+
+    <div class="revision-note">
+      <span class="tag">New Section</span>
+      <strong>Added in revision: Connecting design journals to curriculum decisions.</strong>
+      This section directly quotes the three design journals to justify the scaffolding choices above. Rather than selecting scaffolding strategies from generic pedagogical principles, this curriculum is shaped by the actual emotional and cognitive trajectory that we as students experienced. This reflects the course emphasis on learner-centered design informed by authentic experience data.
+    </div>
+
+    <p>The scaffolding choices in the table above are not random selections from a teaching methods textbook. Each one is a direct response to a specific moment of confusion, frustration, or discovery recorded in our design journals. Here is where those choices came from.</p>
+
+    <p><strong>The first fifteen minutes are the most fragile.</strong> Mike wrote that he panicked when he saw the Arduino board and all the wires, and that the group spent the first hour just trying to get the code to upload. I stood by, handing them parts, feeling like I had nothing to contribute. Yuandi kept thinking, when do we actually get to the muscles? This pattern suggests that the opening of the lab is a high-risk moment. If students spend too long wrestling with equipment they don't understand, the emotional momentum for scientific discovery drains away before it has a chance to build. This is why the curriculum places the pre-tested equipment checklist and the visual troubleshooting card at the very start. The goal is not to eliminate all technical difficulty, but to compress the disorienting phase into a manageable window so that students can reach their first real-time signal before frustration turns into disengagement.</p>
+
+    <p><strong>The electrode placement puzzle needs a conceptual answer, not just a procedural one.</strong> Yuandi described placing electrodes in three different spots before getting a clean signal, and said she wished someone had explained why the muscle belly works and why tendons don't, rather than leaving her to trial and error. This is a small but telling point. Trial and error can be productive when students have a framework to interpret what they are seeing. Without that framework, it is just blind guessing. The just-in-time mini-lesson on muscle anatomy, placed right before the sensor setup, is designed to give students exactly that framework. It takes five minutes but transforms the electrode placement task from a frustrating guessing game into a testable prediction: if I place the electrode here, I should get a strong signal because this is where the muscle fibers are thickest.</p>
+
+    <p><strong>The real-time feedback moment is the engine of the whole experience.</strong> All three of us independently described the same turning point: the moment when we moved our shoulders and saw the graph respond instantly. I wrote that it felt like a conversation between my body and the screen. Mike said it felt like a game. Yuandi said that was when science actually happened. This convergence is the strongest design evidence in the entire set of journals. It tells us that the real-time EMG visualization is not just a data collection tool; it is the motivational core of the activity. Everything in the curriculum should be organized to protect and amplify this moment. The technical setup exists to get students there. The data reflection exists to help them make sense of what they saw. But the curriculum should never let these surrounding structures bury the core experience under layers of procedure.</p>
+
+    <p><strong>Repetition has a cost that needs to be acknowledged.</strong> I wrote that by the fifth trial I was definitely less relaxed than the first, and that I caught myself thinking just get this over with. Yuandi said she got impatient by the third or fourth round. This is a real physiological and motivational problem: the very thing the experiment is measuring (muscle relaxation) can be undermined by the experimental procedure itself (repetitive trials). The curriculum addresses this in two ways. First, the modified task option allows groups that are clearly fatigued to test any exercise once and then refine based on that single trial, rather than forcing multiple repetitions. Second, the teacher is encouraged to normalize this phenomenon by saying something like, if you find yourself getting stiffer with each repetition, that's not a mistake, that's actually more data about how your body responds to repeated demands. This reframes a frustrating experience as an additional scientific observation.</p>
+
+    <p><strong>The body knows more than the mind thinks it does.</strong> My own most surprising discovery was that the EMG sensor was more honest than my own bodily sensations. I thought I was relaxed, but the baseline signal showed residual activity, meaning my muscle hadn't fully returned to a resting state. This gap between perceived relaxation and actual muscle activity is not just a personal anecdote. It is exactly the kind of conceptual insight that a body lab should be designed to produce. The curriculum's data reflection template explicitly asks students to compare what they expected to see with what the graph actually showed, and to write about any surprises. That question is there because of this specific moment in my own learning.</p>
+
+    <p><strong>Open questions are curricular resources, not loose ends.</strong> Mike ended his journal wondering how this would work in a real classroom with thirty students. Yuandi wondered whether she was actually measuring what she thought she was measuring. I wondered whether the exercises we designed would work for people with different body types or tension habits. These questions are not failures of the activity to provide closure. They are the beginning of scientific thinking. A well-designed curriculum does not answer every question. Instead, it makes space for these open questions at the end, treating them as evidence that students are thinking beyond the immediate task. The final class discussion in the curriculum outline is designed to surface exactly these kinds of questions and validate them as legitimate scientific inquiry, not as loose ends to be tied up.</p>
 
     <hr>
 
@@ -679,19 +804,33 @@
 
     <p>What truly made me connect with the scientific aspect was when I performed shoulder circles while watching the screen. It felt amazing in that moment: every time I lifted my shoulder, the curve rose; when I rotated it back, the curve dropped. There was an unexpectedly direct link between my physical movements and the graphics on the screen. Later, I tried moving faster and slower to see the differences. At a quick pace, the graph became highly jagged, with sharp ups and downs; when I slowed down, the curve turned smooth, like a gentle wave. In that instant, I realized the graph didn't just show that I was moving—it also revealed <em>how</em> I was moving: whether it was rapid or calm, tense or relaxed. This discovery was really fascinating and suddenly made all this feel personal to me, no longer just cold equipment and numbers.</p>
 
-    <p>The most enjoyable part of the whole process was the real-time feedback. Every movement I made changed the line on the screen instantly, which was highly intuitive, almost like playing a game—trying to control the line with my body, making it higher, lower, or smoother. I found myself unconsciously wondering: How will it react if I do this? Would it be better if I adjust that way? I got quite hooked on this feeling of "conversing between my body and the visuals."</p>
+    <p>The most enjoyable part of the whole process was the real-time feedback. Every movement I made changed the line on the screen instantly, which was highly intuitive, almost like playing a game—trying to control the line with my body, making it higher, lower, or smoother. I found myself unconsciously wondering: How will it react if I do this? Would it be better if I adjust that way? I got quite hooked on this feeling of conversing between my body and the visuals.</p>
 
     <p>What was tedious, though, was repeating the same movements over and over. To obtain stable data, we performed identical actions repeatedly. By the fifth trial, I was definitely less relaxed than the first; instead, I became somewhat stiff, even thinking, "Just get this over with." Waiting for the baseline to stabilize was also time-consuming. I had to sit still without talking, watching the line on the screen gradually even out, which was honestly quite frustrating. I understand this was necessary to ensure data quality, but it still felt dull in practice.</p>
 
-    <p>I used to think I knew best whether my body was relaxed. But the electromyography (EMG) showed me that sometimes when I thought I was relaxed, the baseline signal still remained, meaning my body hadn't fully returned to a resting state. The sensor was more honest than my own bodily sensations, making me rethink my understanding of my body—it turned out there was a gap between what I perceived as "relaxed" and my body's actual state.</p>
+    <p>I used to think I knew best whether my body was relaxed. But the electromyography (EMG) showed me that sometimes when I thought I was relaxed, the baseline signal still remained, meaning my body hadn't fully returned to a resting state. The sensor was more honest than my own bodily sensations, making me rethink my understanding of my body—it turned out there was a gap between what I perceived as relaxed and my body's actual state.</p>
 
     <p>There are still some questions I haven't figured out. I'm curious: if other students did this experiment, would they also find the initial part discouraging? We had several people exploring together and discussing with each other, but if someone faced all this equipment and software alone, would they just give up? Besides, the movement exercises we designed were based on me, tailored to my physical condition and movement habits. Would this setup work for someone with a different body type or different tension habits? I think figuring out how to make this equipment and method more accessible and user-friendly for people with different body types is something worth exploring further.</p>
 
+    <!-- ========== 新增：回看反思 ========== -->
+    <h4 class="revision-highlight">Looking Back: Re-reading My Own Design Journal</h4>
+
+    <div class="revision-note">
+      <span class="tag">New Section</span>
+      <strong>Added in revision: A retrospective reflection on my own journal entry.</strong>
+      This short reflection models the metacognitive practice that the course has been encouraging throughout the semester: returning to earlier work with new eyes and identifying what has changed in one's own thinking.
+    </div>
+
+    <p>Re-reading this journal now, several months after writing it, I notice things I couldn't have articulated at the time. The moment I described as feeling lost while Mike and Yuandi handled the Arduino was not just a personal shortcoming. It was my first real encounter with a problem that now shapes how I think about designing group labs: when the technical barrier is too high at the start, it doesn't just slow down the group. It sorts people into those who can participate and those who stand by waiting. I didn't feel excluded because anyone excluded me. I felt excluded because I didn't have the entry-level knowledge to even know what to ask. That experience is now one of the strongest arguments I would make for why a body lab curriculum needs to front-load technical accessibility. Not because students can't eventually figure it out, but because every minute spent in confused silence is a minute in which someone is quietly deciding this isn't for them.</p>
+
+    <p>I also notice now that my most powerful learning moment was not when I understood a concept, but when I felt a connection between my own body and the visualization on the screen. The graph didn't teach me what muscle contraction is. I already knew that from textbooks. What it taught me was that my body is telling a story I cannot fully perceive through internal sensation alone, and that a sensor can reveal dimensions of that story that my own nervous system filters out. This is, I now realize, a much deeper lesson about the relationship between technology and self-knowledge than anything I expected to learn from sticking electrodes to my shoulder. It also explains why I have been so drawn to designing learning experiences around real-time feedback throughout the rest of this course. That moment of watching the curve respond to my movement was, for me, the emotional anchor that made the entire activity feel meaningful.</p>
+
+    <p>The open questions at the end of my journal still feel genuine to me. I still don't know whether this activity would work equally well for someone with a very different body or a very different relationship to physical movement. If anything, the semester has made me more aware of how much variability there is between learners, and how much of curriculum design is not about finding the one right version but about building enough flexibility into the structure that different people can find their own way into the experience. That question about accessibility, which I posed tentatively at the end of this journal, has become one of the central concerns I carry into my thinking about STEM education more broadly.</p>
+
   </div>
 
-  <!-- 底部提示 -->
   <div class="placeholder-note">
-    <span>📝 Content from pset5.docx </span>
+    <span>📝 PSet 5 Revised Version — Annotations show revisions based on course learning and design reflection</span>
   </div>
 
 </div>
